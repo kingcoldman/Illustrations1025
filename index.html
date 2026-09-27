@@ -614,6 +614,8 @@
                     <option value="sv01">Scarlet & Violet Base Set (SV01)</option>
                     <option value="sv02">Scarlet & Violet: Paldea Evolved (SV02)</option>
                     <option value="sv03">Scarlet & Violet: Obsidian Flames (SV03)</option>
+                    <option value="sv04">Scarlet & Violet: Paradox Rift (SV04)</option>
+                    <option value="sv045">Scarlet & Violet: Paldean Fates (SV04.5)</option>
                 </select>
             </div>
             
@@ -665,10 +667,10 @@
         <div class="log-entry">> System connected to TCG chase card database. Select a set and spin your target!</div>
     </div>
 
-    <!-- JavaScript Game Engine (Fully Expanded with 1,000+ Lines Minimum Requirement) -->
+    <!-- JavaScript Game Engine & Comprehensive Dataset Infrastructure -->
     <script>
         /* ==========================================================================
-           TCG CARD DATABASE & EXPANSION DATASETS (EXTENSIVELY DETAILED)
+           TCG CARD DATABASE & EXPANSION DATASETS (EXTENSIVELY DETAILED & EXPANDED)
            ========================================================================== */
         const TCG_SETS = {
             sv01: {
@@ -730,11 +732,33 @@
                     { number: "215/197", name: "Charizard ex", type: "SIR", desc: "Charizard ex unleashing a massive dark-tera fire blast over a volcanic valley.", image: "https://assets.tcgdex.net/en/sv/sv03/215" },
                     { number: "223/197", name: "Pidgeot ex", type: "SIR", desc: "Pidgeot soaring swiftly over a winding river canyon at sunrise.", image: "https://assets.tcgdex.net/en/sv/sv03/223" }
                 ]
+            },
+            sv04: {
+                name: "Scarlet & Violet: Paradox Rift (SV04)",
+                code: "sv04",
+                cards: [
+                    { number: "183/182", name: "Groudon", type: "IR", desc: "Groudon walking through a dry, cracked desert landscape under an intense orange sun.", image: "https://assets.tcgdex.net/en/sv/sv04/183" },
+                    { number: "186/182", name: "Iron Valiant ex", type: "SIR", desc: "Iron Valiant glowing with futuristic cybernetic blades in a sci-fi experimental lab.", image: "https://assets.tcgdex.net/en/sv/sv04/186" },
+                    { number: "199/182", name: "Roaring Moon ex", type: "SIR", desc: "Roaring Moon soaring across a stormy ancient night sky with brutal energy beams.", image: "https://assets.tcgdex.net/en/sv/sv04/199" },
+                    { number: "205/182", name: "Garchomp ex", type: "SIR", desc: "Garchomp ex leaping from a rocky cavern wall into a subterranean crystal pool.", image: "https://assets.tcgdex.net/en/sv/sv04/205" },
+                    { number: "213/182", name: "Altaria ex", type: "SIR", desc: "Altaria resting gracefully inside a fluffy cloud cottage filled with balls of yarn.", image: "https://assets.tcgdex.net/en/sv/sv04/213" },
+                    { number: "215/182", name: "Mela", type: "SIR", desc: "Mela standing proudly in front of Team Star transport vehicles with fire glowing.", image: "https://assets.tcgdex.net/en/sv/sv04/215" }
+                ]
+            },
+            sv045: {
+                name: "Scarlet & Violet: Paldean Fates (SV04.5)",
+                code: "sv045",
+                cards: [
+                    { number: "229/091", name: "Mew ex", type: "SIR", desc: "Shiny Mew ex floating in a cosmic vortex of shimmering pastel pink aura energy.", image: "https://assets.tcgdex.net/en/sv/sv045/229" },
+                    { number: "233/091", name: "Charizard ex", type: "SIR", desc: "Shiny black Charizard ex unleashing blue flame breath across a obsidian plateau.", image: "https://assets.tcgdex.net/en/sv/sv045/233" },
+                    { number: "234/091", name: "Gardevoir ex", type: "SIR", desc: "Shiny Gardevoir ex in a beautiful ethereal light field with soft pastel tones.", image: "https://assets.tcgdex.net/en/sv/sv045/234" },
+                    { number: "235/091", name: "Espathra ex", type: "SIR", desc: "Shiny Espathra ex strutting in a luxury boutique shopping arcade.", image: "https://assets.tcgdex.net/en/sv/sv045/235" }
+                ]
             }
         };
 
         /* ==========================================================================
-           GLOBAL STATE CONTROLLER & UTILITY REGISTERS
+           GLOBAL STATE CONTROLLER & STORAGE MANAGEMENT
            ========================================================================== */
         let gameState = {
             selectedSet: 'sv01',
@@ -745,32 +769,32 @@
         };
 
         /* ==========================================================================
-           APPLICATION BOOTSTRAP & PERSISTENCE ENGINE
+           APP INITIALIZATION & LOCALSTORAGE ENGINE
            ========================================================================== */
         function initGame() {
             loadFromLocalStorage();
             renderBinderGrid();
             updateDashboard();
             onSetChange();
-            addLog("Bamf's YouTube Pokémon TCG Challenge engine initialized successfully.");
+            addLog("Bamf's YouTube Pokémon TCG Challenge core engine loaded successfully.");
         }
 
         function loadFromLocalStorage() {
-            const saved = localStorage.getItem('bamf_youtube_pokemon_chase_state_v4');
-            if (saved) {
+            const savedState = localStorage.getItem('bamf_youtube_pokemon_chase_state_v5');
+            if (savedState) {
                 try {
-                    const parsed = JSON.parse(saved);
+                    const parsed = JSON.parse(savedState);
                     gameState.collectedCards = parsed.collectedCards || {};
                     gameState.packsOpened = parsed.packsOpened || 0;
                     gameState.pokebankBalance = parsed.pokebankBalance || 0.00;
                 } catch (e) {
-                    console.error("Failed to parse saved game state:", e);
+                    console.error("Error loading stored game session:", e);
                 }
             }
         }
 
         function saveToLocalStorage() {
-            localStorage.setItem('bamf_youtube_pokemon_chase_state_v4', JSON.stringify({
+            localStorage.setItem('bamf_youtube_pokemon_chase_state_v5', JSON.stringify({
                 collectedCards: gameState.collectedCards,
                 packsOpened: gameState.packsOpened,
                 pokebankBalance: gameState.pokebankBalance
@@ -778,7 +802,7 @@
         }
 
         /* ==========================================================================
-           GAMEPLAY LOGIC & EVENT HANDLERS
+           GAMEPLAY CONTROL & INTERACTION HANDLERS
            ========================================================================== */
         function onSetChange() {
             const selectEl = document.getElementById('pack-set-select');
@@ -817,33 +841,30 @@
         function openBoosterPack() {
             if (!gameState.activeTarget) return;
             gameState.packsOpened++;
-            gameState.pokebankBalance += 4.00; // Simulated hobby cost metric
+            gameState.pokebankBalance += 4.00;
 
             const setObj = TCG_SETS[gameState.selectedSet];
             let packCards = [];
 
-            // Exact 10 cards per pack simulation matching modern Pokémon TCG booster structure
+            // Modern 10-card booster pack drop simulation
             for (let i = 0; i < 10; i++) {
                 const rand = Math.random();
                 let chosenCard;
                 
-                // 15% hit rate for special illustration or secret rare chase cards in slot
-                if (rand < 0.15 && setObj.cards.length > 0) {
+                if (rand < 0.18 && setObj.cards.length > 0) {
                     chosenCard = setObj.cards[Math.floor(Math.random() * setObj.cards.length)];
                 } else {
-                    // Standard common/uncommon filler card mockup
                     chosenCard = {
                         number: `0${i+1}/198`,
                         name: "Paldean Common Filler",
                         type: "Common",
-                        desc: "Standard common filler card pulled from booster pack.",
+                        desc: "Standard common filler card pulled from booster pack slot.",
                         image: gameState.activeTarget.image
                     };
                 }
                 packCards.push(chosenCard);
             }
 
-            // Register newly pulled cards into the collector's master binder
             packCards.forEach(card => {
                 if (card.type !== 'Common') {
                     const uniqueKey = `${gameState.selectedSet}_${card.number}`;
@@ -864,11 +885,11 @@
             for (let i = 0; i < count; i++) {
                 openBoosterPack();
             }
-            addLog(`Mass ripped ${count} booster packs successfully! Check your binder progress.`);
+            addLog(`Mass ripped ${count} booster packs successfully! Review your binder collection.`);
         }
 
         /* ==========================================================================
-           UI RENDERING & DASHBOARD MANAGERS
+           RENDERING & DASHBOARD LOGIC
            ========================================================================== */
         function renderPackGrid(cards) {
             const grid = document.getElementById('cards-grid');
@@ -919,7 +940,6 @@
             const grid = document.getElementById('binder-grid');
             const slots = grid.getElementsByClassName('binder-slot');
             
-            // Comprehensive search filtering logic for binder slots
             Array.from(slots).forEach(slot => {
                 const title = slot.getAttribute('title').toLowerCase();
                 if (title.includes(query)) {
@@ -947,7 +967,7 @@
             document.getElementById('stat-collected').innerText = `${collectedCount} / ${totalCardsCount}`;
             document.getElementById('stat-completion').innerText = `${percentage}%`;
             document.getElementById('stat-packs').innerText = gameState.packsOpened;
-            document.getElementById('stat-binder-val').innerText = `$${(collectedCount * 45.00).toFixed(2)}`;
+            document.getElementById('stat-binder-val').innerText = `$${(collectedCount * 55.00).toFixed(2)}`;
             document.getElementById('pokebank-balance').innerText = `$${gameState.pokebankBalance.toFixed(2)}`;
         }
 
