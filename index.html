@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1,025 Pokémon Illustration Card Collector Challenge</title>
+    <style>
+        :root {
+            --primary: #e63946;
+            --primary-dark: #ba181b;
+            --secondary: #457b9d;
+            --dark: #1d3557;
+            --light: #f1faee;
+            --gold: #ffb703;
+            --gold-dark: #fb8500;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b132b;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #a8dede;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #8d99ae;
+        }
+
+        .main-stage {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .main-stage {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: rgba(29, 53, 87, 0.6);
+            border: 2px solid #2a9d8f;
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .panel-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 5px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .target-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 250px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .target-pokemon-img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        }
+
+        .target-name {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-top: 10px;
+            text-transform: capitalize;
+        }
+
+        .target-number {
+            font-size: 1rem;
+            color: var(--gold);
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 15px 0;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+            transition: transform 4s cubic-bezier(0.15, 0.99, 0.18, 1);
+            background: conic-gradient(
+                #e63946 0deg 45deg,
+                #f1faee 45deg 90deg,
+                #a8dede 90deg 135deg,
+                #457b9d 135deg 180deg,
+                #1d3557 180deg 225deg,
+                #ffb703 225deg 270deg,
+                #fb8500 270deg 315deg,
+                #2a9d8f 315deg 360deg
+            );
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 24px solid var(--primary);
+            z-index: 10;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: #000;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(251, 133, 0, 0.4);
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 133, 0, 0.6);
+        }
+
+        .btn:disabled {
+            background: #555;
+            color: #888;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .pack-area {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .card-slot {
+            width: 100%;
+            aspect-ratio: 2.5 / 3.5;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card-slot.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .card-back {
+            background: #111;
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: radial-gradient(#2c3e50 15%, transparent 16%), radial-gradient(#2c3e50 15%, transparent 16%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+        }
+
+        .card-back::after {
+            content: "POKÉMON";
+            font-weight: bold;
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .card-front {
+            transform: rotateY(180deg);
+            background: #fff;
+        }
+
+        .card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .binder-section {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(29, 53, 87, 0.4);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .binder-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .search-bar {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #2a9d8f;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            outline: none;
+            width: 200px;
+        }
+
+        .binder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+        .binder-slot {
+            aspect-ratio: 2.5 / 3.5;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        .binder-slot.collected {
+            border: 1px solid var(--gold);
+        }
+
+        .binder-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .binder-number {
+            position: absolute;
+            top: 2px;
+            left: 4px;
+            font-size: 0.65rem;
+            background: rgba(0,0,0,0.7);
+            padding: 1px 4px;
+            border-radius: 3px;
+            color: #fff;
+            z-index: 2;
+        }
+
+        .duplicate-badge {
+            position: absolute;
+            bottom: 2px;
+            right: 4px;
+            background: var(--primary);
+            color: white;
+            font-weight: bold;
+            font-size: 0.65rem;
+            padding: 1px 4px;
+            border-radius: 3px;
+            z-index: 2;
+        }
+
+        .log-container {
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 150px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #a8dede;
+        }
+
+        .log-entry {
+            margin-bottom: 4px;
+        }
+
+        .rare-hit {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .target-hit {
+            color: #2a9d8f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Pokémon Illustration Card Collector</h1>
+        <div class="subtitle">Inspired by Bamf's Challenge: Collect all 1,025 Pokémon Cards!</div>
+    </header>
+
+    <div class="dashboard">
+        <div class="stat-card">
+            <div class="stat-label">Total Collected</div>
+            <div class="stat-value" id="stat-collected">0 / 1025</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Completion</div>
+            <div class="stat-value" id="stat-percent">0%</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Packs Opened</div>
+            <div class="stat-value" id="stat-packs">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Collection Value</div>
+            <div class="stat-value" id="stat-value">$0.00</div>
+        </div>
+    </div>
+
+    <div class="main-stage">
+        <!-- Target Selection Step -->
+        <div class="panel">
+            <div class="panel-title">Step 1: Target Pokémon & Wheel</div>
+            <div class="target-box" id="target-box">
+                <div style="color: #888;">Click "Roll Target" to select a Pokémon</div>
+            </div>
+            
+            <button class="btn" id="btn-roll-target" onclick="rollTarget()">1. Roll Target (#1 - #1025)</button>
+            
+            <div class="wheel-container" style="margin-top: 20px;">
+                <div class="wheel-pointer"></div>
+                <div class="wheel" id="wheel"></div>
+            </div>
+
+            <button class="btn" id="btn-spin-wheel" onclick="spinWheel()" disabled>2. Spin Wheel for Packs</button>
+            <div id="wheel-result" style="margin-top: 10px; font-weight: bold; color: var(--gold);"></div>
+        </div>
+
+        <!-- Opening Step -->
+        <div class="panel">
+            <div class="panel-title">Step 2: Open Booster Packs</div>
+            <div class="pack-area">
+                <button class="btn" id="btn-open-pack" onclick="openPack()" disabled>Open Next Pack</button>
+                <div style="margin: 10px 0;" id="packs-left-text">Packs remaining: 0</div>
+                <div class="pack-grid" id="pack-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collection Binder -->
+    <div class="binder-section">
+        <div class="binder-controls">
+            <h2>Master Binder (1,025 Slots)</h2>
+            <input type="text" id="binder-search" class="search-bar" placeholder="Search # or Name..." oninput="filterBinder()">
+        </div>
+        <div class="binder-grid" id="binder-grid"></div>
+    </div>
+
+    <!-- Event Log -->
+    <div class="log-container" id="log-container">
+        <div class="log-entry">> Welcome to the 1,025 Pokémon Card Challenge! Click "Roll Target" to start.</div>
+    </div>
+
+    <script>
+        // State Management
+        let collection = JSON.parse(localStorage.getItem('bamf_pokemon_collection')) || {};
+        let totalPacksOpened = parseInt(localStorage.getItem('bamf_packs_opened')) || 0;
+        let currentTarget = null;
+        let packsToOpen = 0;
+        let currentPackCards = [];
+
+        // Sample Card database template for fast rendering
+        const rarityWeights = [
+            { rarity: 'Common', weight: 60 },
+            { rarity: 'Uncommon', weight: 25 },
+            { rarity: 'Rare', weight: 10 },
+            { rarity: 'Illustration Rare', weight: 4 },
+            { rarity: 'Special Illustration Rare', weight: 1 }
+        ];
+
+        // Initialize Binder Slots on Load
+        window.onload = function() {
+            initBinder();
+            updateStats();
+        };
+
+        function log(msg, className = '') {
+            const container = document.getElementById('log-container');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${className}`;
+            entry.innerHTML = `> ${msg}`;
+            container.appendChild(entry);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function rollTarget() {
+            const randomNum = Math.floor(Math.random() * 1025) + 1;
+            const targetBox = document.getElementById('target-box');
+            targetBox.innerHTML = `<div>Fetching Pokémon #${randomNum}...</div>`;
+
+            try {
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomNum}`);
+                const data = await response.json();
+                
+                currentTarget = {
+                    id: data.id,
+                    name: data.name,
+                    sprite: data.sprites.front_default || data.sprites.other['official-artwork'].front_default
+                };
+
+                targetBox.innerHTML = `
+                    <div class="target-number">#${currentTarget.id}</div>
+                    <img class="target-pokemon-img" src="${currentTarget.sprite}" alt="${currentTarget.name}">
+                    <div class="target-name">${currentTarget.name}</div>
+                `;
+
+                log(`New Target Selected: <strong>${currentTarget.name.toUpperCase()} (#${currentTarget.id})</strong>`, 'target-hit');
+                document.getElementById('btn-spin-wheel').disabled = false;
+                document.getElementById('btn-roll-target').disabled = true;
+
+            } catch (err) {
+                targetBox.innerHTML = `<div>Failed to load Pokémon #${randomNum}. Try again!</div>`;
+            }
+        }
+
+        function spinWheel() {
+            const wheel = document.getElementById('wheel');
+            const btn = document.getElementById('btn-spin-wheel');
+            btn.disabled = true;
+
+            const packOptions = [3, 5, 8, 10, 12, 15, 20, 25];
+            const selectedPacks = packOptions[Math.floor(Math.random() * packOptions.length)];
+            
+            const randomDegrees = 1800 + Math.floor(Math.random() * 360);
+            wheel.style.transform = `rotate(${randomDegrees}deg)`;
+
+            setTimeout(() => {
+                packsToOpen = selectedPacks;
+                document.getElementById('wheel-result').innerText = `Spun! You get ${packsToOpen} Booster Packs!`;
+                document.getElementById('packs-left-text').innerText = `Packs remaining: ${packsToOpen}`;
+                document.getElementById('btn-open-pack').disabled = false;
+                log(`Wheel landed on <strong>${packsToOpen} Packs</strong> for target hunt.`);
+            }, 4000);
+        }
+
+        async function openPack() {
+            if (packsToOpen <= 0) return;
+
+            const grid = document.getElementById('pack-grid');
+            grid.innerHTML = '<div>Opening Booster Pack...</div>';
+            document.getElementById('btn-open-pack').disabled = true;
+
+            // Generate 5 cards per pack
+            const packCards = [];
+            for (let i = 0; i < 5; i++) {
+                // 10% chance to guarantee current target card in pack slot
+                let pNum = (i === 4 && Math.random() < 0.15 && currentTarget) 
+                    ? currentTarget.id 
+                    : Math.floor(Math.random() * 1025) + 1;
+
+                const rarity = getWeightedRarity();
+                packCards.push({ dexId: pNum, rarity: rarity });
+            }
+
+            grid.innerHTML = '';
+            
+            for (let i = 0; i < packCards.length; i++) {
+                const cardData = packCards[i];
+                const cardEl = document.createElement('div');
+                cardEl.className = 'card-slot';
+                
+                // Fetch basic visual details from PokéAPI
+                const pokeRes = await fetch(`https://pokeapi.co/api/v2/pokemon/${cardData.dexId}`);
+                const poke = await pokeRes.json();
+
+                const cardValue = calculateCardValue(cardData.rarity);
+                const isTarget = currentTarget && currentTarget.id === cardData.dexId;
+
+                cardEl.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-back"></div>
+                        <div class="card-front" style="border: 3px solid ${getRarityColor(cardData.rarity)}">
+                            <img src="${poke.sprites.other['official-artwork'].front_default || poke.sprites.front_default}" alt="${poke.name}">
+                            <div style="font-size:0.65rem; color:#000; font-weight:bold; position:absolute; bottom:2px; width:100%; background:rgba(255,255,255,0.8);">
+                                #${poke.id} ${poke.name}<br>
+                                <span style="color:${getRarityColor(cardData.rarity)}">${cardData.rarity}</span> ($${cardValue})
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                cardEl.onclick = () => {
+                    if (!cardEl.classList.contains('flipped')) {
+                        cardEl.classList.add('flipped');
+                        saveToCollection(poke.id, poke.name, poke.sprites.front_default, cardData.rarity, cardValue);
+                        
+                        if (isTarget) {
+                            log(`🎯 TARGET HIT! You pulled <strong>${poke.name.toUpperCase()}</strong>!`, 'target-hit');
+                        } else if (cardData.rarity.includes('Illustration')) {
+                            log(`✨ BANGER! Pulled ${cardData.rarity} <strong>${poke.name}</strong> worth $${cardValue}!`, 'rare-hit');
+                        }
+                    }
+                };
+
+                grid.appendChild(cardEl);
+            }
+
+            packsToOpen--;
+            totalPacksOpened++;
+            localStorage.setItem('bamf_packs_opened', totalPacksOpened);
+            document.getElementById('packs-left-text').innerText = `Packs remaining: ${packsToOpen}`;
+
+            if (packsToOpen > 0) {
+                document.getElementById('btn-open-pack').disabled = false;
+            } else {
+                document.getElementById('btn-open-pack').disabled = true;
+                document.getElementById('btn-roll-target').disabled = false;
+                log(`Finished pack opening session! Select next target.`);
+            }
+
+            updateStats();
+        }
+
+        function getWeightedRarity() {
+            const rand = Math.random() * 100;
+            let sum = 0;
+            for (let r of rarityWeights) {
+                sum += r.weight;
+                if (rand <= sum) return r.rarity;
+            }
+            return 'Common';
+        }
+
+        function getRarityColor(rarity) {
+            switch(rarity) {
+                case 'Illustration Rare': return '#ffb703';
+                case 'Special Illustration Rare': return '#e63946';
+                case 'Rare': return '#457b9d';
+                case 'Uncommon': return '#2a9d8f';
+                default: return '#8d99ae';
+            }
+        }
+
+        function calculateCardValue(rarity) {
+            switch(rarity) {
+                case 'Special Illustration Rare': return (Math.random() * 80 + 20).toFixed(2);
+                case 'Illustration Rare': return (Math.random() * 25 + 5).toFixed(2);
+                case 'Rare': return (Math.random() * 4 + 1).toFixed(2);
+                case 'Uncommon': return (Math.random() * 0.8 + 0.2).toFixed(2);
+                default: return (Math.random() * 0.25 + 0.05).toFixed(2);
+            }
+        }
+
+        function saveToCollection(id, name, sprite, rarity, value) {
+            if (!collection[id]) {
+                collection[id] = { id, name, sprite, rarity, value: parseFloat(value), count: 1 };
+            } else {
+                collection[id].count++;
+                collection[id].value = Math.max(collection[id].value, parseFloat(value)); // Keep highest value version
+            }
+
+            localStorage.setItem('bamf_pokemon_collection', JSON.stringify(collection));
+            updateBinderSlot(id);
+            updateStats();
+        }
+
+        function initBinder() {
+            const binderGrid = document.getElementById('binder-grid');
+            binderGrid.innerHTML = '';
+
+            for (let i = 1; i <= 1025; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'binder-slot';
+                slot.id = `binder-slot-${i}`;
+                slot.innerHTML = `<div class="binder-number">#${i}</div>`;
+                binderGrid.appendChild(slot);
+
+                if (collection[i]) {
+                    updateBinderSlot(i);
+                }
+            }
+        }
+
+        function updateBinderSlot(id) {
+            const slot = document.getElementById(`binder-slot-${id}`);
+            if (!slot || !collection[id]) return;
+
+            const item = collection[id];
+            slot.classList.add('collected');
+            slot.innerHTML = `
+                <div class="binder-number">#${id}</div>
+                <img src="${item.sprite}" alt="${item.name}">
+                ${item.count > 1 ? `<div class="duplicate-badge">x${item.count}</div>` : ''}
+            `;
+        }
+
+        function updateStats() {
+            const collectedCount = Object.keys(collection).length;
+            const percent = ((collectedCount / 1025) * 100).toFixed(1);
+            
+            let totalVal = 0;
+            Object.values(collection).forEach(item => {
+                totalVal += item.value * item.count;
+            });
+
+            document.getElementById('stat-collected').innerText = `${collectedCount} / 1025`;
+            document.getElementById('stat-percent').innerText = `${percent}%`;
+            document.getElementById('stat-packs').innerText = totalPacksOpened;
+            document.getElementById('stat-value').innerText = `$${totalVal.toFixed(2)}`;
+        }
+
+        function filterBinder() {
+            const query = document.getElementById('binder-search').value.toLowerCase();
+            for (let i = 1; i <= 1025; i++) {
+                const slot = document.getElementById(`binder-slot-${i}`);
+                const item = collection[i];
+                
+                if (!query) {
+                    slot.style.display = 'flex';
+                    continue;
+                }
+
+                const matchesNum = i.toString().includes(query);
+                const matchesName = item && item.name.toLowerCase().includes(query);
+
+                if (matchesNum || matchesName) {
+                    slot.style.display = 'flex';
+                } else {
+                    slot.style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
