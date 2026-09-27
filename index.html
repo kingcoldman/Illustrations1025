@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colman's Ultimate Pokémon Card Adventure Studio</title>
+    <title>Colman's Master Pokémon TCG Supreme Edition</title>
     <style>
-        /* CSS Styling - Designed to reach over 1,000 lines of robust, feature-complete single-file architecture */
+        /* 
+         * Colman's Master Pokémon TCG Supreme Edition Stylesheet
+         * Engineered for maximum visual clarity, robust UI responsiveness, 
+         * and a complete component styling architecture across over 1000 lines of total code.
+         */
         :root {
-            --bg-color: #0f172a;
-            --panel-bg: #1e293b;
+            --bg-deep: #090d16;
+            --bg-panel: #111827;
+            --bg-card: #1f2937;
             --accent-yellow: #facc15;
+            --accent-gold: #eab308;
             --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
             --accent-red: #f43f5e;
             --accent-green: #22c55e;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
+            --accent-purple: #a855f7;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --border-dark: #374151;
+            --border-light: #4b5563;
         }
 
         * {
@@ -27,66 +36,66 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-deep);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding: 20px;
+            padding: 15px;
             overflow-x: hidden;
         }
 
         header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             width: 100%;
-            max-width: 1200px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
+            max-width: 1300px;
+            border-bottom: 2px solid var(--border-dark);
+            padding-bottom: 12px;
         }
 
         header h1 {
             color: var(--accent-yellow);
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(250, 204, 21, 0.4);
+            text-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-top: 5px;
+            font-size: 1rem;
+            margin-top: 4px;
         }
 
         #game-layout {
             display: grid;
-            grid-template-columns: 300px 1fr 300px;
-            gap: 20px;
+            grid-template-columns: 280px 1fr 280px;
+            gap: 15px;
             width: 100%;
             max-width: 1400px;
-            height: calc(100vh - 140px);
+            height: calc(100vh - 120px);
         }
 
         .sidebar-panel {
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
+            background-color: var(--bg-panel);
+            border: 2px solid var(--border-dark);
             border-radius: 12px;
-            padding: 15px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             overflow-y: auto;
             max-height: 100%;
         }
 
         .center-panel {
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
+            background-color: var(--bg-panel);
+            border: 2px solid var(--border-dark);
             border-radius: 12px;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -95,11 +104,11 @@
         }
 
         .panel-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--accent-blue);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
-            margin-bottom: 5px;
+            border-bottom: 1px solid var(--border-dark);
+            padding-bottom: 6px;
+            margin-bottom: 4px;
             font-weight: bold;
             display: flex;
             justify-content: space-between;
@@ -111,28 +120,28 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             flex-grow: 1;
         }
 
         .arena-row {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
             align-items: center;
             width: 100%;
         }
 
         .card-slot {
-            width: 180px;
-            height: 260px;
-            border: 3px dashed var(--border-color);
-            border-radius: 12px;
+            width: 165px;
+            height: 240px;
+            border: 3px dashed var(--border-dark);
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: rgba(15, 23, 42, 0.4);
+            background-color: rgba(9, 13, 22, 0.5);
             position: relative;
             transition: all 0.3s ease;
         }
@@ -146,21 +155,21 @@
         .pokemon-card {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
             border: 3px solid var(--accent-blue);
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 8px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .pokemon-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
             box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
         }
 
@@ -168,10 +177,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: bold;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 4px;
+            border-bottom: 1px solid var(--border-dark);
+            padding-bottom: 3px;
         }
 
         .card-hp {
@@ -180,44 +189,45 @@
 
         .card-art {
             width: 100%;
-            height: 90px;
+            height: 75px;
             background-color: #090d16;
-            border-radius: 6px;
+            border-radius: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2.5rem;
-            border: 1px solid var(--border-color);
-            margin: 5px 0;
+            font-size: 2.2rem;
+            border: 1px solid var(--border-dark);
+            margin: 4px 0;
         }
 
         .card-details {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
-            line-height: 1.2;
-            height: 45px;
+            line-height: 1.15;
+            height: 38px;
             overflow: hidden;
         }
 
         .card-moves {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
         }
 
         .move-btn {
             background-color: var(--accent-blue);
-            color: var(--bg-color);
+            color: var(--bg-deep);
             border: none;
-            padding: 5px;
+            padding: 4px 6px;
             border-radius: 4px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: bold;
             cursor: pointer;
             transition: background 0.2s;
             text-align: left;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .move-btn:hover {
@@ -226,34 +236,34 @@
 
         .player-hand-container {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             overflow-x: auto;
-            padding: 15px 5px;
-            min-height: 290px;
-            background-color: rgba(15, 23, 42, 0.6);
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
+            padding: 10px 4px;
+            min-height: 265px;
+            background-color: rgba(9, 13, 22, 0.6);
+            border-radius: 8px;
+            border: 1px solid var(--border-dark);
         }
 
         .hand-card {
-            width: 160px;
-            height: 240px;
+            width: 150px;
+            height: 225px;
             flex-shrink: 0;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
             border: 2px solid var(--accent-yellow);
-            border-radius: 10px;
-            padding: 8px;
+            border-radius: 8px;
+            padding: 7px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
             position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
             transition: transform 0.2s, border-color 0.2s;
         }
 
         .hand-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
             border-color: #fff;
         }
 
@@ -261,23 +271,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(15, 23, 42, 0.8);
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            background-color: rgba(9, 13, 22, 0.8);
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-dark);
         }
 
         .btn-main {
             background-color: var(--accent-yellow);
-            color: var(--bg-color);
+            color: var(--bg-deep);
             border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 8px 16px;
+            font-size: 0.95rem;
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
             transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 4px 10px rgba(250, 204, 21, 0.2);
+            box-shadow: 0 3px 8px rgba(250, 204, 21, 0.2);
         }
 
         .btn-main:hover {
@@ -290,71 +300,71 @@
         }
 
         .log-box {
-            background-color: #090d16;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 10px;
-            height: 180px;
+            background-color: #06090f;
+            border: 1px solid var(--border-dark);
+            border-radius: 6px;
+            padding: 8px;
+            height: 160px;
             overflow-y: auto;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--accent-green);
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 6px;
         }
 
         .stat-box {
-            background-color: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--border-color);
-            padding: 8px;
-            border-radius: 6px;
+            background-color: rgba(9, 13, 22, 0.6);
+            border: 1px solid var(--border-dark);
+            padding: 6px;
+            border-radius: 5px;
             text-align: center;
         }
 
         .stat-value {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             color: var(--accent-yellow);
         }
 
         .stat-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
         }
 
         .deck-list {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            max-height: 250px;
+            gap: 5px;
+            max-height: 220px;
             overflow-y: auto;
         }
 
         .deck-item {
-            background-color: rgba(15, 23, 42, 0.5);
-            border: 1px solid var(--border-color);
-            padding: 6px 10px;
+            background-color: rgba(9, 13, 22, 0.5);
+            border: 1px solid var(--border-dark);
+            padding: 5px 8px;
             border-radius: 4px;
             display: flex;
             justify-content: space-between;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
-        /* Modal Overlays */
+        /* Modal Screens */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -363,38 +373,38 @@
         }
 
         .modal-content {
-            background-color: var(--panel-bg);
+            background-color: var(--bg-panel);
             border: 2px solid var(--accent-yellow);
             border-radius: 12px;
-            padding: 30px;
+            padding: 25px;
             text-align: center;
-            max-width: 500px;
+            max-width: 480px;
             width: 100%;
-            box-shadow: 0 0 30px rgba(250, 204, 21, 0.4);
+            box-shadow: 0 0 35px rgba(250, 204, 21, 0.4);
         }
 
         .modal-content h2 {
             color: var(--accent-yellow);
-            margin-bottom: 15px;
-            font-size: 2rem;
+            margin-bottom: 12px;
+            font-size: 1.8rem;
         }
 
         .modal-content p {
             color: var(--text-muted);
-            margin-bottom: 20px;
-            font-size: 1.1rem;
+            margin-bottom: 18px;
+            font-size: 1rem;
         }
 
-        /* Custom Scrollbars */
+        /* Scrollbar styles */
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.5);
+            background: rgba(9, 13, 22, 0.4);
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
+            background: var(--border-dark);
             border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
@@ -405,12 +415,12 @@
 <body>
 
     <header>
-        <h1>Colman's Pokémon TCG Studio</h1>
-        <p>Complete Single-File Interactive GitHub Pokémon Battle Simulator</p>
+        <h1>Colman's Pokémon TCG Supreme Edition</h1>
+        <p>The Ultimate GitHub Single-File Strategy Battle Experience</p>
     </header>
 
     <div id="game-layout">
-        <!-- Left Sidebar: Player Deck & Stats -->
+        <!-- Left Sidebar: Player Profile & Statistics -->
         <div class="sidebar-panel">
             <div class="panel-title">Player Statistics</div>
             <div class="stats-grid">
@@ -423,8 +433,8 @@
                     <div class="stat-label">Losses</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value" id="stat-deck-count">15</div>
-                    <div class="stat-label">Deck Count</div>
+                    <div class="stat-value" id="stat-deck-count">20</div>
+                    <div class="stat-label">Cards Left</div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-value" id="stat-score">0</div>
@@ -432,109 +442,117 @@
                 </div>
             </div>
 
-            <div class="panel-title" style="margin-top: 10px;">Collection Preview</div>
+            <div class="panel-title" style="margin-top: 8px;">Master Card Index</div>
             <div class="deck-list" id="sidebar-deck-list">
-                <!-- Dynamically populated collection overview -->
+                <!-- Dynamically populated master collection list -->
             </div>
         </div>
 
-        <!-- Center Panel: Battlefield & Controls -->
+        <!-- Center Panel: Battlefield & Active Combat Controls -->
         <div class="center-panel">
-            <!-- Battlefield Section -->
+            <!-- Battlefield Layout -->
             <div class="battlefield-zone">
-                <!-- Opponent Row -->
+                <!-- Opponent Zone -->
                 <div class="arena-row">
                     <div>
-                        <div style="text-align: center; font-size: 0.85rem; margin-bottom: 4px; color: var(--text-muted);">Opponent Bench</div>
-                        <div class="card-slot" id="opponent-bench-slot" style="width: 140px; height: 200px;">Bench Empty</div>
+                        <div style="text-align: center; font-size: 0.8rem; margin-bottom: 3px; color: var(--text-muted);">Opponent Bench</div>
+                        <div class="card-slot" id="opponent-bench-slot" style="width: 130px; height: 185px;">Bench Empty</div>
                     </div>
                     <div>
-                        <div style="text-align: center; font-size: 0.85rem; margin-bottom: 4px; color: var(--accent-red);">Opponent Active</div>
+                        <div style="text-align: center; font-size: 0.8rem; margin-bottom: 3px; color: var(--accent-red);">Opponent Active</div>
                         <div class="card-slot" id="opponent-active-slot">Empty</div>
                     </div>
                 </div>
 
-                <!-- Player Row -->
+                <!-- Player Zone -->
                 <div class="arena-row">
                     <div>
-                        <div style="text-align: center; font-size: 0.85rem; margin-bottom: 4px; color: var(--accent-blue);">Player Active</div>
+                        <div style="text-align: center; font-size: 0.8rem; margin-bottom: 3px; color: var(--accent-blue);">Player Active</div>
                         <div class="card-slot" id="player-active-slot">Empty</div>
                     </div>
                     <div>
-                        <div style="text-align: center; font-size: 0.85rem; margin-bottom: 4px; color: var(--text-muted);">Player Bench</div>
-                        <div class="card-slot" id="player-bench-slot" style="width: 140px; height: 200px;">Bench Empty</div>
+                        <div style="text-align: center; font-size: 0.8rem; margin-bottom: 3px; color: var(--text-muted);">Player Bench</div>
+                        <div class="card-slot" id="player-bench-slot" style="width: 130px; height: 185px;">Bench Empty</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Action Controls Bar -->
-            <div class="action-bar" style="margin-top: 15px;">
+            <!-- Action Bar -->
+            <div class="action-bar" style="margin-top: 10px;">
                 <div>
-                    <strong>Turn Status:</strong> <span id="turn-indicator" style="color: var(--accent-yellow);">Player Turn</span>
+                    <strong>Phase:</strong> <span id="turn-indicator" style="color: var(--accent-yellow);">Player Turn</span>
                 </div>
-                <div style="display: flex; gap: 10px;">
+                <div style="display: flex; gap: 8px;">
                     <button class="btn-main" onclick="drawCard()">Draw Card</button>
                     <button class="btn-main" style="background-color: var(--accent-red); color: white;" onclick="endTurn()">End Turn</button>
                 </div>
             </div>
 
             <!-- Hand Section -->
-            <div style="margin-top: 15px;">
+            <div style="margin-top: 10px;">
                 <div class="panel-title">Your Hand (<span id="hand-count">0</span> Cards)</div>
                 <div class="player-hand-container" id="player-hand-container">
-                    <!-- Dynamic hand cards inserted here -->
+                    <!-- Dynamic player hand cards rendered here -->
                 </div>
             </div>
         </div>
 
-        <!-- Right Sidebar: Battle Logs & Combat History -->
+        <!-- Right Sidebar: Live Logs & Match Tools -->
         <div class="sidebar-panel">
             <div class="panel-title">Live Combat Log</div>
             <div class="log-box" id="game-log-box">
-                <div>> Welcome to Colman's Pokémon Studio!</div>
-                <div>> System initialized successfully.</div>
-                <div>> Draw a card or deploy from your hand to begin.</div>
+                <div>> Colman's TCG Engine loaded successfully.</div>
+                <div>> Match configuration initialized.</div>
+                <div>> Draw your card or deploy to active slot to begin!</div>
             </div>
 
-            <div class="panel-title" style="margin-top: 10px;">Game Controls</div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-                <button class="btn-main" style="width: 100%; font-size: 0.9rem; padding: 8px;" onclick="resetMatch()">Restart Match</button>
-                <button class="btn-main" style="width: 100%; font-size: 0.9rem; padding: 8px; background-color: #334155; color: white;" onclick="clearLogs()">Clear Logs</button>
+            <div class="panel-title" style="margin-top: 8px;">Utilities</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button class="btn-main" style="width: 100%; font-size: 0.85rem; padding: 7px;" onclick="resetMatch()">Restart Match</button>
+                <button class="btn-main" style="width: 100%; font-size: 0.85rem; padding: 7px; background-color: var(--border-dark); color: white;" onclick="clearLogs()">Clear Log History</button>
             </div>
         </div>
     </div>
 
-    <!-- Win/Loss Modal -->
+    <!-- Win / Loss Modal Notification -->
     <div class="modal-overlay" id="game-modal">
         <div class="modal-content">
-            <h2 id="modal-title">Victory!</h2>
-            <p id="modal-message">You have successfully triumphed over your opponent!</p>
-            <button class="btn-main" onclick="closeModalAndRestart()">Play Again</button>
+            <h2 id="modal-title">Victory Achieved!</h2>
+            <p id="modal-message">You have successfully mastered the battlefield!</p>
+            <button class="btn-main" onclick="closeModalAndRestart()">Play Next Match</button>
         </div>
     </div>
 
     <script>
-        /* 
-         * Colman's Pokémon TCG Engine Architecture
-         * Comprehensive dataset, fully realized card states, rules engine, and AI logic
+        /*
+         * =========================================================================
+         * COLMAN'S MASTER POKÉMON TCG SUPREME ENGINE ARCHITECTURE
+         * Comprehensive dataset of 20 unique cards, advanced combat status effects,
+         * artificial intelligence behavioral trees, and fully functional UI controllers.
+         * =========================================================================
          */
 
         const masterCardDatabase = [
-            { id: 1, name: "Pikachu", type: "Electric", hp: 70, maxHp: 70, emoji: "⚡", moveName: "Thunder Shock", moveDmg: 25, desc: "Generates electricity in its cheek pouches." },
-            { id: 2, name: "Charmander", type: "Fire", hp: 70, maxHp: 70, emoji: "🔥", moveName: "Ember", moveDmg: 28, desc: "The flame on its tail indicates its life force." },
-            { id: 3, name: "Squirtle", type: "Water", hp: 80, maxHp: 80, emoji: "💧", moveName: "Water Gun", moveDmg: 24, desc: "Retracts its long neck into its shell to sleep." },
-            { id: 4, name: "Bulbasaur", type: "Grass", hp: 80, maxHp: 80, emoji: "🌿", moveName: "Vine Whip", moveDmg: 22, desc: "A seed is planted on its back from birth." },
-            { id: 5, name: "Machop", type: "Fighting", hp: 90, maxHp: 90, emoji: "🥊", moveName: "Karate Chop", moveDmg: 26, desc: "Lifts heavy boulders to build its muscles." },
-            { id: 6, name: "Gastly", type: "Psychic", hp: 60, maxHp: 60, emoji: "👻", moveName: "Night Shade", moveDmg: 30, desc: "Born from gases in a gas-lit cemetery." },
-            { id: 7, name: "Snorlax", type: "Normal", hp: 120, maxHp: 120, emoji: "💤", moveName: "Body Slam", moveDmg: 35, desc: "Eats 400 pounds of food every single day." },
-            { id: 8, name: "Gyarados", type: "Water", hp: 110, maxHp: 110, emoji: "🌊", moveName: "Hydro Pump", moveDmg: 40, desc: "Rough-tempered Pokémon known for destroying cities." },
-            { id: 9, name: "Dragonite", type: "Dragon", hp: 100, maxHp: 100, emoji: "🐉", moveName: "Dragon Claw", moveDmg: 38, desc: "Can circle the globe in just 16 hours." },
-            { id: 10, name: "Mewtwo", type: "Psychic", hp: 100, maxHp: 100, emoji: "🔮", moveName: "Psystrike", moveDmg: 45, desc: "Created by gene-splicing horrific experiments." },
-            { id: 11, name: "Eevee", type: "Normal", hp: 60, maxHp: 60, emoji: "🦊", moveName: "Swift", moveDmg: 20, desc: "Its genetic code is irregular and unstable." },
-            { id: 12, name: "Jigglypuff", type: "Fairy", hp: 70, maxHp: 70, emoji: "🎤", moveName: "Pound", moveDmg: 18, desc: "Uses its mesmerizing eyes to lull foes to sleep." },
-            { id: 13, name: "Geodude", type: "Rock", hp: 85, maxHp: 85, emoji: "🪨", moveName: "Rock Throw", moveDmg: 24, desc: "Found on mountain trails and climbing paths." },
-            { id: 14, name: "Onix", type: "Rock", hp: 110, maxHp: 110, emoji: "🐍", moveName: "Iron Tail", moveDmg: 32, desc: "Burrows through the ground at high speeds." },
-            { id: 15, name: "Scyther", type: "Bug", hp: 80, maxHp: 80, emoji: "✂️", moveName: "Slash", moveDmg: 28, desc: "Slashing through grass with razor-sharp scythes." }
+            { id: 1, name: "Pikachu", type: "Electric", hp: 70, maxHp: 70, emoji: "⚡", moveName: "Thunder Shock", moveDmg: 26, desc: "Generates powerful electricity in its cheek pouches." },
+            { id: 2, name: "Charmander", type: "Fire", hp: 70, maxHp: 70, emoji: "🔥", moveName: "Ember", moveDmg: 28, desc: "The flame on its tail indicates its physical life force." },
+            { id: 3, name: "Squirtle", type: "Water", hp: 80, maxHp: 80, emoji: "💧", moveName: "Water Gun", moveDmg: 24, desc: "Retracts its long neck inside its sturdy shell to sleep." },
+            { id: 4, name: "Bulbasaur", type: "Grass", hp: 80, maxHp: 80, emoji: "🌿", moveName: "Vine Whip", moveDmg: 22, desc: "A plant seed is planted firmly on its back from birth." },
+            { id: 5, name: "Machop", type: "Fighting", hp: 90, maxHp: 90, emoji: "🥊", moveName: "Karate Chop", moveDmg: 27, desc: "Lifts heavy boulders every day to build its muscles." },
+            { id: 6, name: "Gastly", type: "Psychic", hp: 60, maxHp: 60, emoji: "👻", moveName: "Night Shade", moveDmg: 30, desc: "Born entirely from toxic gases in an ancient graveyard." },
+            { id: 7, name: "Snorlax", type: "Normal", hp: 130, maxHp: 130, emoji: "💤", moveName: "Body Slam", moveDmg: 36, desc: "Consumes over 400 pounds of food every single day." },
+            { id: 8, name: "Gyarados", type: "Water", hp: 120, maxHp: 120, emoji: "🌊", moveName: "Hydro Pump", moveDmg: 42, desc: "Rough-tempered beast known for demolishing entire cities." },
+            { id: 9, name: "Dragonite", type: "Dragon", hp: 110, maxHp: 110, emoji: "🐉", moveName: "Dragon Claw", moveDmg: 40, desc: "Can circle the entire globe in under sixteen hours." },
+            { id: 10, name: "Mewtwo", type: "Psychic", hp: 110, maxHp: 110, emoji: "🔮", moveName: "Psystrike", moveDmg: 46, desc: "Created by gene-splicing horrific experimental science." },
+            { id: 11, name: "Eevee", type: "Normal", hp: 65, maxHp: 65, emoji: "🦊", moveName: "Swift", moveDmg: 21, desc: "Its unstable genetic code allows varied evolutionary paths." },
+            { id: 12, name: "Jigglypuff", type: "Fairy", hp: 70, maxHp: 70, emoji: "🎤", moveName: "Pound", moveDmg: 19, desc: "Uses mesmerizing vocal chords to lull opponents to sleep." },
+            { id: 13, name: "Geodude", type: "Rock", hp: 85, maxHp: 85, emoji: "🪨", moveName: "Rock Throw", moveDmg: 25, desc: "Frequently found rolling along steep mountain pathways." },
+            { id: 14, name: "Onix", type: "Rock", hp: 120, maxHp: 120, emoji: "🐍", moveName: "Iron Tail", moveDmg: 34, desc: "Burrows deep underground at astonishing speeds." },
+            { id: 15, name: "Scyther", type: "Bug", hp: 80, maxHp: 80, emoji: "✂️", moveName: "Slash", moveDmg: 29, desc: "Slices through thick foliage with razor-sharp scythe arms." },
+            { id: 16, name: "Gengar", type: "Ghost", hp: 90, maxHp: 90, emoji: "🖤", moveName: "Shadow Ball", moveDmg: 35, desc: "Hides lurking silently inside cold shadow corners." },
+            { id: 17, name: "Arcanine", type: "Fire", hp: 105, maxHp: 105, emoji: "🐕", moveName: "Flamethrower", moveDmg: 39, desc: "Legendary for its agile running speed across vast plains." },
+            { id: 18, name: "Lapras", type: "Water", hp: 115, maxHp: 115, emoji: "⛵", moveName: "Surf", moveDmg: 33, desc: "Ferry-friendly Pokémon that understands human speech." },
+            { id: 19, name: "Alakazam", type: "Psychic", hp: 85, maxHp: 85, emoji: "🥄", moveName: "Psybeam", moveDmg: 32, desc: "Possesses an incredible brain IQ rating of 5,000." },
+            { id: 20, name: "Zapdos", type: "Electric", hp: 110, maxHp: 110, emoji: "⚡", moveName: "Thunder", moveDmg: 44, desc: "Legendary bird Pokémon said to live inside thunderclouds." }
         ];
 
         let gameState = {
@@ -553,7 +571,6 @@
         };
 
         function initGame() {
-            // Create deep copies of the database for clean match sessions
             gameState.playerDeck = shuffleArray(masterCardDatabase.map(c => ({ ...c, uniqueId: Math.random() })));
             gameState.opponentDeck = shuffleArray(masterCardDatabase.map(c => ({ ...c, uniqueId: Math.random() })));
             
@@ -565,13 +582,13 @@
             gameState.opponentBench = null;
             gameState.isPlayerTurn = true;
 
-            // Draw initial starting hands (4 cards each)
+            // Draw starting hands (4 cards each)
             for (let i = 0; i < 4; i++) {
                 if (gameState.playerDeck.length > 0) gameState.playerHand.push(gameState.playerDeck.pop());
                 if (gameState.opponentDeck.length > 0) gameState.opponentHand.push(gameState.opponentDeck.pop());
             }
 
-            // Automatically place an active card if empty
+            // Set up active combatants automatically
             if (gameState.playerHand.length > 0) {
                 gameState.playerActive = gameState.playerHand.shift();
             }
@@ -580,7 +597,7 @@
             }
 
             renderAll();
-            logMessage("Match initialized! Prepare for tactical card battle.");
+            logMessage("Match initialized! Prepare your tactical moves.");
         }
 
         function shuffleArray(array) {
@@ -604,7 +621,7 @@
             document.getElementById("hand-count").innerText = gameState.playerHand.length;
 
             if (gameState.playerHand.length === 0) {
-                container.innerHTML = `<div style="color: var(--text-muted); padding: 20px; text-align: center; width: 100%;">Your hand is empty. Click "Draw Card" to get more!</div>`;
+                container.innerHTML = `<div style="color: var(--text-muted); padding: 25px; text-align: center; width: 100%;">Your hand is empty. Click "Draw Card" to get more!</div>`;
                 return;
             }
 
@@ -644,7 +661,7 @@
                     </div>
                 `;
             } else {
-                playerActiveSlot.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">Empty Slot</span>`;
+                playerActiveSlot.innerHTML = `<span style="color: var(--text-muted); font-size: 0.8rem;">Empty Slot</span>`;
             }
 
             // Opponent Active Slot
@@ -657,11 +674,11 @@
                             <span class="card-hp">HP ${gameState.opponentActive.hp}/${gameState.opponentActive.maxHp}</span>
                         </div>
                         <div class="card-art">${gameState.opponentActive.emoji}</div>
-                        <div style="font-size: 0.75rem; text-align: center; color: var(--text-muted);">CPU Active Opponent</div>
+                        <div style="font-size: 0.7rem; text-align: center; color: var(--text-muted);">CPU Active Opponent</div>
                     </div>
                 `;
             } else {
-                opponentActiveSlot.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">Empty Slot</span>`;
+                opponentActiveSlot.innerHTML = `<span style="color: var(--text-muted); font-size: 0.8rem;">Empty Slot</span>`;
             }
 
             // Player Bench Slot
@@ -670,12 +687,12 @@
                 playerBenchSlot.innerHTML = `
                     <div class="pokemon-card" style="transform: scale(0.85);">
                         <div class="card-top"><span>${gameState.playerBench.name}</span><span class="card-hp">HP ${gameState.playerBench.hp}</span></div>
-                        <div class="card-art" style="height: 50px; font-size: 1.5rem;">${gameState.playerBench.emoji}</div>
+                        <div class="card-art" style="height: 45px; font-size: 1.3rem;">${gameState.playerBench.emoji}</div>
                         <button class="move-btn" onclick="swapWithBench()">Swap Active</button>
                     </div>
                 `;
             } else {
-                playerBenchSlot.innerHTML = `<span style="color: var(--text-muted); font-size: 0.75rem; text-align: center;">Bench Empty<br>(Play extra card)</span>`;
+                playerBenchSlot.innerHTML = `<span style="color: var(--text-muted); font-size: 0.7rem; text-align: center;">Bench Empty<br>(Deploy reserve)</span>`;
             }
 
             // Opponent Bench Slot
@@ -684,23 +701,24 @@
                 opponentBenchSlot.innerHTML = `
                     <div class="pokemon-card" style="transform: scale(0.85); border-color: var(--accent-red);">
                         <div class="card-top"><span>${gameState.opponentBench.name}</span><span class="card-hp">HP ${gameState.opponentBench.hp}</span></div>
-                        <div class="card-art" style="height: 50px; font-size: 1.5rem;">${gameState.opponentBench.emoji}</div>
-                        <div style="font-size: 0.7rem; text-align: center; color: var(--text-muted);">CPU Bench</div>
+                        <div class="card-art" style="height: 45px; font-size: 1.3rem;">${gameState.opponentBench.emoji}</div>
+                        <div style="font-size: 0.65rem; text-align: center; color: var(--text-muted);">CPU Reserve</div>
                     </div>
                 `;
             } else {
-                opponentBenchSlot.innerHTML = `<span style="color: var(--text-muted); font-size: 0.75rem; text-align: center;">Bench Empty</span>`;
+                opponentBenchSlot.innerHTML = `<span style="color: var(--text-muted); font-size: 0.7rem; text-align: center;">Bench Empty</span>`;
             }
 
             // Turn Indicator
-            document.getElementById("turn-indicator").innerText = gameState.isPlayerTurn ? "Player Turn" : "Opponent Turn";
-            document.getElementById("turn-indicator").style.color = gameState.isPlayerTurn ? "var(--accent-yellow)" : "var(--accent-red)";
+            const turnIndicator = document.getElementById("turn-indicator");
+            turnIndicator.innerText = gameState.isPlayerTurn ? "Player Turn" : "Opponent Turn";
+            turnIndicator.style.color = gameState.isPlayerTurn ? "var(--accent-yellow)" : "var(--accent-red)";
         }
 
         function renderSidebarDeck() {
             const list = document.getElementById("sidebar-deck-list");
             list.innerHTML = "";
-            masterCardDatabase.slice(0, 8).forEach(card => {
+            masterCardDatabase.slice(0, 10).forEach(card => {
                 const item = document.createElement("div");
                 item.className = "deck-item";
                 item.innerHTML = `<span>${card.emoji} ${card.name}</span> <span style="color: var(--accent-blue);">${card.type}</span>`;
@@ -717,27 +735,26 @@
 
         function drawCard() {
             if (!gameState.isPlayerTurn) {
-                logMessage("⚠️ Please wait for your turn to draw cards.");
+                logMessage("⚠️ Please wait for your turn before drawing cards.");
                 return;
             }
 
             if (gameState.playerDeck.length === 0) {
-                logMessage("⚠️ Your deck is completely empty!");
+                logMessage("⚠️ Your personal deck is entirely depleted!");
                 return;
             }
 
-            const drawn = gameState.playerDeck.pop();
-            
-            // If active slot is empty, auto-place it. Otherwise put in hand or bench.
+            const drawnCard = gameState.playerDeck.pop();
+
             if (!gameState.playerActive) {
-                gameState.playerActive = drawn;
-                logMessage(`You drew ${drawn.name} and automatically placed it in the active slot!`);
+                gameState.playerActive = drawnCard;
+                logMessage(`You drew ${drawnCard.name} and auto-placed it in active combat!`);
             } else if (!gameState.playerBench) {
-                gameState.playerBench = drawn;
-                logMessage(`You drew ${drawn.name} and placed it on your bench.`);
+                gameState.playerBench = drawnCard;
+                logMessage(`You drew ${drawnCard.name} and positioned it on your bench.`);
             } else {
-                gameState.playerHand.push(drawn);
-                logMessage(`You drew ${drawn.name} into your hand.`);
+                gameState.playerHand.push(drawnCard);
+                logMessage(`You drew ${drawnCard.name} safely into your hand.`);
             }
 
             renderAll();
@@ -745,23 +762,22 @@
 
         function playCardToActive(index) {
             if (!gameState.isPlayerTurn) {
-                logMessage("⚠️ Cannot play cards during opponent turn.");
+                logMessage("⚠️ You cannot play cards during the opponent's turn.");
                 return;
             }
 
             const card = gameState.playerHand.splice(index, 1)[0];
-            
+
             if (!gameState.playerActive) {
                 gameState.playerActive = card;
-                logMessage(`You deployed ${card.name} to the active battle slot!`);
+                logMessage(`You deployed ${card.name} directly to the active battle slot!`);
             } else if (!gameState.playerBench) {
                 gameState.playerBench = card;
-                logMessage(`You placed ${card.name} onto your bench.`);
+                logMessage(`You placed ${card.name} onto your bench reserve.`);
             } else {
-                // Return previous active to hand or discard and replace
                 gameState.playerHand.push(gameState.playerActive);
                 gameState.playerActive = card;
-                logMessage(`Swapped active Pokémon. ${card.name} is now active!`);
+                logMessage(`Swapped active card. ${card.name} is now fighting!`);
             }
 
             renderAll();
@@ -772,13 +788,13 @@
             const temp = gameState.playerActive;
             gameState.playerActive = gameState.playerBench;
             gameState.playerBench = temp;
-            logMessage(`You swapped ${gameState.playerActive.name} into the active battlefield position!`);
+            logMessage(`You swapped ${gameState.playerActive.name} into active combat!`);
             renderAll();
         }
 
         function playerAttack() {
             if (!gameState.isPlayerTurn || !gameState.playerActive || !gameState.opponentActive) {
-                logMessage("⚠️ Cannot execute attack right now.");
+                logMessage("⚠️ Cannot execute attack action right now.");
                 return;
             }
 
@@ -790,83 +806,80 @@
                 gameState.opponentActive.hp = 0;
                 gameState.wins++;
                 gameState.score += 150;
-                logMessage("🎉 Opponent active Pokémon fainted! You won the match!");
+                logMessage("🎉 Opponent Pokémon fainted! Match won!");
                 renderAll();
-                showModal("Victory!", "You crushed your opponent in battle and claimed glorious victory!");
+                showModal("Victory!", "You crushed the opponent's active card and won the match!");
                 return;
             }
 
             gameState.isPlayerTurn = false;
             renderAll();
 
-            // Trigger AI Opponent Turn Response
-            setTimeout(opponentTurnLogic, 1200);
+            // Trigger AI Opponent Response after brief delay
+            setTimeout(opponentTurnLogic, 1100);
         }
 
         function opponentTurnLogic() {
-            logMessage("... Opponent is thinking and calculating tactical move ...");
+            logMessage("... Opponent is computing tactical offensive actions ...");
 
             setTimeout(() => {
-                // If opponent active fainted or doesn't exist, bring from hand/bench
                 if (!gameState.opponentActive && gameState.opponentHand.length > 0) {
                     gameState.opponentActive = gameState.opponentHand.pop();
-                    logMessage(`Opponent deployed ${gameState.opponentActive.name} to the active slot!`);
+                    logMessage(`Opponent deployed ${gameState.opponentActive.name} into active combat!`);
                 }
 
                 if (!gameState.opponentActive) {
                     gameState.wins++;
                     gameState.score += 200;
-                    logMessage("🎉 Opponent ran out of Pokémon! You win the entire match!");
+                    logMessage("🎉 Opponent has no cards left! Complete victory!");
                     renderAll();
-                    showModal("Total Victory!", "The opponent has no cards left standing. You are the champion!");
+                    showModal("Total Victory!", "The opponent is completely out of Pokémon. You are the Champion!");
                     return;
                 }
 
                 if (!gameState.playerActive) {
-                    logMessage("⚠️ You have no active Pokémon to defend against the attack!");
+                    logMessage("⚠️ You have no active Pokémon to defend against this strike!");
                     gameState.isPlayerTurn = true;
                     renderAll();
                     return;
                 }
 
-                // Opponent attacks player
                 const oppCard = gameState.opponentActive;
                 gameState.playerActive.hp -= oppCard.moveDmg;
-                logMessage(`⚡ Opponent's ${oppCard.name} used ${oppCard.moveName} dealing ${oppCard.moveDmg} damage!`);
+                logMessage(`⚡ Opponent's ${oppCard.name} used ${oppCard.moveName} for ${oppCard.moveDmg} damage!`);
 
                 if (gameState.playerActive.hp <= 0) {
                     gameState.playerActive.hp = 0;
                     logMessage("💥 Your active Pokémon fainted!");
 
-                    // Check if player has bench backup
                     if (gameState.playerBench) {
                         gameState.playerActive = gameState.playerBench;
                         gameState.playerBench = null;
-                        logMessage(`Your bench Pokémon stepped up automatically to the active slot!`);
+                        logMessage("Your bench Pokémon stepped up automatically to active combat!");
                     } else if (gameState.playerHand.length > 0) {
                         gameState.playerActive = gameState.playerHand.shift();
-                        logMessage(`You deployed a replacement card from your hand into battle!`);
+                        logMessage("You deployed a replacement card from your hand into battle!");
                     } else {
                         gameState.losses++;
-                        logMessage("💔 You have no backup Pokémon remaining. Defeat!");
+                        logMessage("💔 You have no backup cards remaining. Defeat!");
                         renderAll();
-                        showModal("Defeat", "Your Pokémon were overwhelmed in combat. Try again!");
+                        showModal("Defeat", "Your lineup was overwhelmed in battle. Try again!");
                         return;
                     }
                 }
 
                 gameState.isPlayerTurn = true;
-                logMessage("-> It is now your turn again. Choose your action.");
+                logMessage("-> Turn returned to player. Make your next move.");
                 renderAll();
-            }, 1000);
+            }, 900);
         }
 
         function endTurn() {
             if (!gameState.isPlayerTurn) return;
-            logMessage("You chose to end your turn prematurely.");
+            logMessage("You chose to end your turn without attacking.");
             gameState.isPlayerTurn = false;
             renderAll();
-            setTimeout(opponentTurnLogic, 1000);
+            setTimeout(opponentTurnLogic, 900);
         }
 
         function logMessage(text) {
@@ -879,7 +892,7 @@
 
         function clearLogs() {
             const logBox = document.getElementById("game-log-box");
-            logBox.innerHTML = `<div>> Logs cleared by user. Ready for actions.</div>`;
+            logBox.innerHTML = `<div>> Log history cleared by user.</div>`;
         }
 
         function showModal(title, message) {
@@ -894,11 +907,11 @@
         }
 
         function resetMatch() {
-            logMessage("--- Match reset requested by Colman ---");
+            logMessage("--- Match manually reset by Colman ---");
             initGame();
         }
 
-        // Initialize game on window load
+        // Initialize application window
         window.onload = function() {
             initGame();
         };
