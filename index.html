@@ -338,7 +338,7 @@
         }
 
         /* ==========================================================================
-           6. REAL POKEMON CARD DISPLAY & REVEAL GRID
+           6. REAL POKEMON CARD DISPLAY & REVEAL GRID (10 CARDS PER PACK)
            ========================================================================== */
         .pack-area {
             width: 100%;
@@ -356,10 +356,10 @@
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
             width: 100%;
-            max-height: 480px;
+            max-height: 520px;
             overflow-y: auto;
             padding: 10px;
         }
@@ -408,8 +408,8 @@
         }
 
         .pokeball-icon {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border: 4px solid var(--accent-gold);
             border-radius: 50%;
             background: linear-gradient(180deg, #ef4444 50%, #ffffff 50%);
@@ -422,8 +422,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             background: #111827;
             border: 3px solid #ffffff;
             border-radius: 50%;
@@ -448,8 +448,8 @@
             width: 100%;
             background: rgba(15, 23, 42, 0.92);
             color: #fff;
-            padding: 5px;
-            font-size: 0.68rem;
+            padding: 4px;
+            font-size: 0.62rem;
             text-align: center;
             backdrop-filter: blur(4px);
         }
@@ -703,7 +703,7 @@
     <header>
         <div class="header-title">
             <h1>Pokémon Real TCG Illustration Card Collector</h1>
-            <p>Target all 1,025 Pokémon • Collect Authentic Real-Life IR & SIR Cards into your Master Binder</p>
+            <p>Target all 1,025 Pokémon • Collect Authentic Real-Life IR & SIR Cards into your Master Binder (10 Cards/Pack)</p>
         </div>
         <div class="pokebank-badge">
             <div class="pokebank-label">PokéBank Balance</div>
@@ -777,11 +777,11 @@
 
         <!-- Booster Pack Reveal Panel -->
         <div class="panel">
-            <div class="panel-title">2. Booster Pack Opening</div>
+            <div class="panel-title">2. Booster Pack Opening (10 Cards)</div>
             
             <div class="pack-area">
                 <div class="btn-stack">
-                    <button class="btn btn-red" id="btn-open-pack" onclick="openBoosterPack()" disabled>📦 Open Booster Pack</button>
+                    <button class="btn btn-red" id="btn-open-pack" onclick="openBoosterPack()" disabled>📦 Open Booster Pack (10 Cards)</button>
                 </div>
                 
                 <div class="packs-left-badge" id="packs-left-text">Packs Remaining: 0</div>
@@ -807,7 +807,7 @@
 
     <!-- Activity Log -->
     <div class="log-wrapper" id="log-wrapper">
-        <div class="log-entry">> System connected to official Pokémon TCG API. Spin the Target Wheel to start!</div>
+        <div class="log-entry">> System connected to official Pokémon TCG API (10 Cards per Pack). Spin the Target Wheel to start!</div>
     </div>
 
     <!-- Real Card Art Selection Modal -->
@@ -830,9 +830,9 @@
            ========================================================================== */
         const TOTAL_DEX = 1025;
         
-        let masterCollection = JSON.parse(localStorage.getItem('bamf_real_ir_collection')) || {};
-        let pokeBankBalance = parseFloat(localStorage.getItem('bamf_pokebank_balance')) || 0.00;
-        let totalPacksOpened = parseInt(localStorage.getItem('bamf_packs_opened')) || 0;
+        let masterCollection = JSON.parse(localStorage.getItem('bamf_real_ir_collection_10pk')) || {};
+        let pokeBankBalance = parseFloat(localStorage.getItem('bamf_pokebank_balance_10pk')) || 0.00;
+        let totalPacksOpened = parseInt(localStorage.getItem('bamf_packs_opened_10pk')) || 0;
 
         let currentTarget = null;
         let remainingPacks = 0;
@@ -997,25 +997,26 @@
         }
 
         /* ==========================================================================
-           6. REAL POKEMON TCG CARD PACK SYSTEM
+           6. REAL POKEMON TCG CARD PACK SYSTEM (10 CARDS)
            ========================================================================== */
         async function openBoosterPack() {
             if (remainingPacks <= 0) return;
 
             const grid = document.getElementById('cards-grid');
-            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--accent-gold);">Ripping Pack & Querying Pokémon TCG Database...</div>';
+            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--accent-gold);">Ripping Pack of 10 Cards & Querying Pokémon TCG Database...</div>';
             document.getElementById('btn-open-pack').disabled = true;
 
             const selectedSet = document.getElementById('pack-set-select').value;
             grid.innerHTML = '';
 
-            for (let slot = 0; slot < 5; slot++) {
-                let dexId = (slot === 4 && Math.random() < 0.25 && currentTarget) 
+            // Generate exactly 10 cards per pack
+            for (let slot = 0; slot < 10; slot++) {
+                // Higher slot or final slot gets higher chance for target
+                let dexId = (slot >= 8 && Math.random() < 0.30 && currentTarget) 
                     ? currentTarget.id 
                     : Math.floor(Math.random() * TOTAL_DEX) + 1;
 
                 try {
-                    // Query Real TCGdex API for authentic cards
                     const realCardResponse = await fetch(`https://api.tcgdex.net/v2/en/cards?dexId=${dexId}`);
                     const realCards = await realCardResponse.json();
 
@@ -1024,10 +1025,9 @@
                     let rarity = 'Common';
 
                     if (realCards && realCards.length > 0) {
-                        // Look for IR/SIR cards first
                         const irCards = realCards.filter(c => c.rarity && (c.rarity.includes('Illustration') || c.rarity.includes('Special Illustration') || c.rarity.includes('Secret') || c.rarity.includes('Gallery')));
                         
-                        if (irCards.length > 0 && Math.random() < 0.35) {
+                        if (irCards.length > 0 && (slot >= 7 || Math.random() < 0.25)) {
                             realCard = irCards[Math.floor(Math.random() * irCards.length)];
                             isIR = true;
                             rarity = realCard.rarity || 'Illustration Rare';
@@ -1037,7 +1037,6 @@
                         }
                     }
 
-                    // Fallback image if API card image unavailable
                     const cardImageUrl = (realCard && realCard.image) 
                         ? `${realCard.image}/high.webp` 
                         : `https://assets.tcgdex.net/en/sv/${selectedSet}/${dexId}/high.webp`;
@@ -1091,7 +1090,7 @@
 
             remainingPacks--;
             totalPacksOpened++;
-            localStorage.setItem('bamf_packs_opened', totalPacksOpened);
+            localStorage.setItem('bamf_packs_opened_10pk', totalPacksOpened);
 
             document.getElementById('packs-left-text').innerText = `Packs Remaining: ${remainingPacks}`;
 
@@ -1117,7 +1116,7 @@
 
         function addValueToBank(val) {
             pokeBankBalance += parseFloat(val);
-            localStorage.setItem('bamf_pokebank_balance', pokeBankBalance.toFixed(2));
+            localStorage.setItem('bamf_pokebank_balance_10pk', pokeBankBalance.toFixed(2));
             updateDashboard();
         }
 
@@ -1194,7 +1193,7 @@
                 value: parseFloat(value)
             };
 
-            localStorage.setItem('bamf_real_ir_collection', JSON.stringify(masterCollection));
+            localStorage.setItem('bamf_real_ir_collection_10pk', JSON.stringify(masterCollection));
             updateSlotDisplay(dexId);
             updateDashboard();
             logMessage(`Saved real card for <strong>${name.toUpperCase()}</strong> into Binder Slot #${dexId}!`, 'log-ir');
