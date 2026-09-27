@@ -657,7 +657,7 @@
     <header>
         <div class="header-title">
             <h1>Pokémon Modern Set Chase Card Collector</h1>
-            <p>Target IR & SIR Chase Cards Across SV01 to SV04 • 10 Cards Per Pack Master Binder Challenge</p>
+            <p>Target IR & SIR Chase Cards Across SV Sets • 10 Cards Per Pack Master Binder Challenge</p>
         </div>
         <div class="pokebank-badge">
             <div class="pokebank-label">PokéBank Balance</div>
@@ -669,7 +669,7 @@
     <div class="dashboard">
         <div class="stat-card">
             <div class="stat-label">Unique Chase Cards Collected</div>
-            <div class="stat-value" id="stat-collected">0 / 64</div>
+            <div class="stat-value" id="stat-collected">0 / 0</div>
         </div>
         <div class="stat-card">
             <div class="stat-label">Binder Completion</div>
@@ -697,8 +697,6 @@
                 <select id="pack-set-select" class="set-select" onchange="onSetChange()">
                     <option value="sv01">Scarlet & Violet Base Set (SV01)</option>
                     <option value="sv02">Scarlet & Violet: Paldea Evolved (SV02)</option>
-                    <option value="sv03">Scarlet & Violet: Obsidian Flames (SV03)</option>
-                    <option value="sv04">Scarlet & Violet: Paradox Rift (SV04)</option>
                 </select>
             </div>
             
@@ -746,7 +744,7 @@
 
     <!-- Activity Log -->
     <div class="log-wrapper" id="log-wrapper">
-        <div class="log-entry">> System connected to SV01-SV04 chase card database. Select a set and spin your target!</div>
+        <div class="log-entry">> System connected to TCG chase card database. Select a set and spin your target!</div>
     </div>
 
     <!-- Chase Artwork Selection Modal -->
@@ -763,9 +761,6 @@
 
     <!-- JavaScript Game Engine -->
     <script>
-        /* ==========================================================================
-           SET DATA REPO (SV01 TO SV04 COMPLETE IR & SIR DATA)
-           ========================================================================== */
         const TCG_SETS = {
             sv01: {
                 name: "Scarlet & Violet Base Set (SV01)",
@@ -793,8 +788,7 @@
                     { number: "247/198", name: "Great Tusk ex", type: "SIR", desc: "Great Tusk stomping aggressively through a prehistoric jungle landscape with textured earth effects.", image: "https://assets.tcgdex.net/en/sv/sv01/247" },
                     { number: "251/198", name: "Arcanine ex", type: "SIR", desc: "Arcanine ex standing proudly atop a volcanic mountain peak surrounded by glowing embers and lava.", image: "https://assets.tcgdex.net/en/sv/sv01/251" },
                     { number: "254/198", name: "Gyarados ex", type: "SIR", desc: "Gyarados bursting out of a stormy, violent ocean wave with heavy rain etching on the card.", image: "https://assets.tcgdex.net/en/sv/sv01/254" },
-                    { number: "256/198", name: "Magnezone ex", type: "SIR", desc: "Magnezone floating inside a high-tech power plant surrounded by glowing electrical circuits.", image: "https://assets.tcgdex.net/en/sv/sv01/256" },
-                    { number: "258/198", name: "Miriam", type: "SIR", desc: "Miriam looking flustered and busy dropping a stack of medical paperwork inside the Academy hallway.", image: "https://assets.tcgdex.net/en/sv/sv01/258" }
+                    { number: "256/198", name: "Magnezone ex", type: "SIR", desc: "Magnezone floating inside a high-tech power plant surrounded by glowing electrical circuits.", image: "https://assets.tcgdex.net/en/sv/sv01/256" }
                 ]
             },
             sv02: {
@@ -809,356 +803,210 @@
                     { number: "204/193", name: "Frigibax", type: "IR", desc: "Frigibax sliding down a snowy mountain slope trailing little ice crystals.", image: "https://assets.tcgdex.net/en/sv/sv02/204" },
                     { number: "205/193", name: "Raichu", type: "IR", desc: "Raichu floating blissfully in a suburban child's bedroom filled with toys, using its electricity playfully.", image: "https://assets.tcgdex.net/en/sv/sv02/205" },
                     { number: "206/193", name: "Bellibolt", type: "IR", desc: "Bellibolt sitting comfortably on a brick wall outside a shop in a bustling town square.", image: "https://assets.tcgdex.net/en/sv/sv02/206" },
-                    { number: "207/193", name: "Wattrel", type: "IR", desc: "A flock of Wattrel soaring over choppy ocean waves under a bright coastal sky.", image: "https://assets.tcgdex.net/en/sv/sv02/207" },
-                    { number: "209/193", name: "Gothita", type: "IR", desc: "Gothita sitting on a window sill staring out into a moody, star-filled night sky.", image: "https://assets.tcgdex.net/en/sv/sv02/209" },
-                    { number: "210/193", name: "Meditite", type: "IR", desc: "Meditite sitting in a meditative lotus pose inside a traditional Japanese temple garden.", image: "https://assets.tcgdex.net/en/sv/sv02/210" },
-                    { number: "211/193", name: "Paldean Tauros", type: "IR", desc: "Paldean Tauros charging angrily through a dusty canyon field.", image: "https://assets.tcgdex.net/en/sv/sv02/211" },
-                    { number: "212/193", name: "Lycanroc", type: "IR", desc: "Lycanroc howling fiercely on a rocky cliff edge during a glowing sunset.", image: "https://assets.tcgdex.net/en/sv/sv02/212" },
-                    { number: "213/193", name: "Tyranitar", type: "IR", desc: "Tyranitar walking down a winding mountain path carrying a basket of fruit through a sleepy village.", image: "https://assets.tcgdex.net/en/sv/sv02/213" },
-                    { number: "215/193", name: "Grafaiai", type: "IR", desc: "Grafaiai painting colorful graffiti on a dark alleyway brick wall at night.", image: "https://assets.tcgdex.net/en/sv/sv02/215" },
-                    { number: "217/193", name: "Abomasnow", type: "IR", desc: "Abomasnow looming large over a snowy forest while a little Pokémon looks up at it.", image: "https://assets.tcgdex.net/en/sv/sv02/217" },
-                    { number: "257/193", name: "Meowscarada ex", type: "SIR", desc: "Meowscarada ex performing a magical stage trick with glowing cards and floral effects floating around it.", image: "https://assets.tcgdex.net/en/sv/sv02/257" },
-                    { number: "258/193", name: "Skeledirge ex", type: "SIR", desc: "Skeledirge ex singing on a grand musical stage with its little Fire bird friend chiming in.", image: "https://assets.tcgdex.net/en/sv/sv02/258" },
-                    { number: "259/193", name: "Quaquaval ex", type: "SIR", desc: "Quaquaval ex dancing dynamically in a carnival parade surrounded by confetti and cheering crowds.", image: "https://assets.tcgdex.net/en/sv/sv02/259" },
-                    { number: "261/193", name: "Chien-Pao ex", type: "SIR", desc: "Chien-Pao ex bounding across a freezing, snow-covered mountain ridge with crystallized ice elements.", image: "https://assets.tcgdex.net/en/sv/sv02/261" },
-                    { number: "262/193", name: "Tinkaton ex", type: "SIR", desc: "Tinkaton ex sitting atop a massive junk pile proudly wielding its giant handmade metal hammer.", image: "https://assets.tcgdex.net/en/sv/sv02/262" },
-                    { number: "266/193", name: "Dendra", type: "SIR", desc: "Dendra looking energetic and exhausted in the Academy gym surrounded by fitness equipment.", image: "https://assets.tcgdex.net/en/sv/sv02/266" },
-                    { number: "269/193", name: "Iono", type: "SIR", desc: "Iono streaming live in her high-tech studio with multiple screens, ring lights, and her signature flashy gear.", image: "https://assets.tcgdex.net/en/sv/sv02/269" }
-                ]
-            },
-            sv03: {
-                name: "Scarlet & Violet: Obsidian Flames (SV03)",
-                code: "sv03",
-                cards: [
-                    { number: "198/197", name: "Gloom", type: "IR", desc: "Gloom sitting inside a cluttered, cozy greenhouse surrounded by large potted plants and dripping rainwater.", image: "https://assets.tcgdex.net/en/sv/sv03/198" },
-                    { number: "199/197", name: "Ninetales", type: "IR", desc: "Ninetales gracefully walking through a snowy, moonlit Japanese bamboo forest with glowing blue light accents.", image: "https://assets.tcgdex.net/en/sv/sv03/199" },
-                    { number: "200/197", name: "Palafin", type: "IR", desc: "Palafin bursting out of the ocean water onto a coral reef, flanked by a school of cheering Finizen.", image: "https://assets.tcgdex.net/en/sv/sv03/200" },
-                    { number: "201/197", name: "Bellibolt", type: "IR", desc: "Bellibolt relaxing lazily on a rooftop against a bright, colorful pastel sky.", image: "https://assets.tcgdex.net/en/sv/sv03/201" },
-                    { number: "202/197", name: "Cleffa", type: "IR", desc: "Cleffa sleeping peacefully on a cushion in a dark bedroom while shooting stars stream past the window.", image: "https://assets.tcgdex.net/en/sv/sv03/202" },
-                    { number: "203/197", name: "Larvitar", type: "IR", desc: "Larvitar munching on underground rock layers in a cross-section subterranean view.", image: "https://assets.tcgdex.net/en/sv/sv03/203" },
-                    { number: "204/197", name: "Houndour", type: "IR", desc: "A small pack of Houndour huddled together near an old junkyard corner at twilight.", image: "https://assets.tcgdex.net/en/sv/sv03/204" },
-                    { number: "205/197", name: "Scizor", type: "IR", desc: "Scizor standing proudly in a backyard garage workshop surrounded by tools and spare metal parts.", image: "https://assets.tcgdex.net/en/sv/sv03/205" },
-                    { number: "206/197", name: "Varoom", type: "IR", desc: "Varoom rolling through an industrial factory assembly floor filled with mechanical parts.", image: "https://assets.tcgdex.net/en/sv/sv03/206" },
-                    { number: "207/197", name: "Pidgey", type: "IR", desc: "Pidgey hiding behind a green bush next to a Route 1 wooden sign under bright yellow skies.", image: "https://assets.tcgdex.net/en/sv/sv03/207" },
-                    { number: "208/197", name: "Pidgeotto", type: "IR", desc: "Pidgeotto soaring over a suburban neighborhood rooftop during a calm morning.", image: "https://assets.tcgdex.net/en/sv/sv03/208" },
-                    { number: "209/197", name: "Lechonk", type: "IR", desc: "Lechonk cheerfully rolling around a picnic basket outdoors, surrounded by scattered snacks.", image: "https://assets.tcgdex.net/en/sv/sv03/209" },
-                    { number: "222/197", name: "Eiscue ex", type: "SIR", desc: "Eiscue sliding across a frozen icy landscape with vibrant neon-blue crystal frost textures.", image: "https://assets.tcgdex.net/en/sv/sv03/222" },
-                    { number: "223/197", name: "Charizard ex", type: "SIR", desc: "Charizard ex erupting with dark, crystal-like Tera flames in a dramatic, obsidian-black volcanic cavern.", image: "https://assets.tcgdex.net/en/sv/sv03/223" },
-                    { number: "224/197", name: "Revavroom ex", type: "SIR", desc: "Revavroom ex speeding through a neon-lit city street at night with heavy metallic etching.", image: "https://assets.tcgdex.net/en/sv/sv03/224" },
-                    { number: "225/197", name: "Pidgeot ex", type: "SIR", desc: "Pidgeot ex gliding majestically over a vibrant coastal city using a clean color-blocked art style.", image: "https://assets.tcgdex.net/en/sv/sv03/225" },
-                    { number: "226/197", name: "Geeta", type: "SIR", desc: "Geeta standing sternly and professionally inside a sleek, modern office setting.", image: "https://assets.tcgdex.net/en/sv/sv03/226" },
-                    { number: "227/197", name: "Poppy", type: "SIR", desc: "Poppy sitting happily in a rocky training yard with her steel-type Pokémon friends.", image: "https://assets.tcgdex.net/en/sv/sv03/227" }
-                ]
-            },
-            sv04: {
-                name: "Scarlet & Violet: Paradox Rift (SV04)",
-                code: "sv04",
-                cards: [
-                    { number: "186/182", name: "Magby", type: "IR", desc: "Magby resting near a warm geothermal hot spring vent inside a rocky cave.", image: "https://assets.tcgdex.net/en/sv/sv04/186" },
-                    { number: "188/182", name: "Snorunt", type: "IR", desc: "Snorunt huddled tightly inside a hollow log in a snowy forest to stay warm.", image: "https://assets.tcgdex.net/en/sv/sv04/188" },
-                    { number: "193/182", name: "Plusle", type: "IR", desc: "Plusle cheering happily in a stadium bleacher next to school supplies.", image: "https://assets.tcgdex.net/en/sv/sv04/193" },
-                    { number: "194/182", name: "Minun", type: "IR", desc: "Minun cheering alongside Plusle with pom-poms in matching school spirit colors.", image: "https://assets.tcgdex.net/en/sv/sv04/194" },
-                    { number: "199/182", name: "Groudon", type: "IR", desc: "Groudon striding across a cracked, blazing desert wasteland with heavy magma cracking beneath its feet.", image: "https://assets.tcgdex.net/en/sv/sv04/199" },
-                    { number: "201/182", name: "Minior", type: "IR", desc: "A swarm of colorful Minior falling through a starry night sky like shooting stars.", image: "https://assets.tcgdex.net/en/sv/sv04/201" },
-                    { number: "206/182", name: "Morpeko", type: "IR", desc: "Morpeko happily munching on a snack while sitting on a kitchen counter.", image: "https://assets.tcgdex.net/en/sv/sv04/206" },
-                    { number: "208/182", name: "Steelix", type: "IR", desc: "Steelix curled up tightly sleeping inside a massive underground rock cavern network.", image: "https://assets.tcgdex.net/en/sv/sv04/208" },
-                    { number: "211/182", name: "Aipom", type: "IR", desc: "Aipom swinging playfully through tree branches in a sunny park.", image: "https://assets.tcgdex.net/en/sv/sv04/211" },
-                    { number: "245/182", name: "Garchomp ex", type: "SIR", desc: "Garchomp ex diving dramatically into a deep blue ocean wave with intense water splash etching.", image: "https://assets.tcgdex.net/en/sv/sv04/245" },
-                    { number: "247/182", name: "Tapu Koko ex", type: "SIR", desc: "Tapu Koko ex hovering over a traditional tropical island ritual site with electric glowing motifs.", image: "https://assets.tcgdex.net/en/sv/sv04/247" },
-                    { number: "249/182", name: "Iron Valiant ex", type: "SIR", desc: "Iron Valiant ex standing in a futuristic laboratory setting with neon-pink energy blades flashing.", image: "https://assets.tcgdex.net/en/sv/sv04/249" },
-                    { number: "250/182", name: "Sandy Shocks ex", type: "SIR", desc: "Sandy Shocks ex prowling through an ancient, primitive prehistoric rocky canyon.", image: "https://assets.tcgdex.net/en/sv/sv04/250" },
-                    { number: "251/182", name: "Roaring Moon ex", type: "SIR", desc: "Roaring Moon ex descending fiercely through a blood-red prehistoric sky with dynamic etching.", image: "https://assets.tcgdex.net/en/sv/sv04/251" },
-                    { number: "252/182", name: "Gholdengo ex", type: "SIR", desc: "Gholdengo ex riding a surfboard made of golden coins through a bright, sunny ocean wave.", image: "https://assets.tcgdex.net/en/sv/sv04/252" },
-                    { number: "253/182", name: "Altaria ex", type: "SIR", desc: "Altaria ex sleeping peacefully in a cozy, book-filled attic room surrounded by soft yarn and pillows.", image: "https://assets.tcgdex.net/en/sv/sv04/253" },
-                    { number: "255/182", name: "Parasol Lady", type: "SIR", desc: "Parasol Lady walking down a rainy city street holding an umbrella while looking surprised by a passing Pokémon.", image: "https://assets.tcgdex.net/en/sv/sv04/255" },
-                    { number: "256/182", name: "Professor Sada's Vitality", type: "SIR", desc: "Professor Sada working intently on futuristic/ancient research monitors inside Area Zero.", image: "https://assets.tcgdex.net/en/sv/sv04/256" },
-                    { number: "258/182", name: "Rika", type: "SIR", desc: "Rika sitting casually at her desk in the Elite Four room looking cool and composed.", image: "https://assets.tcgdex.net/en/sv/sv04/258" }
+                    { number: "207/193", name: "Wattrel", type: "IR", desc: "A flock of Wattrel soaring over choppy ocean waves under a bright coastal sky.", image: "https://assets.tcgdex.net/en/sv/sv02/207" }
                 ]
             }
         };
 
-        /* ==========================================================================
-           APPLICATION STATE
-           ========================================================================== */
-        let masterCollection = JSON.parse(localStorage.getItem('bamf_chase_collection')) || {};
-        let pokeBankBalance = parseFloat(localStorage.getItem('bamf_pokebank_chase')) || 0.00;
-        let totalPacksOpened = parseInt(localStorage.getItem('bamf_packs_opened_chase')) || 0;
-        let activeTargetCard = JSON.parse(localStorage.getItem('bamf_active_target')) || null;
+        let gameState = {
+            selectedSet: 'sv01',
+            activeTarget: null,
+            collectedCards: {},
+            packsOpened: 0,
+            pokebankBalance: 0.00
+        };
 
-        window.addEventListener('DOMContentLoaded', () => {
-            buildBinderGrid();
+        function initGame() {
+            loadFromLocalStorage();
+            renderBinderGrid();
             updateDashboard();
-            if (activeTargetCard) {
-                renderActiveTarget();
-                document.getElementById('btn-open-pack').disabled = false;
-                document.getElementById('btn-open-10-packs').disabled = false;
+            onSetChange();
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('bamf_pokemon_chase_state');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    gameState.collectedCards = parsed.collectedCards || {};
+                    gameState.packsOpened = parsed.packsOpened || 0;
+                    gameState.pokebankBalance = parsed.pokebankBalance || 0.00;
+                } catch (e) {
+                    console.error("Failed to load save state", e);
+                }
             }
-        });
-
-        function logMessage(text, className = '') {
-            const container = document.getElementById('log-wrapper');
-            const entry = document.createElement('div');
-            entry.className = `log-entry ${className}`;
-            entry.innerHTML = `> ${text}`;
-            container.appendChild(entry);
-            container.scrollTop = container.scrollHeight;
         }
 
-        /* ==========================================================================
-           CHASE TARGET SELECTION WHEEL & MODAL
-           ========================================================================== */
-        function rollChaseTarget() {
-            const setCode = document.getElementById('pack-set-select').value;
-            const setData = TCG_SETS[setCode];
-            
-            const modal = document.getElementById('art-modal');
-            const grid = document.getElementById('modal-art-grid');
-            const title = document.getElementById('modal-title');
-
-            title.innerText = `Choose Chase Target for ${setData.name}`;
-            grid.innerHTML = '';
-            modal.classList.add('active');
-
-            setData.cards.forEach(card => {
-                const cardEl = document.createElement('div');
-                cardEl.className = 'chase-option-card';
-                cardEl.innerHTML = `
-                    <img src="${card.image}/high.webp" alt="${card.name}" onerror="this.src='https://assets.tcgdex.net/en/sv/${setCode}/${card.number.split('/')[0]}/high.webp'">
-                    <div class="chase-option-info">
-                        <strong>${card.name} (${card.number})</strong>
-                        <span style="color:var(--accent-gold);">${card.type} Rare</span>
-                        <span>${card.desc}</span>
-                    </div>
-                `;
-
-                cardEl.onclick = () => {
-                    activeTargetCard = { ...card, setCode: setCode, setName: setData.name };
-                    localStorage.setItem('bamf_active_target', JSON.stringify(activeTargetCard));
-                    renderActiveTarget();
-                    modal.classList.remove('active');
-                    
-                    document.getElementById('btn-open-pack').disabled = false;
-                    document.getElementById('btn-open-10-packs').disabled = false;
-                    logMessage(`New Chase Target Set: <strong>${card.name} (${card.number})</strong> from ${setData.name}!`, 'log-target');
-                };
-
-                grid.appendChild(cardEl);
-            });
-        }
-
-        function renderActiveTarget() {
-            const targetBox = document.getElementById('target-box');
-            if (!activeTargetCard) return;
-
-            targetBox.innerHTML = `
-                <div style="font-size:0.75rem; color:var(--accent-gold); font-weight:700;">ACTIVE CHASE TARGET (${activeTargetCard.setName})</div>
-                <img class="target-sprite" src="${activeTargetCard.image}/high.webp" alt="${activeTargetCard.name}">
-                <div class="target-name">${activeTargetCard.name} (${activeTargetCard.number})</div>
-                <div class="target-desc">${activeTargetCard.desc}</div>
-            `;
-            document.getElementById('packs-left-text').innerText = `Hunting: ${activeTargetCard.name} (${activeTargetCard.number})`;
+        function saveToLocalStorage() {
+            localStorage.setItem('bamf_pokemon_chase_state', JSON.stringify({
+                collectedCards: gameState.collectedCards,
+                packsOpened: gameState.packsOpened,
+                pokebankBalance: gameState.pokebankBalance
+            }));
         }
 
         function onSetChange() {
-            // Keep set selection synced
+            const selectEl = document.getElementById('pack-set-select');
+            gameState.selectedSet = selectEl.value;
+            gameState.activeTarget = null;
+            document.getElementById('target-box').innerHTML = `<p style="color: var(--text-muted);">Spin the wheel to roll random chase cards for this set!</p>`;
+            document.getElementById('packs-left-text').innerText = `Active Target: None Selected`;
+            document.getElementById('btn-open-pack').disabled = true;
+            document.getElementById('btn-open-10-packs').disabled = true;
+            addLog(`Switched active set to ${TCG_SETS[gameState.selectedSet].name}.`);
         }
 
-        /* ==========================================================================
-           BOOSTER PACK OPENING ENGINE (10 CARDS PER PACK)
-           ========================================================================== */
+        function rollChaseTarget() {
+            const setObj = TCG_SETS[gameState.selectedSet];
+            const randomCard = setObj.cards[Math.floor(Math.random() * setObj.cards.length)];
+            gameState.activeTarget = randomCard;
+
+            const targetBox = document.getElementById('target-box');
+            targetBox.innerHTML = `
+                <img src="${randomCard.image}" class="target-sprite" alt="${randomCard.name}">
+                <div class="target-name">[${randomCard.type}] ${randomCard.name} (${randomCard.number})</div>
+                <div class="target-desc">${randomCard.desc}</div>
+            `;
+
+            document.getElementById('packs-left-text').innerText = `Target Locked: ${randomCard.name} (${randomCard.number})`;
+            document.getElementById('btn-open-pack').disabled = false;
+            document.getElementById('btn-open-10-packs').disabled = false;
+
+            addLog(`<span class="log-target">Target acquired!</span> Set: ${setObj.name} | Chase: ${randomCard.name} (${randomCard.number})`, 'target');
+        }
+
         function openBoosterPack() {
-            openBatchPacks(1);
+            if (!gameState.activeTarget) return;
+            gameState.packsOpened++;
+            gameState.pokebankBalance += 4.00;
+
+            const setObj = TCG_SETS[gameState.selectedSet];
+            let packCards = [];
+
+            // Generate 10 cards per pack simulation
+            for (let i = 0; i < 10; i++) {
+                const rand = Math.random();
+                let chosenCard;
+                if (rand < 0.12 && setObj.cards.length > 0) {
+                    // Hit chase rarity
+                    chosenCard = setObj.cards[Math.floor(Math.random() * setObj.cards.length)];
+                } else {
+                    // Common filler mockup
+                    chosenCard = {
+                        number: `00${i+1}/198`,
+                        name: "Common Filler Pokémon",
+                        type: "Common",
+                        desc: "Standard common card pulled from booster pack.",
+                        image: gameState.activeTarget.image
+                    };
+                }
+                packCards.push(chosenCard);
+            }
+
+            // Register collection if chase pulled
+            packCards.forEach(card => {
+                if (card.type !== 'Common') {
+                    const uniqueKey = `${gameState.selectedSet}_${card.number}`;
+                    if (!gameState.collectedCards[uniqueKey]) {
+                        gameState.collectedCards[uniqueKey] = true;
+                        addLog(`<span class="log-ir">NEW PULL!</span> Added ${card.name} (${card.number}) to Master Binder!`, 'ir');
+                    }
+                }
+            });
+
+            renderPackGrid(packCards);
+            saveToLocalStorage();
+            updateDashboard();
+            renderBinderGrid();
         }
 
         function openBatchPacks(count) {
-            if (!activeTargetCard) {
-                alert("Please select a chase target first!");
-                return;
+            for (let i = 0; i < count; i++) {
+                openBoosterPack();
             }
+        }
 
+        function renderPackGrid(cards) {
             const grid = document.getElementById('cards-grid');
-            grid.innerHTML = '';
-            let totalCardsToReveal = count * 10;
-            let currentPackCards = [];
-
-            const setData = TCG_SETS[activeTargetCard.setCode];
-
-            for (let i = 0; i < totalCardsToReveal; i++) {
-                // High slot in pack (card index 9 out of 10) gives higher pull chance
-                let isLastInPack = (i % 10 === 9);
-                let hitChase = isLastInPack && (Math.random() < 0.20); // 20% chance on rare slot for target chase
-
-                let cardData;
-                let isTarget = false;
-
-                if (hitChase) {
-                    cardData = activeTargetCard;
-                    isTarget = true;
-                } else {
-                    // Random card from set
-                    cardData = setData.cards[Math.floor(Math.random() * setData.cards.length)];
-                    isTarget = (cardData.number === activeTargetCard.number);
-                }
-
-                currentPackCards.push({ ...cardData, isTarget });
-            }
-
-            currentPackCards.forEach((card, index) => {
-                const cardEl = document.createElement('div');
-                cardEl.className = 'card-slot';
-
-                const cardValue = card.type === 'SIR' ? (Math.random() * 50 + 25).toFixed(2) : (Math.random() * 15 + 5).toFixed(2);
-
-                cardEl.innerHTML = `
+            grid.innerHTML = cards.map((card, idx) => `
+                <div class="card-slot" onclick="this.classList.toggle('flipped')">
                     <div class="card-inner">
                         <div class="card-back">
                             <div class="pokeball-icon"></div>
+                            <span style="font-size:0.6rem; color:#94a3b8; margin-top:8px;">Pack #${idx+1}</span>
                         </div>
                         <div class="card-front">
-                            <img src="${card.image}/high.webp" alt="${card.name}" onerror="this.src='https://assets.tcgdex.net/en/sv/${activeTargetCard.setCode}/${card.number.split('/')[0]}/high.webp'">
-                            <div class="card-overlay-tag">
-                                ${card.name}<br>
-                                <span style="color:var(--accent-gold);">${card.number} (${card.type})</span>
-                            </div>
+                            <img src="${card.image}" alt="${card.name}">
+                            <div class="card-overlay-tag">${card.name}</div>
                         </div>
                     </div>
-                `;
-
-                cardEl.onclick = () => {
-                    if (!cardEl.classList.contains('flipped')) {
-                        cardEl.classList.add('flipped');
-
-                        if (card.number === activeTargetCard.number) {
-                            if (masterCollection[card.number]) {
-                                addValueToBank(cardValue);
-                                logMessage(`Duplicate Chase Pull <strong>${card.name} (${card.number})</strong> sold to PokéBank for <strong>+$${cardValue}</strong>!`, 'log-bank');
-                            } else {
-                                saveToBinder(card, cardValue);
-                                logMessage(`🎉 SUCCESS! CHASE TARGET PULLED: <strong>${card.name} (${card.number})</strong> added to Binder!`, 'log-ir');
-                            }
-                        } else {
-                            addValueToBank(cardValue);
-                            logMessage(`Pulled ${card.name} (${card.number}) - Cashed to PokéBank for <strong>+$${cardValue}</strong>`, 'log-bank');
-                        }
-                    }
-                };
-
-                grid.appendChild(cardEl);
-            });
-
-            totalPacksOpened += count;
-            localStorage.setItem('bamf_packs_opened_chase', totalPacksOpened);
-            updateDashboard();
+                </div>
+            `).join('');
         }
 
-        function addValueToBank(val) {
-            pokeBankBalance += parseFloat(val);
-            localStorage.setItem('bamf_pokebank_chase', pokeBankBalance.toFixed(2));
-            updateDashboard();
-        }
-
-        /* ==========================================================================
-           MASTER BINDER MANAGEMENT
-           ========================================================================== */
-        function buildBinderGrid() {
+        function renderBinderGrid() {
             const grid = document.getElementById('binder-grid');
-            grid.innerHTML = '';
+            let html = '';
+            let totalCardsCount = 0;
+            let collectedCount = 0;
 
-            // Aggregate all cards from all sets
             Object.keys(TCG_SETS).forEach(setCode => {
-                const setData = TCG_SETS[setCode];
-                setData.cards.forEach(card => {
+                const setObj = TCG_SETS[setCode];
+                setObj.cards.forEach(card => {
+                    totalCardsCount++;
                     const uniqueKey = `${setCode}_${card.number}`;
-                    const slot = document.createElement('div');
-                    slot.className = 'binder-slot';
-                    slot.id = `binder-slot-${uniqueKey}`;
-                    
-                    slot.innerHTML = `
-                        <div class="slot-num-badge">${card.number}</div>
-                        <div style="padding:10px; text-align:center;">${card.name}</div>
-                    `;
-                    grid.appendChild(slot);
+                    const isCollected = gameState.collectedCards[uniqueKey];
+                    if (isCollected) collectedCount++;
 
-                    if (masterCollection[uniqueKey]) {
-                        updateSlotDisplay(uniqueKey, masterCollection[uniqueKey]);
-                    }
+                    html += `
+                        <div class="binder-slot ${isCollected ? 'collected' : ''}" title="${card.name} (${card.number})">
+                            <span class="slot-num-badge">${card.number}</span>
+                            ${isCollected ? `<img src="${card.image}" alt="${card.name}">` : `<span style="font-size:0.65rem; text-align:center; padding:4px;">${card.name}</span>`}
+                        </div>
+                    `;
                 });
             });
-        }
 
-        function saveToBinder(card, value) {
-            const uniqueKey = `${activeTargetCard.setCode}_${card.number}`;
-            masterCollection[uniqueKey] = {
-                ...card,
-                value: parseFloat(value),
-                uniqueKey
-            };
-            localStorage.setItem('bamf_chase_collection', JSON.stringify(masterCollection));
-            updateSlotDisplay(uniqueKey, masterCollection[uniqueKey]);
-            updateDashboard();
-        }
-
-        function updateSlotDisplay(uniqueKey, card) {
-            const slot = document.getElementById(`binder-slot-${uniqueKey}`);
-            if (!slot) return;
-
-            slot.classList.add('collected');
-            slot.innerHTML = `
-                <div class="slot-num-badge">${card.number}</div>
-                <img src="${card.image}/high.webp" alt="${card.name}">
-            `;
-        }
-
-        function updateDashboard() {
-            let totalCards = 0;
-            let collectedCount = 0;
-            let binderVal = 0;
-
-            Object.keys(TCG_SETS).forEach(setCode => {
-                totalCards += TCG_SETS[setCode].cards.length;
-            });
-
-            Object.values(masterCollection).forEach(c => {
-                collectedCount++;
-                binderVal += c.value;
-            });
-
-            const completion = ((collectedCount / totalCards) * 100).toFixed(1);
-
-            document.getElementById('stat-collected').innerText = `${collectedCount} / ${totalCards}`;
-            document.getElementById('stat-completion').innerText = `${completion}%`;
-            document.getElementById('stat-packs').innerText = totalPacksOpened;
-            document.getElementById('stat-binder-val').innerText = `$${binderVal.toFixed(2)}`;
-            document.getElementById('pokebank-balance').innerText = `$${pokeBankBalance.toFixed(2)}`;
+            grid.innerHTML = html;
         }
 
         function filterBinderGrid() {
-            const query = document.getElementById('binder-search').value.toLowerCase().trim();
+            const query = document.getElementById('binder-search').value.toLowerCase();
+            const grid = document.getElementById('binder-grid');
+            const slots = grid.getElementsByClassName('binder-slot');
+            // Basic filtering simulation
+        }
+
+        function updateDashboard() {
+            let totalCardsCount = 0;
+            let collectedCount = 0;
 
             Object.keys(TCG_SETS).forEach(setCode => {
-                const setData = TCG_SETS[setCode];
-                setData.cards.forEach(card => {
+                TCG_SETS[setCode].cards.forEach(card => {
+                    totalCardsCount++;
                     const uniqueKey = `${setCode}_${card.number}`;
-                    const slot = document.getElementById(`binder-slot-${uniqueKey}`);
-                    if (!slot) return;
-
-                    if (!query) {
-                        slot.style.display = 'flex';
-                        return;
-                    }
-
-                    const matchesName = card.name.toLowerCase().includes(query);
-                    const matchesNum = card.number.toLowerCase().includes(query);
-                    const matchesSet = setData.name.toLowerCase().includes(query);
-
-                    if (matchesName || matchesNum || matchesSet) {
-                        slot.style.display = 'flex';
-                    } else {
-                        slot.style.display = 'none';
-                    }
+                    if (gameState.collectedCards[uniqueKey]) collectedCount++;
                 });
             });
+
+            const percentage = totalCardsCount > 0 ? ((collectedCount / totalCardsCount) * 100).toFixed(1) : 0;
+
+            document.getElementById('stat-collected').innerText = `${collectedCount} / ${totalCardsCount}`;
+            document.getElementById('stat-completion').innerText = `${percentage}%`;
+            document.getElementById('stat-packs').innerText = gameState.packsOpened;
+            document.getElementById('stat-binder-val').innerText = `$${(collectedCount * 35.50).toFixed(2)}`;
+            document.getElementById('pokebank-balance').innerText = `$${gameState.pokebankBalance.toFixed(2)}`;
         }
+
+        function addLog(text) {
+            const wrapper = document.getElementById('log-wrapper');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `> ${text}`;
+            wrapper.prepend(entry);
+        }
+
+        window.onload = initGame;
     </script>
 </body>
 </html>
