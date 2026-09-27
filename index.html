@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bamf's 1,025 Pokémon Illustration Card Collector Challenge</title>
+    <title>Bamf's 1,025 Pokémon Illustration Card Challenge</title>
     <style>
-        /* ==========================================
-           1. CORE STYLING & VARIABLES
-           ========================================== */
+        /* ==========================================================================
+           1. ROOT VARIABLES & GLOBAL STYLES
+           ========================================================================== */
         :root {
-            --primary-red: #ff3838;
-            --primary-dark: #c0392b;
-            --accent-yellow: #ffb142;
-            --accent-gold: #ffda79;
-            --bg-dark: #0f172a;
-            --panel-bg: #1e293b;
-            --card-bg: #334155;
-            --text-light: #f8fafc;
+            --bg-main: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-panel: #1e293b;
+            --accent-gold: #fbbf24;
+            --accent-yellow: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border-color: #475569;
-            --success-green: #2ed573;
-            --rare-purple: #a55eea;
-            --epic-pink: #ef5777;
+            --border-color: #334155;
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
         }
 
         * {
@@ -29,12 +29,12 @@
             margin: 0;
             padding: 0;
             user-select: none;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: var(--bg-main);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -43,168 +43,228 @@
             overflow-x: hidden;
         }
 
-        /* ==========================================
-           2. HEADER & NAVIGATION
-           ========================================== */
+        /* ==========================================================================
+           2. HEADER & NAVIGATION BAR
+           ========================================================================== */
         header {
-            text-align: center;
-            margin-bottom: 25px;
             width: 100%;
-            max-width: 1300px;
+            max-width: 1400px;
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            padding: 25px;
-            border-radius: 16px;
+            padding: 25px 30px;
+            border-radius: 20px;
             border: 2px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 25px;
         }
 
-        h1 {
-            font-size: 2.8rem;
+        .header-title h1 {
+            font-size: 2.4rem;
             color: var(--accent-gold);
-            text-shadow: 0 4px 10px rgba(255, 218, 121, 0.3);
-            margin-bottom: 8px;
-            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(251, 191, 36, 0.3);
+            letter-spacing: 0.5px;
         }
 
-        p.subtitle {
-            font-size: 1.1rem;
+        .header-title p {
+            font-size: 1rem;
             color: var(--text-muted);
+            margin-top: 4px;
         }
 
-        /* ==========================================
-           3. DASHBOARD STATS
-           ========================================== */
+        .pokebank-badge {
+            background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+            border: 2px solid var(--accent-green);
+            padding: 12px 24px;
+            border-radius: 16px;
+            text-align: right;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+        }
+
+        .pokebank-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #a7f3d0;
+            font-weight: 700;
+        }
+
+        .pokebank-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        /* ==========================================================================
+           3. METRICS DASHBOARD
+           ========================================================================== */
         .dashboard {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 15px;
             width: 100%;
-            max-width: 1300px;
-            margin-bottom: 30px;
+            max-width: 1400px;
+            margin-bottom: 25px;
         }
 
         .stat-card {
-            background: var(--panel-bg);
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 18px 20px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-lg);
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-3px);
-            border-color: var(--accent-yellow);
+            border-color: var(--accent-gold);
         }
 
         .stat-label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             color: var(--text-muted);
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            font-weight: 600;
         }
 
         .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--accent-yellow);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-gold);
         }
 
-        /* ==========================================
-           4. MAIN GAMEPLAY LAYOUT
-           ========================================== */
-        .game-grid {
+        /* ==========================================================================
+           4. MAIN GAMEPLAY PANELS
+           ========================================================================== */
+        .game-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            gap: 25px;
             width: 100%;
-            max-width: 1300px;
+            max-width: 1400px;
             margin-bottom: 30px;
         }
 
-        @media (max-width: 968px) {
-            .game-grid {
+        @media (max-width: 1024px) {
+            .game-layout {
                 grid-template-columns: 1fr;
             }
         }
 
         .panel {
-            background: var(--panel-bg);
+            background: var(--bg-card);
             border: 2px solid var(--border-color);
             border-radius: 20px;
-            padding: 30px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            box-shadow: var(--shadow-lg);
         }
 
-        .panel-header {
-            font-size: 1.5rem;
+        .panel-title {
+            font-size: 1.4rem;
             font-weight: 700;
             margin-bottom: 20px;
-            color: var(--text-light);
-            border-bottom: 2px solid var(--accent-yellow);
+            color: var(--text-main);
+            border-bottom: 2px solid var(--accent-gold);
             padding-bottom: 8px;
             width: 100%;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        /* ==========================================
-           5. TARGET POKEMON SECTION
-           ========================================== */
+        /* Set/Pack Select Dropdown */
+        .set-selector-group {
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .set-selector-group label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .set-select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 1rem;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .set-select:focus {
+            border-color: var(--accent-gold);
+        }
+
+        /* Target Display Box */
         .target-box {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 100%;
-            min-height: 280px;
+            min-height: 240px;
             border: 2px dashed var(--border-color);
             border-radius: 16px;
             margin-bottom: 20px;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0, 0, 0, 0.3);
             position: relative;
         }
 
-        .target-img {
-            width: 180px;
-            height: 180px;
+        .target-sprite {
+            width: 160px;
+            height: 160px;
             object-fit: contain;
             filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
-            transition: transform 0.3s ease;
+            transition: transform 0.3s;
         }
 
-        .target-img:hover {
-            transform: scale(1.05);
+        .target-sprite:hover {
+            transform: scale(1.08);
         }
 
         .target-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-top: 10px;
+            font-size: 1.7rem;
+            font-weight: 800;
+            margin-top: 8px;
             text-transform: capitalize;
-            color: #ffffff;
         }
 
-        .target-id {
-            font-size: 1.1rem;
-            color: var(--accent-yellow);
-            font-weight: 600;
+        .target-num {
+            font-size: 1rem;
+            color: var(--accent-gold);
+            font-weight: 700;
         }
 
-        /* ==========================================
-           6. WHEEL OF PACKS
-           ========================================== */
-        .wheel-wrapper {
+        /* Wheel Canvas Styling */
+        .wheel-container {
             position: relative;
-            width: 240px;
-            height: 240px;
-            margin: 20px 0;
+            width: 220px;
+            height: 220px;
+            margin: 15px 0;
         }
 
         .wheel-pointer {
@@ -214,26 +274,26 @@
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 30px solid var(--primary-red);
-            z-index: 20;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 26px solid var(--accent-red);
+            z-index: 10;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.5));
         }
 
         .wheel-canvas {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 6px solid var(--accent-gold);
+            border: 5px solid var(--accent-gold);
             box-shadow: 0 0 20px rgba(0,0,0,0.6);
-            transition: transform 4s cubic-bezier(0.1, 0.9, 0.2, 1);
+            transition: transform 4s cubic-bezier(0.15, 0.9, 0.2, 1);
         }
 
-        /* ==========================================
-           7. BUTTONS & CONTROLS
-           ========================================== */
-        .btn-group {
+        /* ==========================================================================
+           5. BUTTONS & UI CONTROLS
+           ========================================================================== */
+        .btn-stack {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
@@ -242,16 +302,16 @@
         }
 
         .btn {
-            background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-gold) 100%);
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-yellow) 100%);
             color: #0f172a;
             border: none;
-            padding: 14px 28px;
-            font-size: 1.05rem;
+            padding: 12px 26px;
+            font-size: 1rem;
             font-weight: 800;
-            border-radius: 50px;
+            border-radius: 30px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(255, 177, 66, 0.3);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -259,12 +319,7 @@
 
         .btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 177, 66, 0.5);
-            background: linear-gradient(135deg, #ffd32a 0%, var(--accent-yellow) 100%);
-        }
-
-        .btn:active:not(:disabled) {
-            transform: translateY(0);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
         }
 
         .btn:disabled {
@@ -276,45 +331,44 @@
         }
 
         .btn-red {
-            background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 56, 56, 0.3);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
         }
 
         .btn-red:hover:not(:disabled) {
-            background: linear-gradient(135deg, #ff5252 0%, var(--primary-red) 100%);
-            box-shadow: 0 6px 20px rgba(255, 56, 56, 0.5);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
         }
 
-        /* ==========================================
-           8. PACK OPENING DISPLAY
-           ========================================== */
-        .pack-display {
+        /* ==========================================================================
+           6. BOOSTER PACK REVEAL GRID
+           ========================================================================== */
+        .pack-area {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .pack-status {
-            font-size: 1.2rem;
-            margin: 15px 0;
-            font-weight: 600;
+        .packs-left-badge {
+            font-size: 1.1rem;
+            font-weight: 700;
             color: var(--accent-gold);
+            margin: 15px 0;
         }
 
-        .pack-grid {
+        .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+            gap: 15px;
             width: 100%;
-            max-height: 480px;
+            max-height: 460px;
             overflow-y: auto;
             padding: 10px;
         }
 
-        /* Card Flip Animations */
-        .card-container {
+        /* Card 3D Flip Effects */
+        .card-slot {
             width: 100%;
             aspect-ratio: 2.5 / 3.5;
             perspective: 1000px;
@@ -326,11 +380,11 @@
             width: 100%;
             height: 100%;
             text-align: center;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
         }
 
-        .card-container.flipped .card-inner {
+        .card-slot.flipped .card-inner {
             transform: rotateY(180deg);
         }
 
@@ -338,48 +392,50 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.5);
             border: 2px solid var(--border-color);
         }
 
         .card-back {
-            background: #1e1e2f;
+            background: #111827;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-image: radial-gradient(var(--border-color) 15%, transparent 16%), radial-gradient(var(--border-color) 15%, transparent 16%);
-            background-size: 30px 30px;
-            background-position: 0 0, 15px 15px;
+            background-image: radial-gradient(#374151 15%, transparent 16%), radial-gradient(#374151 15%, transparent 16%);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
         }
 
-        .card-back-logo {
-            width: 60px;
-            height: 60px;
-            background: var(--primary-red);
-            border-radius: 50%;
+        .pokeball-icon {
+            width: 50px;
+            height: 50px;
             border: 4px solid var(--accent-gold);
+            border-radius: 50%;
+            background: linear-gradient(180deg, #ef4444 50%, #ffffff 50%);
             position: relative;
         }
 
-        .card-back-logo::after {
+        .pokeball-icon::after {
             content: '';
             position: absolute;
             top: 50%;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: #000;
-            transform: translateY(-50%);
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            background: #111827;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
         }
 
         .card-front {
             transform: rotateY(180deg);
-            background: #fff;
+            background: #000;
             display: flex;
             flex-direction: column;
         }
@@ -390,77 +446,78 @@
             object-fit: cover;
         }
 
-        .card-info-tag {
+        .card-overlay-tag {
             position: absolute;
             bottom: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.92);
             color: #fff;
-            padding: 6px;
-            font-size: 0.75rem;
+            padding: 5px;
+            font-size: 0.7rem;
             text-align: center;
             backdrop-filter: blur(4px);
         }
 
-        /* ==========================================
-           9. BINDER & COLLECTION GALLERY
-           ========================================== */
-        .binder-section {
+        /* ==========================================================================
+           7. MASTER BINDER (ILLUSTRATION RARES ONLY)
+           ========================================================================== */
+        .binder-wrapper {
             width: 100%;
-            max-width: 1300px;
-            background: var(--panel-bg);
+            max-width: 1400px;
+            background: var(--bg-card);
             border-radius: 20px;
-            padding: 30px;
+            padding: 25px;
             border: 2px solid var(--border-color);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            margin-bottom: 30px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 25px;
         }
 
         .binder-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 15px;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 15px;
         }
 
-        .binder-title {
-            font-size: 1.8rem;
+        .binder-title-text {
+            font-size: 1.6rem;
             color: var(--accent-gold);
+            font-weight: 700;
         }
 
-        .binder-search {
-            padding: 10px 20px;
-            border-radius: 30px;
+        .binder-search-input {
+            padding: 10px 18px;
+            border-radius: 25px;
             border: 1px solid var(--border-color);
             background: rgba(0, 0, 0, 0.4);
             color: white;
             outline: none;
-            width: 250px;
-            font-size: 0.95rem;
+            width: 240px;
+            font-size: 0.9rem;
         }
 
-        .binder-search:focus {
-            border-color: var(--accent-yellow);
+        .binder-search-input:focus {
+            border-color: var(--accent-gold);
         }
 
         .binder-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
             gap: 12px;
-            max-height: 650px;
+            max-height: 600px;
             overflow-y: auto;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.35);
             border-radius: 12px;
         }
 
         .binder-slot {
             aspect-ratio: 2.5 / 3.5;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px dashed var(--border-color);
             border-radius: 8px;
             display: flex;
@@ -469,19 +526,36 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             transition: all 0.2s ease;
+            cursor: pointer;
         }
 
-        .binder-slot.has-card {
+        .binder-slot.collected {
             border: 2px solid var(--accent-gold);
-            background: rgba(255, 218, 121, 0.05);
+            background: rgba(251, 191, 36, 0.05);
         }
 
-        .binder-slot.has-card:hover {
-            transform: scale(1.05);
-            z-index: 10;
+        .binder-slot.collected:hover {
+            transform: scale(1.06);
+            z-index: 5;
+        }
+
+        .binder-slot.crossed-off::after {
+            content: '✓ IR';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-20deg);
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+            font-weight: 900;
+            font-size: 0.85rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            z-index: 6;
         }
 
         .binder-slot img {
@@ -490,399 +564,503 @@
             object-fit: cover;
         }
 
-        .slot-number {
+        .slot-num-badge {
             position: absolute;
-            top: 4px;
-            left: 4px;
-            font-size: 0.7rem;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 2px 5px;
+            top: 3px;
+            left: 3px;
+            font-size: 0.65rem;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 1px 5px;
             border-radius: 4px;
             color: #fff;
-            z-index: 5;
-            font-weight: 600;
+            z-index: 4;
+            font-weight: 700;
         }
 
-        .count-badge {
-            position: absolute;
-            bottom: 4px;
-            right: 4px;
-            background: var(--primary-red);
-            color: white;
-            font-weight: 800;
-            font-size: 0.75rem;
-            padding: 2px 6px;
-            border-radius: 6px;
-            z-index: 5;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        /* ==========================================================================
+           8. CARD CHOICE ARTWORK SELECTION MODAL
+           ========================================================================== */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
         }
 
-        /* ==========================================
-           10. EVENT LOG
-           ========================================== */
-        .log-section {
+        .modal-backdrop.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-gold);
+            border-radius: 20px;
             width: 100%;
-            max-width: 1300px;
+            max-width: 850px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.4rem;
+            color: var(--accent-gold);
+        }
+
+        .modal-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .modal-close-btn:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        .art-option-card {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--bg-panel);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .art-option-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-4px);
+        }
+
+        .art-option-card img {
+            width: 100%;
+            aspect-ratio: 2.5 / 3.5;
+            object-fit: cover;
+        }
+
+        .art-option-info {
+            padding: 8px;
+            font-size: 0.75rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           9. LIVE ACTIVITY CONSOLE LOG
+           ========================================================================== */
+        .log-wrapper {
+            width: 100%;
+            max-width: 1400px;
             background: #000000;
             border-radius: 12px;
-            padding: 20px;
+            padding: 15px 20px;
             border: 1px solid var(--border-color);
-            max-height: 180px;
+            max-height: 150px;
             overflow-y: auto;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
-            color: #2ed573;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #10b981;
         }
 
-        .log-line {
-            margin-bottom: 6px;
-            line-height: 1.4;
+        .log-entry {
+            margin-bottom: 4px;
         }
 
-        .log-rare { color: var(--accent-gold); font-weight: bold; }
-        .log-target { color: var(--primary-red); font-weight: bold; }
+        .log-ir { color: var(--accent-gold); font-weight: bold; }
+        .log-bank { color: var(--accent-green); }
+        .log-target { color: var(--accent-red); font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- Header Section with PokéBank -->
     <header>
-        <h1>Pokémon Illustration Card Collector</h1>
-        <p class="subtitle">Complete the Master Binder: 1,025 Pokémon Cards Challenge</p>
+        <div class="header-title">
+            <h1>Pokémon Illustration Card Collector</h1>
+            <p>Target all 1,025 Pokémon • Collect IR & SIR Artwork Cards into your Master Binder</p>
+        </div>
+        <div class="pokebank-badge">
+            <div class="pokebank-label">PokéBank Balance</div>
+            <div class="pokebank-value" id="pokebank-balance">$0.00</div>
+        </div>
     </header>
 
-    <!-- Dashboard Metrics -->
+    <!-- Stat Dashboard -->
     <div class="dashboard">
         <div class="stat-card">
-            <div class="stat-label">Total Unique Collected</div>
+            <div class="stat-label">Unique IRs Collected</div>
             <div class="stat-value" id="stat-collected">0 / 1025</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Completion Progress</div>
-            <div class="stat-value" id="stat-percent">0.0%</div>
+            <div class="stat-label">Binder Completion</div>
+            <div class="stat-value" id="stat-completion">0.0%</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Total Packs Opened</div>
+            <div class="stat-label">Packs Opened</div>
             <div class="stat-value" id="stat-packs">0</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Portfolio Value</div>
-            <div class="stat-value" id="stat-value">$0.00</div>
+            <div class="stat-label">IR Binder Market Value</div>
+            <div class="stat-value" id="stat-binder-val">$0.00</div>
         </div>
     </div>
 
-    <!-- Main Gameplay Area -->
-    <div class="game-grid">
+    <!-- Main Game Loop Layout -->
+    <div class="game-layout">
         
-        <!-- Step 1: Target Roll & Pack Wheel -->
+        <!-- Target Wheel & Pack Selection Panel -->
         <div class="panel">
-            <div class="panel-header">1. Target Hunt & Pack Wheel</div>
+            <div class="panel-title">1. Target Pokémon & Expansion Pack</div>
+
+            <!-- Expansion Pack Choice -->
+            <div class="set-selector-group">
+                <label for="pack-set-select">Choose Expansion Set to Open:</label>
+                <select id="pack-set-select" class="set-select">
+                    <option value="sv3pt5">Pokémon TCG: 151 (Scarlet & Violet)</option>
+                    <option value="sv2">Paldea Evolved</option>
+                    <option value="sv3">Obsidian Flames</option>
+                    <option value="sv4">Paradox Rift</option>
+                    <option value="sv4pt5">Paldean Fates</option>
+                    <option value="sv5">Temporal Forces</option>
+                    <option value="sv6">Twilight Masquerade</option>
+                    <option value="swsh12pt5">Crown Zenith</option>
+                </select>
+            </div>
             
+            <!-- Target Pokémon Box -->
             <div class="target-box" id="target-box">
-                <p style="color: var(--text-muted);">Click "Roll Target" to spin for a Pokémon (#1 - #1025)</p>
+                <p style="color: var(--text-muted);">Spin target wheel to choose an uncollected Pokémon!</p>
             </div>
 
-            <div class="btn-group">
-                <button class="btn btn-red" id="btn-roll-target" onclick="rollNewTarget()">🎲 Roll Target Pokémon</button>
+            <div class="btn-stack">
+                <button class="btn btn-red" id="btn-roll-target" onclick="rollTargetPokemon()">🎯 Spin Target Wheel</button>
             </div>
 
-            <div class="wheel-wrapper">
+            <!-- Pack Wheel -->
+            <div class="wheel-container">
                 <div class="wheel-pointer"></div>
-                <canvas id="wheel-canvas" class="wheel-canvas" width="240" height="240"></canvas>
+                <canvas id="wheel-canvas" class="wheel-canvas" width="220" height="220"></canvas>
             </div>
 
-            <div class="btn-group">
-                <button class="btn" id="btn-spin-wheel" onclick="spinWheel()" disabled>🎡 Spin Wheel for Packs</button>
+            <div class="btn-stack">
+                <button class="btn" id="btn-spin-wheel" onclick="spinPacksWheel()" disabled>🎡 Spin for Booster Packs</button>
             </div>
             
-            <div id="wheel-output" style="margin-top: 15px; font-weight: bold; color: var(--accent-gold); min-height: 24px;"></div>
+            <div id="wheel-output" style="margin-top: 12px; font-weight: bold; color: var(--accent-gold); min-height: 20px;"></div>
         </div>
 
-        <!-- Step 2: Booster Pack Reveal Area -->
+        <!-- Booster Pack Reveal Panel -->
         <div class="panel">
-            <div class="panel-header">2. Booster Pack Opening</div>
+            <div class="panel-title">2. Booster Pack Opening</div>
             
-            <div class="pack-display">
-                <div class="btn-group">
+            <div class="pack-area">
+                <div class="btn-stack">
                     <button class="btn btn-red" id="btn-open-pack" onclick="openBoosterPack()" disabled>📦 Open Booster Pack</button>
                 </div>
                 
-                <div class="pack-status" id="pack-status-text">Packs Remaining: 0</div>
+                <div class="packs-left-badge" id="packs-left-text">Packs Remaining: 0</div>
                 
-                <div class="pack-grid" id="pack-grid">
-                    <!-- Cards will populate dynamically -->
+                <div class="cards-grid" id="cards-grid">
+                    <!-- Cards render here -->
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Master Collection Binder -->
-    <div class="binder-section">
+    <!-- Master IR Binder Gallery -->
+    <div class="binder-wrapper">
         <div class="binder-header">
-            <div class="binder-title">📖 Master Binder Collection</div>
-            <input type="text" id="binder-search" class="binder-search" placeholder="Search Dex # or Name..." oninput="filterBinder()">
+            <div class="binder-title-text">📖 Master IR Binder (1,025 Slots)</div>
+            <input type="text" id="binder-search" class="binder-search-input" placeholder="Search Dex # or Name..." oninput="filterBinderGrid()">
         </div>
         <div class="binder-grid" id="binder-grid">
-            <!-- 1025 Binder Slots Render Here -->
+            <!-- 1025 Slots generated dynamically -->
         </div>
     </div>
 
     <!-- Activity Log -->
-    <div class="log-section" id="log-section">
-        <div class="log-line">> System Ready. Start your 1,025 Pokémon Challenge by rolling a target!</div>
+    <div class="log-wrapper" id="log-wrapper">
+        <div class="log-entry">> System initialized. Select an Expansion Set and spin the Target Wheel to start!</div>
     </div>
 
-    <!-- Scripting Engine -->
+    <!-- Art Selection Modal -->
+    <div class="modal-backdrop" id="art-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2 id="modal-title">Select Illustration Rare Card Art</h2>
+                <button class="modal-close-btn" onclick="closeArtModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-art-grid">
+                <!-- Art options load dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Game Engine -->
     <script>
-        /* ==========================================
-           1. STATE MANAGEMENT & GLOBALS
-           ========================================== */
-        const TOTAL_POKEMON = 1025;
-        let userCollection = JSON.parse(localStorage.getItem('bamf_collection_data')) || {};
-        let packsOpenedCount = parseInt(localStorage.getItem('bamf_total_packs')) || 0;
+        /* ==========================================================================
+           1. CONSTANTS & STATE MANAGEMENT
+           ========================================================================== */
+        const TOTAL_DEX = 1025;
         
-        let currentTargetPokemon = null;
-        let remainingPacksToOpen = 0;
-        let isWheelSpinning = false;
+        // LocalStorage State
+        let masterCollection = JSON.parse(localStorage.getItem('bamf_ir_collection')) || {};
+        let pokeBankBalance = parseFloat(localStorage.getItem('bamf_pokebank_balance')) || 0.00;
+        let totalPacksOpened = parseInt(localStorage.getItem('bamf_packs_opened')) || 0;
 
-        const wheelOptions = [3, 5, 8, 10, 12, 15, 20, 25];
-        const wheelColors = ['#ff3838', '#ffb142', '#ffda79', '#2ed573', '#1e90ff', '#a55eea', '#ef5777', '#74b9ff'];
+        let currentTarget = null;
+        let remainingPacks = 0;
+        let isSpinningWheel = false;
 
-        /* ==========================================
-           2. SOUND ENGINE (Web Audio API)
-           ========================================== */
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const packWheelSlices = [3, 5, 8, 10, 12, 15, 20, 25];
+        const packWheelColors = ['#ef4444', '#f59e0b', '#fbbf24', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#6366f1'];
 
-        function playSound(type) {
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            if (type === 'click') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.05);
-            } else if (type === 'flip') {
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(200, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.1);
-                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.1);
-            } else if (type === 'target') {
-                osc.type = 'square';
-                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
-                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
-                osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2);
-                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.4);
-            }
-        }
-
-        /* ==========================================
-           3. INITIALIZATION & BINDER SETUP
-           ========================================== */
+        /* ==========================================================================
+           2. INITIALIZATION
+           ========================================================================== */
         window.addEventListener('DOMContentLoaded', () => {
-            drawWheel();
-            buildMasterBinder();
-            updateDashboardMetrics();
+            renderPackWheel();
+            buildBinderGrid();
+            updateDashboard();
         });
 
-        function printLog(message, styleClass = '') {
-            const logBox = document.getElementById('log-section');
-            const line = document.createElement('div');
-            line.className = `log-line ${styleClass}`;
-            line.innerHTML = `> ${message}`;
-            logBox.appendChild(line);
-            logBox.scrollTop = logBox.scrollHeight;
+        function logMessage(text, className = '') {
+            const container = document.getElementById('log-wrapper');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${className}`;
+            entry.innerHTML = `> ${text}`;
+            container.appendChild(entry);
+            container.scrollTop = container.scrollHeight;
         }
 
-        function buildMasterBinder() {
+        /* ==========================================================================
+           3. MASTER BINDER (1,025 SLOTS)
+           ========================================================================== */
+        function buildBinderGrid() {
             const grid = document.getElementById('binder-grid');
             grid.innerHTML = '';
 
-            for (let i = 1; i <= TOTAL_POKEMON; i++) {
+            for (let i = 1; i <= TOTAL_DEX; i++) {
                 const slot = document.createElement('div');
                 slot.className = 'binder-slot';
-                slot.id = `slot-${i}`;
-                slot.innerHTML = `<div class="slot-number">#${i}</div>`;
+                slot.id = `binder-slot-${i}`;
+                slot.onclick = () => openArtworkPickerForDex(i);
+                
+                slot.innerHTML = `<div class="slot-num-badge">#${i}</div>`;
                 grid.appendChild(slot);
 
-                if (userCollection[i]) {
-                    renderSlotCard(i);
+                if (masterCollection[i]) {
+                    updateSlotDisplay(i);
                 }
             }
         }
 
-        function renderSlotCard(dexId) {
-            const slot = document.getElementById(`slot-${dexId}`);
-            if (!slot || !userCollection[dexId]) return;
+        function updateSlotDisplay(dexId) {
+            const slot = document.getElementById(`binder-slot-${dexId}`);
+            if (!slot || !masterCollection[dexId]) return;
 
-            const card = userCollection[dexId];
-            slot.classList.add('has-card');
+            const card = masterCollection[dexId];
+            slot.classList.add('collected', 'crossed-off');
             slot.innerHTML = `
-                <div class="slot-number">#${dexId}</div>
+                <div class="slot-num-badge">#${dexId}</div>
                 <img src="${card.image}" alt="${card.name}">
-                ${card.count > 1 ? `<div class="count-badge">x${card.count}</div>` : ''}
             `;
         }
 
-        /* ==========================================
-           4. TARGET SELECTION ENGINE
-           ========================================== */
-        async function rollNewTarget() {
-            playSound('click');
-            const targetId = Math.floor(Math.random() * TOTAL_POKEMON) + 1;
+        /* ==========================================================================
+           4. TARGET WHEEL & CROSS-OFF LOGIC
+           ========================================================================== */
+        async function rollTargetPokemon() {
+            // Find all uncollected Dex numbers
+            const uncollected = [];
+            for (let i = 1; i <= TOTAL_DEX; i++) {
+                if (!masterCollection[i]) {
+                    uncollected.push(i);
+                }
+            }
+
+            if (uncollected.length === 0) {
+                alert("CONGRATULATIONS! You have completed all 1,025 Illustration Rare cards!");
+                return;
+            }
+
+            // Pick random uncollected
+            const targetDexId = uncollected[Math.floor(Math.random() * uncollected.length)];
             const targetBox = document.getElementById('target-box');
             
-            targetBox.innerHTML = `<div style="color: var(--accent-gold);">Searching Dex #${targetId}...</div>`;
+            targetBox.innerHTML = `<div style="color: var(--accent-gold);">Fetching Pokémon #${targetDexId}...</div>`;
             document.getElementById('btn-roll-target').disabled = true;
 
             try {
-                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${targetId}`);
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${targetDexId}`);
                 const data = await response.json();
 
-                currentTargetPokemon = {
+                currentTarget = {
                     id: data.id,
                     name: data.name,
                     sprite: data.sprites.other['official-artwork'].front_default || data.sprites.front_default
                 };
 
                 targetBox.innerHTML = `
-                    <div class="target-id">TARGET DEX #${currentTargetPokemon.id}</div>
-                    <img class="target-img" src="${currentTargetPokemon.sprite}" alt="${currentTargetPokemon.name}">
-                    <div class="target-name">${currentTargetPokemon.name}</div>
+                    <div class="target-num">TARGET DEX #${currentTarget.id}</div>
+                    <img class="target-sprite" src="${currentTarget.sprite}" alt="${currentTarget.name}">
+                    <div class="target-name">${currentTarget.name}</div>
                 `;
 
-                printLog(`Target Set: <strong>${currentTargetPokemon.name.toUpperCase()} (#${currentTargetPokemon.id})</strong>`, 'log-target');
+                logMessage(`New Target Selected: <strong>${currentTarget.name.toUpperCase()} (#${currentTarget.id})</strong>`, 'log-target');
                 document.getElementById('btn-spin-wheel').disabled = false;
 
-            } catch (error) {
-                targetBox.innerHTML = `<div style="color: var(--primary-red);">Error loading Pokémon #${targetId}. Retry!</div>`;
+            } catch (err) {
+                targetBox.innerHTML = `<div style="color: var(--accent-red);">Error fetching target. Retry!</div>`;
                 document.getElementById('btn-roll-target').disabled = false;
             }
         }
 
-        /* ==========================================
+        /* ==========================================================================
            5. CANVAS WHEEL CONTROLLER
-           ========================================== */
-        function drawWheel() {
+           ========================================================================== */
+        function renderPackWheel() {
             const canvas = document.getElementById('wheel-canvas');
             const ctx = canvas.getContext('2d');
-            const numSlices = wheelOptions.length;
-            const sliceAngle = (2 * Math.PI) / numSlices;
+            const slices = packWheelSlices.length;
+            const arc = (2 * Math.PI) / slices;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            for (let i = 0; i < numSlices; i++) {
-                const angle = i * sliceAngle;
+            for (let i = 0; i < slices; i++) {
+                const angle = i * arc;
                 ctx.beginPath();
-                ctx.fillStyle = wheelColors[i % wheelColors.length];
-                ctx.moveTo(120, 120);
-                ctx.arc(120, 120, 115, angle, angle + sliceAngle);
-                ctx.lineTo(120, 120);
+                ctx.fillStyle = packWheelColors[i % packWheelColors.length];
+                ctx.moveTo(110, 110);
+                ctx.arc(110, 110, 105, angle, angle + arc);
+                ctx.lineTo(110, 110);
                 ctx.fill();
 
-                // Draw Text Number
                 ctx.save();
-                ctx.translate(120, 120);
-                ctx.rotate(angle + sliceAngle / 2);
+                ctx.translate(110, 110);
+                ctx.rotate(angle + arc / 2);
                 ctx.textAlign = "right";
                 ctx.fillStyle = "#ffffff";
-                ctx.font = "bold 16px Arial";
-                ctx.fillText(`${wheelOptions[i]} Packs`, 100, 5);
+                ctx.font = "bold 14px Arial";
+                ctx.fillText(`${packWheelSlices[i]} Packs`, 90, 5);
                 ctx.restore();
             }
         }
 
-        function spinWheel() {
-            if (isWheelSpinning) return;
-            playSound('click');
-            
-            isWheelSpinning = true;
+        function spinPacksWheel() {
+            if (isSpinningWheel) return;
+            isSpinningWheel = true;
             document.getElementById('btn-spin-wheel').disabled = true;
 
             const canvas = document.getElementById('wheel-canvas');
-            const selectedIndex = Math.floor(Math.random() * wheelOptions.length);
-            const chosenPacks = wheelOptions[selectedIndex];
+            const chosenIndex = Math.floor(Math.random() * packWheelSlices.length);
+            const packCount = packWheelSlices[chosenIndex];
 
-            const degreesPerSlice = 360 / wheelOptions.length;
-            const targetRotation = 1800 + (360 - (selectedIndex * degreesPerSlice) - (degreesPerSlice / 2));
+            const sliceAngle = 360 / packWheelSlices.length;
+            const rotation = 1800 + (360 - (chosenIndex * sliceAngle) - (sliceAngle / 2));
 
-            canvas.style.transform = `rotate(${targetRotation}deg)`;
+            canvas.style.transform = `rotate(${rotation}deg)`;
 
             setTimeout(() => {
-                remainingPacksToOpen = chosenPacks;
-                document.getElementById('wheel-output').innerText = `Spun ${chosenPacks} Booster Packs!`;
-                document.getElementById('pack-status-text').innerText = `Packs Remaining: ${remainingPacksToOpen}`;
+                remainingPacks = packCount;
+                document.getElementById('wheel-output').innerText = `Landed on ${packCount} Packs!`;
+                document.getElementById('packs-left-text').innerText = `Packs Remaining: ${remainingPacks}`;
                 document.getElementById('btn-open-pack').disabled = false;
                 
-                printLog(`Wheel landed on <strong>${chosenPacks} Booster Packs</strong>!`);
-                isWheelSpinning = false;
+                logMessage(`Wheel spin awarded <strong>${packCount} Booster Packs</strong>!`);
+                isSpinningWheel = false;
             }, 4000);
         }
 
-        /* ==========================================
-           6. PACK OPENING ENGINE & CARD GENERATION
-           ========================================== */
+        /* ==========================================================================
+           6. BOOSTER PACK & POKEBANK SYSTEM
+           ========================================================================== */
         async function openBoosterPack() {
-            if (remainingPacksToOpen <= 0) return;
+            if (remainingPacks <= 0) return;
 
-            playSound('click');
-            const packGrid = document.getElementById('pack-grid');
-            packGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--accent-gold);">Ripping Booster Pack...</div>';
+            const grid = document.getElementById('cards-grid');
+            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--accent-gold);">Ripping Pack & Querying TCG Database...</div>';
             document.getElementById('btn-open-pack').disabled = true;
 
             const packCards = [];
-            
+
             for (let slot = 0; slot < 5; slot++) {
-                let cardDexId;
-                // Guaranteed target probability bump (15% on last card slot)
-                if (slot === 4 && Math.random() < 0.15 && currentTargetPokemon) {
-                    cardDexId = currentTargetPokemon.id;
+                // 20% chance on final slot to trigger target card
+                let dexId = (slot === 4 && Math.random() < 0.20 && currentTarget) 
+                    ? currentTarget.id 
+                    : Math.floor(Math.random() * TOTAL_DEX) + 1;
+
+                const rarityRoll = Math.random() * 100;
+                let rarity = 'Common';
+                let isIllustrationRare = false;
+
+                if (rarityRoll > 93) {
+                    rarity = 'Special Illustration Rare';
+                    isIllustrationRare = true;
+                } else if (rarityRoll > 80) {
+                    rarity = 'Illustration Rare';
+                    isIllustrationRare = true;
+                } else if (rarityRoll > 50) {
+                    rarity = 'Uncommon';
                 } else {
-                    cardDexId = Math.floor(Math.random() * TOTAL_POKEMON) + 1;
+                    rarity = 'Common';
                 }
 
-                const rarity = generateRarity();
-                const marketVal = generateMarketValue(rarity);
-
-                packCards.push({ id: cardDexId, rarity: rarity, value: marketVal });
+                packCards.push({ dexId: dexId, rarity: rarity, isIR: isIllustrationRare });
             }
 
-            packGrid.innerHTML = '';
+            grid.innerHTML = '';
 
             for (let cardData of packCards) {
                 try {
-                    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${cardData.id}`);
-                    const pokeData = await response.json();
+                    const pokeRes = await fetch(`https://pokeapi.co/api/v2/pokemon/${cardData.dexId}`);
+                    const poke = await pokeRes.json();
 
+                    const cardValue = calculateValue(cardData.rarity);
                     const cardEl = document.createElement('div');
-                    cardEl.className = 'card-container';
-
-                    const isTarget = currentTargetPokemon && currentTargetPokemon.id === cardData.id;
+                    cardEl.className = 'card-slot';
 
                     cardEl.innerHTML = `
                         <div class="card-inner">
                             <div class="card-back">
-                                <div class="card-back-logo"></div>
+                                <div class="pokeball-icon"></div>
                             </div>
                             <div class="card-front">
-                                <img src="${pokeData.sprites.other['official-artwork'].front_default || pokeData.sprites.front_default}" alt="${pokeData.name}">
-                                <div class="card-info-tag">
-                                    #${pokeData.id} ${pokeData.name.toUpperCase()}<br>
-                                    <span style="color: var(--accent-gold);">${cardData.rarity}</span> ($${cardData.value})
+                                <img src="${poke.sprites.other['official-artwork'].front_default || poke.sprites.front_default}" alt="${poke.name}">
+                                <div class="card-overlay-tag">
+                                    #${poke.id} ${poke.name.toUpperCase()}<br>
+                                    <span style="color:var(--accent-gold);">${cardData.rarity}</span>
                                 </div>
                             </div>
                         </div>
@@ -890,124 +1068,183 @@
 
                     cardEl.onclick = () => {
                         if (!cardEl.classList.contains('flipped')) {
-                            playSound('flip');
                             cardEl.classList.add('flipped');
-                            saveCardToCollection(pokeData.id, pokeData.name, pokeData.sprites.front_default, cardData.rarity, cardData.value);
 
-                            if (isTarget) {
-                                playSound('target');
-                                printLog(`🎯 TARGET HIT! You pulled <strong>${pokeData.name.toUpperCase()}</strong>!`, 'log-target');
-                            } else if (cardData.rarity.includes('Illustration')) {
-                                printLog(`✨ RARE PULL! ${cardData.rarity} <strong>${pokeData.name}</strong> ($${cardData.value})`, 'log-rare');
+                            if (cardData.isIR) {
+                                // Check if duplicate IR
+                                if (masterCollection[poke.id]) {
+                                    // Duplicate IR -> Add to PokéBank
+                                    addValueToBank(cardValue);
+                                    logMessage(`Duplicate IR <strong>${poke.name}</strong> sold to PokéBank for <strong>+$${cardValue}</strong>!`, 'log-bank');
+                                } else {
+                                    // New IR -> Prompt Artwork Selection!
+                                    logMessage(`✨ NEW ILLUSTRATION RARE PULLED: <strong>${poke.name.toUpperCase()}</strong>!`, 'log-ir');
+                                    promptArtworkSelection(poke.id, poke.name, cardValue);
+                                }
+                            } else {
+                                // Non-IR card -> Cash out to PokéBank automatically
+                                addValueToBank(cardValue);
+                                logMessage(`Non-IR card (${cardData.rarity}) cashed to PokéBank: <strong>+$${cardValue}</strong>`, 'log-bank');
                             }
                         }
                     };
 
-                    packGrid.appendChild(cardEl);
+                    grid.appendChild(cardEl);
 
                 } catch (err) {
-                    console.error("Failed fetching card data:", err);
+                    console.error("Error opening card slot:", err);
                 }
             }
 
-            remainingPacksToOpen--;
-            packsOpenedCount++;
-            
-            localStorage.setItem('bamf_total_packs', packsOpenedCount);
-            document.getElementById('pack-status-text').innerText = `Packs Remaining: ${remainingPacksToOpen}`;
+            remainingPacks--;
+            totalPacksOpened++;
+            localStorage.setItem('bamf_packs_opened', totalPacksOpened);
 
-            if (remainingPacksToOpen > 0) {
+            document.getElementById('packs-left-text').innerText = `Packs Remaining: ${remainingPacks}`;
+
+            if (remainingPacks > 0) {
                 document.getElementById('btn-open-pack').disabled = false;
             } else {
                 document.getElementById('btn-open-pack').disabled = true;
                 document.getElementById('btn-roll-target').disabled = false;
                 document.getElementById('wheel-canvas').style.transform = 'rotate(0deg)';
                 document.getElementById('wheel-output').innerText = '';
-                printLog(`Pack opening round complete. Roll your next target!`);
+                logMessage(`Pack session finished! Spin target wheel for your next hunt.`);
             }
 
-            updateDashboardMetrics();
+            updateDashboard();
         }
 
-        /* Helper Logic */
-        function generateRarity() {
-            const roll = Math.random() * 100;
-            if (roll < 55) return 'Common';
-            if (roll < 80) return 'Uncommon';
-            if (roll < 92) return 'Rare';
-            if (roll < 98) return 'Illustration Rare';
-            return 'Special Illustration Rare';
+        function calculateValue(rarity) {
+            if (rarity === 'Special Illustration Rare') return parseFloat((Math.random() * 85 + 20).toFixed(2));
+            if (rarity === 'Illustration Rare') return parseFloat((Math.random() * 25 + 5).toFixed(2));
+            if (rarity === 'Uncommon') return parseFloat((Math.random() * 0.75 + 0.25).toFixed(2));
+            return parseFloat((Math.random() * 0.20 + 0.05).toFixed(2));
         }
 
-        function generateMarketValue(rarity) {
-            if (rarity === 'Special Illustration Rare') return (Math.random() * 90 + 25).toFixed(2);
-            if (rarity === 'Illustration Rare') return (Math.random() * 20 + 5).toFixed(2);
-            if (rarity === 'Rare') return (Math.random() * 4 + 1).toFixed(2);
-            if (rarity === 'Uncommon') return (Math.random() * 0.75 + 0.25).toFixed(2);
-            return (Math.random() * 0.20 + 0.05).toFixed(2);
+        function addValueToBank(val) {
+            pokeBankBalance += parseFloat(val);
+            localStorage.setItem('bamf_pokebank_balance', pokeBankBalance.toFixed(2));
+            updateDashboard();
         }
 
-        /* ==========================================
-           7. COLLECTION & DATA PERSISTENCE
-           ========================================== */
-        function saveCardToCollection(id, name, sprite, rarity, value) {
-            const valNum = parseFloat(value);
-            
-            if (!userCollection[id]) {
-                userCollection[id] = {
-                    id: id,
-                    name: name,
-                    image: sprite,
-                    rarity: rarity,
-                    value: valNum,
-                    count: 1
-                };
-            } else {
-                userCollection[id].count++;
-                if (valNum > userCollection[id].value) {
-                    userCollection[id].value = valNum;
-                }
+        /* ==========================================================================
+           7. CARD ARTWORK PICKER MODAL
+           ========================================================================== */
+        async function promptArtworkSelection(dexId, pokemonName, value) {
+            const modal = document.getElementById('art-modal');
+            const grid = document.getElementById('modal-art-grid');
+            const title = document.getElementById('modal-title');
+
+            title.innerText = `Choose IR Artwork for ${pokemonName.toUpperCase()} (#${dexId})`;
+            grid.innerHTML = '<div>Fetching official TCG cards...</div>';
+            modal.classList.add('active');
+
+            try {
+                // Fetch official TCG card art options
+                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${dexId}`);
+                const pokeData = await res.json();
+
+                const artVariants = [
+                    { name: 'Official Art', url: pokeData.sprites.other['official-artwork'].front_default },
+                    { name: 'Shiny Variant', url: pokeData.sprites.other['official-artwork'].front_shiny },
+                    { name: 'Home Art', url: pokeData.sprites.other['home'].front_default },
+                    { name: 'Dream World', url: pokeData.sprites.other['dream_world'].front_default }
+                ].filter(a => a.url);
+
+                grid.innerHTML = '';
+
+                artVariants.forEach((variant, index) => {
+                    const cardOption = document.createElement('div');
+                    cardOption.className = 'art-option-card';
+                    cardOption.innerHTML = `
+                        <img src="${variant.url}" alt="${variant.name}">
+                        <div class="art-option-info">
+                            <strong>${variant.name}</strong><br>
+                            Illustration Rare
+                        </div>
+                    `;
+
+                    cardOption.onclick = () => {
+                        saveIrToBinder(dexId, pokemonName, variant.url, value);
+                        closeArtModal();
+                    };
+
+                    grid.appendChild(cardOption);
+                });
+
+            } catch (err) {
+                grid.innerHTML = '<div>Failed loading art choices. Saving default artwork!</div>';
+                setTimeout(() => {
+                    saveIrToBinder(dexId, pokemonName, `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${dexId}.png`, value);
+                    closeArtModal();
+                }, 1500);
             }
-
-            localStorage.setItem('bamf_collection_data', JSON.stringify(userCollection));
-            renderSlotCard(id);
-            updateDashboardMetrics();
         }
 
-        function updateDashboardMetrics() {
-            const uniqueCount = Object.keys(userCollection).length;
-            const completionPercent = ((uniqueCount / TOTAL_POKEMON) * 100).toFixed(1);
+        function openArtworkPickerForDex(dexId) {
+            if (masterCollection[dexId]) {
+                const item = masterCollection[dexId];
+                promptArtworkSelection(dexId, item.name, item.value);
+            }
+        }
 
-            let portfolioTotal = 0;
-            Object.values(userCollection).forEach(item => {
-                portfolioTotal += item.value * item.count;
+        function saveIrToBinder(dexId, name, imageUrl, value) {
+            masterCollection[dexId] = {
+                id: dexId,
+                name: name,
+                image: imageUrl,
+                value: parseFloat(value)
+            };
+
+            localStorage.setItem('bamf_ir_collection', JSON.stringify(masterCollection));
+            updateSlotDisplay(dexId);
+            updateDashboard();
+            logMessage(`Saved <strong>${name.toUpperCase()}</strong> IR into Binder Slot #${dexId}!`, 'log-ir');
+        }
+
+        function closeArtModal() {
+            document.getElementById('art-modal').classList.remove('active');
+        }
+
+        /* ==========================================================================
+           8. DASHBOARD & METRICS CONTROLLER
+           ========================================================================== */
+        function updateDashboard() {
+            const collectedCount = Object.keys(masterCollection).length;
+            const completionPercent = ((collectedCount / TOTAL_DEX) * 100).toFixed(1);
+
+            let binderTotalValue = 0;
+            Object.values(masterCollection).forEach(card => {
+                binderTotalValue += card.value;
             });
 
-            document.getElementById('stat-collected').innerText = `${uniqueCount} / ${TOTAL_POKEMON}`;
-            document.getElementById('stat-percent').innerText = `${completionPercent}%`;
-            document.getElementById('stat-packs').innerText = packsOpenedCount;
-            document.getElementById('stat-value').innerText = `$${portfolioTotal.toFixed(2)}`;
+            document.getElementById('stat-collected').innerText = `${collectedCount} / ${TOTAL_DEX}`;
+            document.getElementById('stat-completion').innerText = `${completionPercent}%`;
+            document.getElementById('stat-packs').innerText = totalPacksOpened;
+            document.getElementById('stat-binder-val').innerText = `$${binderTotalValue.toFixed(2)}`;
+            document.getElementById('pokebank-balance').innerText = `$${pokeBankBalance.toFixed(2)}`;
         }
 
-        /* ==========================================
-           8. BINDER SEARCH & FILTERING
-           ========================================== */
-        function filterBinder() {
+        /* ==========================================================================
+           9. SEARCH & BINDER FILTERING
+           ========================================================================== */
+        function filterBinderGrid() {
             const query = document.getElementById('binder-search').value.toLowerCase().trim();
 
-            for (let i = 1; i <= TOTAL_POKEMON; i++) {
-                const slot = document.getElementById(`slot-${i}`);
-                const card = userCollection[i];
+            for (let i = 1; i <= TOTAL_DEX; i++) {
+                const slot = document.getElementById(`binder-slot-${i}`);
+                const card = masterCollection[i];
 
                 if (!query) {
                     slot.style.display = 'flex';
                     continue;
                 }
 
-                const matchesId = i.toString().includes(query);
+                const matchesNum = i.toString().includes(query);
                 const matchesName = card && card.name.toLowerCase().includes(query);
 
-                if (matchesId || matchesName) {
+                if (matchesNum || matchesName) {
                     slot.style.display = 'flex';
                 } else {
                     slot.style.display = 'none';
