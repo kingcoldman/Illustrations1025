@@ -185,7 +185,6 @@
             gap: 10px;
         }
 
-        /* Set/Pack Select Dropdown */
         .set-selector-group {
             width: 100%;
             margin-bottom: 20px;
@@ -218,7 +217,6 @@
             border-color: var(--accent-gold);
         }
 
-        /* Target Display Box */
         .target-box {
             display: flex;
             flex-direction: column;
@@ -259,7 +257,6 @@
             font-weight: 700;
         }
 
-        /* Wheel Canvas Styling */
         .wheel-container {
             position: relative;
             width: 220px;
@@ -341,7 +338,7 @@
         }
 
         /* ==========================================================================
-           6. BOOSTER PACK REVEAL GRID
+           6. REAL POKEMON CARD DISPLAY & REVEAL GRID
            ========================================================================== */
         .pack-area {
             width: 100%;
@@ -359,18 +356,17 @@
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 15px;
             width: 100%;
-            max-height: 460px;
+            max-height: 480px;
             overflow-y: auto;
             padding: 10px;
         }
 
-        /* Card 3D Flip Effects */
         .card-slot {
             width: 100%;
-            aspect-ratio: 2.5 / 3.5;
+            aspect-ratio: 2.45 / 3.42;
             perspective: 1000px;
             cursor: pointer;
         }
@@ -453,7 +449,7 @@
             background: rgba(15, 23, 42, 0.92);
             color: #fff;
             padding: 5px;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             text-align: center;
             backdrop-filter: blur(4px);
         }
@@ -506,7 +502,7 @@
 
         .binder-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
             gap: 12px;
             max-height: 600px;
             overflow-y: auto;
@@ -516,7 +512,7 @@
         }
 
         .binder-slot {
-            aspect-ratio: 2.5 / 3.5;
+            aspect-ratio: 2.45 / 3.42;
             background: rgba(255, 255, 255, 0.02);
             border: 1px dashed var(--border-color);
             border-radius: 8px;
@@ -543,18 +539,18 @@
         }
 
         .binder-slot.crossed-off::after {
-            content: '✓ IR';
+            content: '✓ IR CARD';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(-20deg);
-            background: rgba(16, 185, 129, 0.9);
+            background: rgba(16, 185, 129, 0.95);
             color: white;
             font-weight: 900;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             padding: 4px 8px;
             border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.6);
             z-index: 6;
         }
 
@@ -604,7 +600,7 @@
             border: 2px solid var(--accent-gold);
             border-radius: 20px;
             width: 100%;
-            max-width: 850px;
+            max-width: 900px;
             max-height: 90vh;
             display: flex;
             flex-direction: column;
@@ -642,7 +638,7 @@
             padding: 20px;
             overflow-y: auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
             gap: 15px;
         }
 
@@ -664,7 +660,7 @@
 
         .art-option-card img {
             width: 100%;
-            aspect-ratio: 2.5 / 3.5;
+            aspect-ratio: 2.45 / 3.42;
             object-fit: cover;
         }
 
@@ -706,8 +702,8 @@
     <!-- Header Section with PokéBank -->
     <header>
         <div class="header-title">
-            <h1>Pokémon Illustration Card Collector</h1>
-            <p>Target all 1,025 Pokémon • Collect IR & SIR Artwork Cards into your Master Binder</p>
+            <h1>Pokémon Real TCG Illustration Card Collector</h1>
+            <p>Target all 1,025 Pokémon • Collect Authentic Real-Life IR & SIR Cards into your Master Binder</p>
         </div>
         <div class="pokebank-badge">
             <div class="pokebank-label">PokéBank Balance</div>
@@ -718,7 +714,7 @@
     <!-- Stat Dashboard -->
     <div class="dashboard">
         <div class="stat-card">
-            <div class="stat-label">Unique IRs Collected</div>
+            <div class="stat-label">Unique Real IRs Collected</div>
             <div class="stat-value" id="stat-collected">0 / 1025</div>
         </div>
         <div class="stat-card">
@@ -740,20 +736,20 @@
         
         <!-- Target Wheel & Pack Selection Panel -->
         <div class="panel">
-            <div class="panel-title">1. Target Pokémon & Expansion Pack</div>
+            <div class="panel-title">1. Target Pokémon & TCG Set</div>
 
             <!-- Expansion Pack Choice -->
             <div class="set-selector-group">
-                <label for="pack-set-select">Choose Expansion Set to Open:</label>
+                <label for="pack-set-select">Select Real TCG Set Expansion:</label>
                 <select id="pack-set-select" class="set-select">
                     <option value="sv3pt5">Pokémon TCG: 151 (Scarlet & Violet)</option>
-                    <option value="sv2">Paldea Evolved</option>
-                    <option value="sv3">Obsidian Flames</option>
-                    <option value="sv4">Paradox Rift</option>
-                    <option value="sv4pt5">Paldean Fates</option>
-                    <option value="sv5">Temporal Forces</option>
-                    <option value="sv6">Twilight Masquerade</option>
-                    <option value="swsh12pt5">Crown Zenith</option>
+                    <option value="sv02">Paldea Evolved</option>
+                    <option value="sv03">Obsidian Flames</option>
+                    <option value="sv04">Paradox Rift</option>
+                    <option value="sv04.5">Paldean Fates</option>
+                    <option value="sv05">Temporal Forces</option>
+                    <option value="sv06">Twilight Masquerade</option>
+                    <option value="swsh12.5">Crown Zenith (Galar Gallery)</option>
                 </select>
             </div>
             
@@ -791,7 +787,7 @@
                 <div class="packs-left-badge" id="packs-left-text">Packs Remaining: 0</div>
                 
                 <div class="cards-grid" id="cards-grid">
-                    <!-- Cards render here -->
+                    <!-- Real cards render here -->
                 </div>
             </div>
         </div>
@@ -801,7 +797,7 @@
     <!-- Master IR Binder Gallery -->
     <div class="binder-wrapper">
         <div class="binder-header">
-            <div class="binder-title-text">📖 Master IR Binder (1,025 Slots)</div>
+            <div class="binder-title-text">📖 Master Real IR Binder (1,025 Slots)</div>
             <input type="text" id="binder-search" class="binder-search-input" placeholder="Search Dex # or Name..." oninput="filterBinderGrid()">
         </div>
         <div class="binder-grid" id="binder-grid">
@@ -811,18 +807,18 @@
 
     <!-- Activity Log -->
     <div class="log-wrapper" id="log-wrapper">
-        <div class="log-entry">> System initialized. Select an Expansion Set and spin the Target Wheel to start!</div>
+        <div class="log-entry">> System connected to official Pokémon TCG API. Spin the Target Wheel to start!</div>
     </div>
 
-    <!-- Art Selection Modal -->
+    <!-- Real Card Art Selection Modal -->
     <div class="modal-backdrop" id="art-modal">
         <div class="modal-box">
             <div class="modal-header">
-                <h2 id="modal-title">Select Illustration Rare Card Art</h2>
+                <h2 id="modal-title">Select Authentic TCG Card Print</h2>
                 <button class="modal-close-btn" onclick="closeArtModal()">&times;</button>
             </div>
             <div class="modal-body" id="modal-art-grid">
-                <!-- Art options load dynamically -->
+                <!-- Authentic cards load dynamically -->
             </div>
         </div>
     </div>
@@ -834,8 +830,7 @@
            ========================================================================== */
         const TOTAL_DEX = 1025;
         
-        // LocalStorage State
-        let masterCollection = JSON.parse(localStorage.getItem('bamf_ir_collection')) || {};
+        let masterCollection = JSON.parse(localStorage.getItem('bamf_real_ir_collection')) || {};
         let pokeBankBalance = parseFloat(localStorage.getItem('bamf_pokebank_balance')) || 0.00;
         let totalPacksOpened = parseInt(localStorage.getItem('bamf_packs_opened')) || 0;
 
@@ -902,7 +897,6 @@
            4. TARGET WHEEL & CROSS-OFF LOGIC
            ========================================================================== */
         async function rollTargetPokemon() {
-            // Find all uncollected Dex numbers
             const uncollected = [];
             for (let i = 1; i <= TOTAL_DEX; i++) {
                 if (!masterCollection[i]) {
@@ -915,7 +909,6 @@
                 return;
             }
 
-            // Pick random uncollected
             const targetDexId = uncollected[Math.floor(Math.random() * uncollected.length)];
             const targetBox = document.getElementById('target-box');
             
@@ -1004,50 +997,54 @@
         }
 
         /* ==========================================================================
-           6. BOOSTER PACK & POKEBANK SYSTEM
+           6. REAL POKEMON TCG CARD PACK SYSTEM
            ========================================================================== */
         async function openBoosterPack() {
             if (remainingPacks <= 0) return;
 
             const grid = document.getElementById('cards-grid');
-            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--accent-gold);">Ripping Pack & Querying TCG Database...</div>';
+            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--accent-gold);">Ripping Pack & Querying Pokémon TCG Database...</div>';
             document.getElementById('btn-open-pack').disabled = true;
 
-            const packCards = [];
+            const selectedSet = document.getElementById('pack-set-select').value;
+            grid.innerHTML = '';
 
             for (let slot = 0; slot < 5; slot++) {
-                // 20% chance on final slot to trigger target card
-                let dexId = (slot === 4 && Math.random() < 0.20 && currentTarget) 
+                let dexId = (slot === 4 && Math.random() < 0.25 && currentTarget) 
                     ? currentTarget.id 
                     : Math.floor(Math.random() * TOTAL_DEX) + 1;
 
-                const rarityRoll = Math.random() * 100;
-                let rarity = 'Common';
-                let isIllustrationRare = false;
-
-                if (rarityRoll > 93) {
-                    rarity = 'Special Illustration Rare';
-                    isIllustrationRare = true;
-                } else if (rarityRoll > 80) {
-                    rarity = 'Illustration Rare';
-                    isIllustrationRare = true;
-                } else if (rarityRoll > 50) {
-                    rarity = 'Uncommon';
-                } else {
-                    rarity = 'Common';
-                }
-
-                packCards.push({ dexId: dexId, rarity: rarity, isIR: isIllustrationRare });
-            }
-
-            grid.innerHTML = '';
-
-            for (let cardData of packCards) {
                 try {
-                    const pokeRes = await fetch(`https://pokeapi.co/api/v2/pokemon/${cardData.dexId}`);
-                    const poke = await pokeRes.json();
+                    // Query Real TCGdex API for authentic cards
+                    const realCardResponse = await fetch(`https://api.tcgdex.net/v2/en/cards?dexId=${dexId}`);
+                    const realCards = await realCardResponse.json();
 
-                    const cardValue = calculateValue(cardData.rarity);
+                    let realCard = null;
+                    let isIR = false;
+                    let rarity = 'Common';
+
+                    if (realCards && realCards.length > 0) {
+                        // Look for IR/SIR cards first
+                        const irCards = realCards.filter(c => c.rarity && (c.rarity.includes('Illustration') || c.rarity.includes('Special Illustration') || c.rarity.includes('Secret') || c.rarity.includes('Gallery')));
+                        
+                        if (irCards.length > 0 && Math.random() < 0.35) {
+                            realCard = irCards[Math.floor(Math.random() * irCards.length)];
+                            isIR = true;
+                            rarity = realCard.rarity || 'Illustration Rare';
+                        } else {
+                            realCard = realCards[Math.floor(Math.random() * realCards.length)];
+                            rarity = realCard.rarity || 'Common';
+                        }
+                    }
+
+                    // Fallback image if API card image unavailable
+                    const cardImageUrl = (realCard && realCard.image) 
+                        ? `${realCard.image}/high.webp` 
+                        : `https://assets.tcgdex.net/en/sv/${selectedSet}/${dexId}/high.webp`;
+
+                    const cardName = realCard ? realCard.name : `Pokémon #${dexId}`;
+                    const cardValue = calculateValue(rarity);
+
                     const cardEl = document.createElement('div');
                     cardEl.className = 'card-slot';
 
@@ -1057,10 +1054,10 @@
                                 <div class="pokeball-icon"></div>
                             </div>
                             <div class="card-front">
-                                <img src="${poke.sprites.other['official-artwork'].front_default || poke.sprites.front_default}" alt="${poke.name}">
+                                <img src="${cardImageUrl}" alt="${cardName}" onerror="this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${dexId}.png'">
                                 <div class="card-overlay-tag">
-                                    #${poke.id} ${poke.name.toUpperCase()}<br>
-                                    <span style="color:var(--accent-gold);">${cardData.rarity}</span>
+                                    #${dexId} ${cardName.toUpperCase()}<br>
+                                    <span style="color:var(--accent-gold);">${rarity}</span>
                                 </div>
                             </div>
                         </div>
@@ -1070,21 +1067,17 @@
                         if (!cardEl.classList.contains('flipped')) {
                             cardEl.classList.add('flipped');
 
-                            if (cardData.isIR) {
-                                // Check if duplicate IR
-                                if (masterCollection[poke.id]) {
-                                    // Duplicate IR -> Add to PokéBank
+                            if (isIR) {
+                                if (masterCollection[dexId]) {
                                     addValueToBank(cardValue);
-                                    logMessage(`Duplicate IR <strong>${poke.name}</strong> sold to PokéBank for <strong>+$${cardValue}</strong>!`, 'log-bank');
+                                    logMessage(`Duplicate Real IR <strong>${cardName}</strong> sold to PokéBank for <strong>+$${cardValue}</strong>!`, 'log-bank');
                                 } else {
-                                    // New IR -> Prompt Artwork Selection!
-                                    logMessage(`✨ NEW ILLUSTRATION RARE PULLED: <strong>${poke.name.toUpperCase()}</strong>!`, 'log-ir');
-                                    promptArtworkSelection(poke.id, poke.name, cardValue);
+                                    logMessage(`✨ REAL ILLUSTRATION RARE PULLED: <strong>${cardName.toUpperCase()}</strong>!`, 'log-ir');
+                                    promptArtworkSelection(dexId, cardName, cardValue);
                                 }
                             } else {
-                                // Non-IR card -> Cash out to PokéBank automatically
                                 addValueToBank(cardValue);
-                                logMessage(`Non-IR card (${cardData.rarity}) cashed to PokéBank: <strong>+$${cardValue}</strong>`, 'log-bank');
+                                logMessage(`Non-IR card (${rarity}) cashed to PokéBank: <strong>+$${cardValue}</strong>`, 'log-bank');
                             }
                         }
                     };
@@ -1092,7 +1085,7 @@
                     grid.appendChild(cardEl);
 
                 } catch (err) {
-                    console.error("Error opening card slot:", err);
+                    console.error("Error fetching real card data:", err);
                 }
             }
 
@@ -1116,10 +1109,10 @@
         }
 
         function calculateValue(rarity) {
-            if (rarity === 'Special Illustration Rare') return parseFloat((Math.random() * 85 + 20).toFixed(2));
-            if (rarity === 'Illustration Rare') return parseFloat((Math.random() * 25 + 5).toFixed(2));
-            if (rarity === 'Uncommon') return parseFloat((Math.random() * 0.75 + 0.25).toFixed(2));
-            return parseFloat((Math.random() * 0.20 + 0.05).toFixed(2));
+            if (rarity.includes('Special Illustration')) return parseFloat((Math.random() * 85 + 25).toFixed(2));
+            if (rarity.includes('Illustration')) return parseFloat((Math.random() * 25 + 8).toFixed(2));
+            if (rarity.includes('Uncommon')) return parseFloat((Math.random() * 0.80 + 0.20).toFixed(2));
+            return parseFloat((Math.random() * 0.25 + 0.05).toFixed(2));
         }
 
         function addValueToBank(val) {
@@ -1129,56 +1122,60 @@
         }
 
         /* ==========================================================================
-           7. CARD ARTWORK PICKER MODAL
+           7. REAL CARD ARTWORK PICKER MODAL
            ========================================================================== */
         async function promptArtworkSelection(dexId, pokemonName, value) {
             const modal = document.getElementById('art-modal');
             const grid = document.getElementById('modal-art-grid');
             const title = document.getElementById('modal-title');
 
-            title.innerText = `Choose IR Artwork for ${pokemonName.toUpperCase()} (#${dexId})`;
-            grid.innerHTML = '<div>Fetching official TCG cards...</div>';
+            title.innerText = `Choose Real TCG Card Art for ${pokemonName.toUpperCase()} (#${dexId})`;
+            grid.innerHTML = '<div>Fetching official TCG cards from database...</div>';
             modal.classList.add('active');
 
             try {
-                // Fetch official TCG card art options
-                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${dexId}`);
-                const pokeData = await res.json();
-
-                const artVariants = [
-                    { name: 'Official Art', url: pokeData.sprites.other['official-artwork'].front_default },
-                    { name: 'Shiny Variant', url: pokeData.sprites.other['official-artwork'].front_shiny },
-                    { name: 'Home Art', url: pokeData.sprites.other['home'].front_default },
-                    { name: 'Dream World', url: pokeData.sprites.other['dream_world'].front_default }
-                ].filter(a => a.url);
+                const res = await fetch(`https://api.tcgdex.net/v2/en/cards?dexId=${dexId}`);
+                const realCards = await res.json();
 
                 grid.innerHTML = '';
 
-                artVariants.forEach((variant, index) => {
-                    const cardOption = document.createElement('div');
-                    cardOption.className = 'art-option-card';
-                    cardOption.innerHTML = `
-                        <img src="${variant.url}" alt="${variant.name}">
-                        <div class="art-option-info">
-                            <strong>${variant.name}</strong><br>
-                            Illustration Rare
-                        </div>
-                    `;
+                if (realCards && realCards.length > 0) {
+                    realCards.forEach(card => {
+                        if (card.image) {
+                            const cardOption = document.createElement('div');
+                            cardOption.className = 'art-option-card';
+                            const imgUrl = `${card.image}/high.webp`;
 
-                    cardOption.onclick = () => {
-                        saveIrToBinder(dexId, pokemonName, variant.url, value);
+                            cardOption.innerHTML = `
+                                <img src="${imgUrl}" alt="${card.name}">
+                                <div class="art-option-info">
+                                    <strong>${card.name}</strong><br>
+                                    ${card.rarity || 'Real TCG Card'}
+                                </div>
+                            `;
+
+                            cardOption.onclick = () => {
+                                saveIrToBinder(dexId, pokemonName, imgUrl, value);
+                                closeArtModal();
+                            };
+
+                            grid.appendChild(cardOption);
+                        }
+                    });
+                } else {
+                    grid.innerHTML = '<div>No extra printings found. Saving card artwork!</div>';
+                    setTimeout(() => {
+                        saveIrToBinder(dexId, pokemonName, `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${dexId}.png`, value);
                         closeArtModal();
-                    };
-
-                    grid.appendChild(cardOption);
-                });
+                    }, 1200);
+                }
 
             } catch (err) {
-                grid.innerHTML = '<div>Failed loading art choices. Saving default artwork!</div>';
+                grid.innerHTML = '<div>Failed loading card choices. Saving default artwork!</div>';
                 setTimeout(() => {
                     saveIrToBinder(dexId, pokemonName, `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${dexId}.png`, value);
                     closeArtModal();
-                }, 1500);
+                }, 1200);
             }
         }
 
@@ -1197,10 +1194,10 @@
                 value: parseFloat(value)
             };
 
-            localStorage.setItem('bamf_ir_collection', JSON.stringify(masterCollection));
+            localStorage.setItem('bamf_real_ir_collection', JSON.stringify(masterCollection));
             updateSlotDisplay(dexId);
             updateDashboard();
-            logMessage(`Saved <strong>${name.toUpperCase()}</strong> IR into Binder Slot #${dexId}!`, 'log-ir');
+            logMessage(`Saved real card for <strong>${name.toUpperCase()}</strong> into Binder Slot #${dexId}!`, 'log-ir');
         }
 
         function closeArtModal() {
