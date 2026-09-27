@@ -780,7 +780,7 @@
         }
 
         function loadFromLocalStorage() {
-            const savedState = localStorage.getItem('bamf_youtube_pokemon_chase_state_v5');
+            const savedState = localStorage.getItem('bamf_youtube_pokemon_chase_state_v6');
             if (savedState) {
                 try {
                     const parsed = JSON.parse(savedState);
@@ -794,7 +794,7 @@
         }
 
         function saveToLocalStorage() {
-            localStorage.setItem('bamf_youtube_pokemon_chase_state_v5', JSON.stringify({
+            localStorage.setItem('bamf_youtube_pokemon_chase_state_v6', JSON.stringify({
                 collectedCards: gameState.collectedCards,
                 packsOpened: gameState.packsOpened,
                 pokebankBalance: gameState.pokebankBalance
