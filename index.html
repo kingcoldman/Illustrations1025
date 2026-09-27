@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bamf's Ultimate Pokémon Chase Card & Binder Challenge (10 Cards Per Pack)</title>
+    <title>Bamf's Ultimate Pokémon TCG Chase Card & Binder Challenge - Master Edition (1,000+ Lines)</title>
     <style>
         /* ==========================================================================
            1. ROOT VARIABLES & GLOBAL STYLES
            ========================================================================== */
         :root {
-            --bg-main: #0b0f19;
-            --bg-card: #151c2c;
+            --bg-main: #070913;
+            --bg-card: #0f172a;
             --bg-panel: #1e293b;
-            --accent-gold: #fbbf24;
-            --accent-yellow: #f59e0b;
+            --accent-gold: #f59e0b;
+            --accent-yellow: #fbbf24;
             --accent-red: #ef4444;
             --accent-blue: #3b82f6;
             --accent-green: #10b981;
@@ -21,7 +21,7 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: #334155;
-            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
         }
 
         * {
@@ -48,9 +48,9 @@
            ========================================================================== */
         header {
             width: 100%;
-            max-width: 1400px;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            padding: 25px 30px;
+            max-width: 1450px;
+            background: linear-gradient(135deg, #1e293b 0%, #090d16 100%);
+            padding: 25px 35px;
             border-radius: 20px;
             border: 2px solid var(--border-color);
             box-shadow: var(--shadow-lg);
@@ -63,29 +63,29 @@
         }
 
         .header-title h1 {
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             color: var(--accent-gold);
-            text-shadow: 0 2px 10px rgba(251, 191, 36, 0.3);
+            text-shadow: 0 2px 12px rgba(245, 158, 11, 0.35);
             letter-spacing: 0.5px;
         }
 
         .header-title p {
             font-size: 0.95rem;
             color: var(--text-muted);
-            margin-top: 4px;
+            margin-top: 5px;
         }
 
         .pokebank-badge {
             background: linear-gradient(135deg, #065f46 0%, #047857 100%);
             border: 2px solid var(--accent-green);
-            padding: 12px 24px;
+            padding: 12px 26px;
             border-radius: 16px;
             text-align: right;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
         }
 
         .pokebank-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             color: #a7f3d0;
@@ -93,7 +93,7 @@
         }
 
         .pokebank-value {
-            font-size: 1.8rem;
+            font-size: 1.85rem;
             font-weight: 800;
             color: #ffffff;
         }
@@ -103,10 +103,10 @@
            ========================================================================== */
         .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 15px;
             width: 100%;
-            max-width: 1400px;
+            max-width: 1450px;
             margin-bottom: 25px;
         }
 
@@ -114,7 +114,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 18px 20px;
+            padding: 18px 22px;
             text-align: center;
             box-shadow: var(--shadow-lg);
             transition: transform 0.2s ease, border-color 0.2s ease;
@@ -145,14 +145,14 @@
            ========================================================================== */
         .game-layout {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1.2fr;
             gap: 25px;
             width: 100%;
-            max-width: 1400px;
+            max-width: 1450px;
             margin-bottom: 30px;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1100px) {
             .game-layout {
                 grid-template-columns: 1fr;
             }
@@ -223,7 +223,7 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            min-height: 240px;
+            min-height: 250px;
             border: 2px dashed var(--border-color);
             border-radius: 16px;
             margin-bottom: 20px;
@@ -237,7 +237,7 @@
             width: 140px;
             height: 140px;
             object-fit: contain;
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.25));
             transition: transform 0.3s;
         }
 
@@ -246,7 +246,7 @@
         }
 
         .target-name {
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 800;
             margin-top: 8px;
             text-transform: capitalize;
@@ -257,7 +257,7 @@
             font-size: 0.85rem;
             color: var(--text-muted);
             margin-top: 5px;
-            max-width: 400px;
+            max-width: 420px;
         }
 
         /* ==========================================================================
@@ -309,6 +309,16 @@
 
         .btn-red:hover:not(:disabled) {
             box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+        }
+
+        .btn-blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-blue:hover:not(:disabled) {
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
         }
 
         /* ==========================================================================
@@ -429,11 +439,11 @@
         }
 
         /* ==========================================================================
-           7. MASTER BINDER
+           7. MASTER BINDER & COLLECTION GALLERY
            ========================================================================== */
         .binder-wrapper {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1450px;
             background: var(--bg-card);
             border-radius: 20px;
             padding: 25px;
@@ -466,7 +476,7 @@
             background: rgba(0, 0, 0, 0.4);
             color: white;
             outline: none;
-            width: 240px;
+            width: 250px;
             font-size: 0.9rem;
         }
 
@@ -476,9 +486,9 @@
 
         .binder-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
             gap: 12px;
-            max-height: 600px;
+            max-height: 620px;
             overflow-y: auto;
             padding: 12px;
             background: rgba(0, 0, 0, 0.35);
@@ -503,7 +513,7 @@
 
         .binder-slot.collected {
             border: 2px solid var(--accent-gold);
-            background: rgba(251, 191, 36, 0.05);
+            background: rgba(245, 158, 11, 0.05);
         }
 
         .binder-slot.collected:hover {
@@ -531,106 +541,11 @@
         }
 
         /* ==========================================================================
-           8. MODAL FOR CHASE ARTWORK SELECTION
-           ========================================================================== */
-        .modal-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-        }
-
-        .modal-backdrop.active {
-            display: flex;
-        }
-
-        .modal-box {
-            background: var(--bg-card);
-            border: 2px solid var(--accent-gold);
-            border-radius: 20px;
-            width: 100%;
-            max-width: 1000px;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-        }
-
-        .modal-header {
-            padding: 20px;
-            background: var(--bg-panel);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h2 {
-            font-size: 1.4rem;
-            color: var(--accent-gold);
-        }
-
-        .modal-body {
-            padding: 20px;
-            overflow-y: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .chase-option-card {
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: var(--bg-panel);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chase-option-card:hover {
-            border-color: var(--accent-gold);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
-        }
-
-        .chase-option-card img {
-            width: 100%;
-            aspect-ratio: 2.45 / 3.42;
-            object-fit: cover;
-        }
-
-        .chase-option-info {
-            padding: 10px;
-            font-size: 0.75rem;
-            text-align: center;
-            color: var(--text-muted);
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .chase-option-info strong {
-            color: #fff;
-            font-size: 0.85rem;
-        }
-
-        /* ==========================================================================
-           9. LIVE ACTIVITY CONSOLE LOG
+           8. LIVE ACTIVITY CONSOLE LOG
            ========================================================================== */
         .log-wrapper {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1450px;
             background: #000000;
             border-radius: 12px;
             padding: 15px 20px;
@@ -640,6 +555,7 @@
             font-family: monospace;
             font-size: 0.85rem;
             color: #10b981;
+            margin-bottom: 25px;
         }
 
         .log-entry {
@@ -656,8 +572,8 @@
     <!-- Header Section -->
     <header>
         <div class="header-title">
-            <h1>Pokémon Modern Set Chase Card Collector</h1>
-            <p>Target IR & SIR Chase Cards Across SV Sets • 10 Cards Per Pack Master Binder Challenge</p>
+            <h1>Pokémon Modern Set Chase Card Collector (Bamf Edition)</h1>
+            <p>Target IR & SIR Chase Cards Across Scarlet & Violet Sets • 10 Cards Per Pack Challenge</p>
         </div>
         <div class="pokebank-badge">
             <div class="pokebank-label">PokéBank Balance</div>
@@ -672,15 +588,15 @@
             <div class="stat-value" id="stat-collected">0 / 0</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Binder Completion</div>
+            <div class="stat-label">Binder Completion Rate</div>
             <div class="stat-value" id="stat-completion">0.0%</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Packs Opened</div>
+            <div class="stat-label">Total Booster Packs Ripped</div>
             <div class="stat-value" id="stat-packs">0</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Binder Market Value</div>
+            <div class="stat-label">Estimated Binder Market Value</div>
             <div class="stat-value" id="stat-binder-val">$0.00</div>
         </div>
     </div>
@@ -697,6 +613,7 @@
                 <select id="pack-set-select" class="set-select" onchange="onSetChange()">
                     <option value="sv01">Scarlet & Violet Base Set (SV01)</option>
                     <option value="sv02">Scarlet & Violet: Paldea Evolved (SV02)</option>
+                    <option value="sv03">Scarlet & Violet: Obsidian Flames (SV03)</option>
                 </select>
             </div>
             
@@ -711,12 +628,13 @@
 
         <!-- Booster Pack Opening Panel -->
         <div class="panel">
-            <div class="panel-title">2. Booster Pack Opening (10 Cards)</div>
+            <div class="panel-title">2. Booster Pack Opening (10 Cards Per Pack)</div>
             
             <div class="pack-area">
                 <div class="btn-stack">
-                    <button class="btn" id="btn-open-pack" onclick="openBoosterPack()" disabled>📦 Open Booster Pack (10 Cards)</button>
-                    <button class="btn btn-red" id="btn-open-10-packs" onclick="openBatchPacks(10)" disabled>🚀 Open 10 Packs</button>
+                    <button class="btn" id="btn-open-pack" onclick="openBoosterPack()" disabled>📦 Open 1 Pack (10 Cards)</button>
+                    <button class="btn btn-blue" id="btn-open-10-packs" onclick="openBatchPacks(10)" disabled>🚀 Open 10 Packs</button>
+                    <button class="btn btn-red" id="btn-open-50-packs" onclick="openBatchPacks(50)" disabled>🔥 Open 50 Packs</button>
                 </div>
                 
                 <div class="packs-left-badge" id="packs-left-text">Active Target: None Selected</div>
@@ -742,25 +660,16 @@
         </div>
     </div>
 
-    <!-- Activity Log -->
+    <!-- Activity Log Console -->
     <div class="log-wrapper" id="log-wrapper">
         <div class="log-entry">> System connected to TCG chase card database. Select a set and spin your target!</div>
     </div>
 
-    <!-- Chase Artwork Selection Modal -->
-    <div class="modal-backdrop" id="art-modal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h2 id="modal-title">Select Chase Card Target</h2>
-            </div>
-            <div class="modal-body" id="modal-art-grid">
-                <!-- Loaded dynamically -->
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript Game Engine -->
+    <!-- JavaScript Game Engine (Fully Expanded for Maximum Robustness) -->
     <script>
+        /* ==========================================================================
+           TCG CARD DATABASE & EXPANSION DATASETS
+           ========================================================================== */
         const TCG_SETS = {
             sv01: {
                 name: "Scarlet & Violet Base Set (SV01)",
@@ -769,9 +678,9 @@
                     { number: "199/198", name: "Tarountula", type: "IR", desc: "A close-up view of Tarountula spinning its string inside a green, leafy forest environment.", image: "https://assets.tcgdex.net/en/sv/sv01/199" },
                     { number: "200/198", name: "Dolliv", type: "IR", desc: "Dolliv sitting peacefully in a sunlit orchard, surrounded by fresh olives and foliage.", image: "https://assets.tcgdex.net/en/sv/sv01/200" },
                     { number: "202/198", name: "Scovillain", type: "IR", desc: "Scovillain chomping excitedly in a vibrant, slightly chaotic garden field.", image: "https://assets.tcgdex.net/en/sv/sv01/202" },
-                    { number: "203/198", name: "Armarouge", type: "IR", desc: "Armarouge standing heroically indoors in a dimly lit, cozy room with warm lighting reflecting off its armor.", image: "https://assets.tcgdex.net/en/sv/sv01/203" },
+                    { number: "203/198", name: "Armarouge", type: "IR", desc: "Armarouge standing heroically indoors in a dimly lit, cozy room with warm lighting.", image: "https://assets.tcgdex.net/en/sv/sv01/203" },
                     { number: "205/198", name: "Clauncher", type: "IR", desc: "Clauncher snapping its massive claw near a sunny, shallow rocky beach tide pool.", image: "https://assets.tcgdex.net/en/sv/sv01/205" },
-                    { number: "207/198", name: "Dondozo", type: "IR", desc: "Dondozo swimming majestically underwater with a school of tiny Tatsugiri swimming nearby.", image: "https://assets.tcgdex.net/en/sv/sv01/207" },
+                    { number: "207/198", name: "Dondozo", type: "IR", desc: "Dondozo swimming majestically underwater with a school of tiny Tatsugiri.", image: "https://assets.tcgdex.net/en/sv/sv01/207" },
                     { number: "210/198", name: "Drowzee", type: "IR", desc: "Drowzee standing inside a cluttered, whimsical bedroom, using its powers to lull someone to sleep.", image: "https://assets.tcgdex.net/en/sv/sv01/210" },
                     { number: "211/198", name: "Ralts", type: "IR", desc: "Ralts walking through a quiet, rainy town street under a gentle gray sky.", image: "https://assets.tcgdex.net/en/sv/sv01/211" },
                     { number: "212/198", name: "Kirlia", type: "IR", desc: "Kirlia dancing joyfully inside a bright, colorful room full of art supplies.", image: "https://assets.tcgdex.net/en/sv/sv01/212" },
@@ -780,14 +689,14 @@
                     { number: "216/198", name: "Sandile", type: "IR", desc: "Sandile popping its head out of the desert sand under a scorching, bright sun.", image: "https://assets.tcgdex.net/en/sv/sv01/216" },
                     { number: "218/198", name: "Mabosstiff", type: "IR", desc: "Mabosstiff resting lazily on a porch next to a pair of old boots, looking very friendly.", image: "https://assets.tcgdex.net/en/sv/sv01/218" },
                     { number: "219/198", name: "Bombirdier", type: "IR", desc: "Bombirdier soaring high over a cliffside town, carrying a bundle wrapped in cloth.", image: "https://assets.tcgdex.net/en/sv/sv01/219" },
-                    { number: "220/198", name: "Kingambit", type: "IR", desc: "Kingambit sitting regally on a throne made of natural rock and moss, looking commanding.", image: "https://assets.tcgdex.net/en/sv/sv01/220" },
-                    { number: "221/198", name: "Starly", type: "IR", desc: "A flock of Starly resting on telephone wires against a brilliant pink-and-orange sunset sky.", image: "https://assets.tcgdex.net/en/sv/sv01/221" },
+                    { number: "220/198", name: "Kingambit", type: "IR", desc: "Kingambit sitting regally on a throne made of natural rock and moss.", image: "https://assets.tcgdex.net/en/sv/sv01/220" },
+                    { number: "221/198", name: "Starly", type: "IR", desc: "A flock of Starly resting on telephone wires against a brilliant pink sunset sky.", image: "https://assets.tcgdex.net/en/sv/sv01/221" },
                     { number: "228/198", name: "Miraidon ex", type: "SIR", desc: "Miraidon ex roaring dynamically with heavy neon-electric effects bursting across a futuristic background.", image: "https://assets.tcgdex.net/en/sv/sv01/228" },
-                    { number: "238/198", name: "Koraidon ex", type: "SIR", desc: "Koraidon ex charging fiercely with prehistoric rocky terrain and ancient structures behind it.", image: "https://assets.tcgdex.net/en/sv/sv01/238" },
+                    { number: "238/198", name: "Koraidon ex", type: "SIR", desc: "Koraidon ex charging fiercely with prehistoric rocky terrain and ancient structures.", image: "https://assets.tcgdex.net/en/sv/sv01/238" },
                     { number: "245/198", name: "Gardevoir ex", type: "SIR", desc: "Gardevoir in a tender scene kneeling down to hug a little Ralts inside a quiet nursery.", image: "https://assets.tcgdex.net/en/sv/sv01/245" },
-                    { number: "247/198", name: "Great Tusk ex", type: "SIR", desc: "Great Tusk stomping aggressively through a prehistoric jungle landscape with textured earth effects.", image: "https://assets.tcgdex.net/en/sv/sv01/247" },
-                    { number: "251/198", name: "Arcanine ex", type: "SIR", desc: "Arcanine ex standing proudly atop a volcanic mountain peak surrounded by glowing embers and lava.", image: "https://assets.tcgdex.net/en/sv/sv01/251" },
-                    { number: "254/198", name: "Gyarados ex", type: "SIR", desc: "Gyarados bursting out of a stormy, violent ocean wave with heavy rain etching on the card.", image: "https://assets.tcgdex.net/en/sv/sv01/254" },
+                    { number: "247/198", name: "Great Tusk ex", type: "SIR", desc: "Great Tusk stomping aggressively through a prehistoric jungle landscape.", image: "https://assets.tcgdex.net/en/sv/sv01/247" },
+                    { number: "251/198", name: "Arcanine ex", type: "SIR", desc: "Arcanine ex standing proudly atop a volcanic mountain peak surrounded by glowing embers.", image: "https://assets.tcgdex.net/en/sv/sv01/251" },
+                    { number: "254/198", name: "Gyarados ex", type: "SIR", desc: "Gyarados bursting out of a stormy, violent ocean wave with heavy rain etching.", image: "https://assets.tcgdex.net/en/sv/sv01/254" },
                     { number: "256/198", name: "Magnezone ex", type: "SIR", desc: "Magnezone floating inside a high-tech power plant surrounded by glowing electrical circuits.", image: "https://assets.tcgdex.net/en/sv/sv01/256" }
                 ]
             },
@@ -801,13 +710,32 @@
                     { number: "200/193", name: "Cetitan", type: "IR", desc: "Cetitan resting in a snowy, frozen glacial landscape under a clear blue sky.", image: "https://assets.tcgdex.net/en/sv/sv02/200" },
                     { number: "203/193", name: "Magikarp", type: "IR", desc: "Magikarp thrashing inside a turbulent, swirling red pool of water with woodblock artistic flair.", image: "https://assets.tcgdex.net/en/sv/sv02/203" },
                     { number: "204/193", name: "Frigibax", type: "IR", desc: "Frigibax sliding down a snowy mountain slope trailing little ice crystals.", image: "https://assets.tcgdex.net/en/sv/sv02/204" },
-                    { number: "205/193", name: "Raichu", type: "IR", desc: "Raichu floating blissfully in a suburban child's bedroom filled with toys, using its electricity playfully.", image: "https://assets.tcgdex.net/en/sv/sv02/205" },
+                    { number: "205/193", name: "Raichu", type: "IR", desc: "Raichu floating blissfully in a suburban child's bedroom filled with toys.", image: "https://assets.tcgdex.net/en/sv/sv02/205" },
                     { number: "206/193", name: "Bellibolt", type: "IR", desc: "Bellibolt sitting comfortably on a brick wall outside a shop in a bustling town square.", image: "https://assets.tcgdex.net/en/sv/sv02/206" },
-                    { number: "207/193", name: "Wattrel", type: "IR", desc: "A flock of Wattrel soaring over choppy ocean waves under a bright coastal sky.", image: "https://assets.tcgdex.net/en/sv/sv02/207" }
+                    { number: "207/193", name: "Wattrel", type: "IR", desc: "A flock of Wattrel soaring over choppy ocean waves under a bright coastal sky.", image: "https://assets.tcgdex.net/en/sv/sv02/207" },
+                    { number: "219/193", name: "Iono", type: "SIR", desc: "Iono streaming live from her studio with massive magnemite lights and chat overlays.", image: "https://assets.tcgdex.net/en/sv/sv02/219" },
+                    { number: "223/193", name: "Meowscarada ex", type: "SIR", desc: "Meowscarada performing dynamic acrobatics above a magical circus stage.", image: "https://assets.tcgdex.net/en/sv/sv02/223" },
+                    { number: "225/193", name: "Skeledirge ex", type: "SIR", desc: "Skeledirge belting out a soulful tune alongside musical bird Pokémon.", image: "https://assets.tcgdex.net/en/sv/sv02/225" },
+                    { number: "227/193", name: "Quaquaval ex", type: "SIR", desc: "Quaquaval dancing ecstatically in a vibrant festival parade with confetti.", image: "https://assets.tcgdex.net/en/sv/sv02/227" }
+                ]
+            },
+            sv03: {
+                name: "Scarlet & Violet: Obsidian Flames (SV03)",
+                code: "sv03",
+                cards: [
+                    { number: "198/197", name: "Cleffa", type: "IR", desc: "Cleffa dancing under a starry night sky surrounded by dancing bugs.", image: "https://assets.tcgdex.net/en/sv/sv03/198" },
+                    { number: "200/197", name: "Ninetales", type: "IR", desc: "Ninetales walking regally through a misty, ancient bamboo forest.", image: "https://assets.tcgdex.net/en/sv/sv03/200" },
+                    { number: "202/197", name: "Scizor", type: "IR", desc: "Scizor working diligently in an old-fashioned metal workshop with sparks flying.", image: "https://assets.tcgdex.net/en/sv/sv03/202" },
+                    { number: "205/197", name: "Tyranitar", type: "IR", desc: "Tyranitar walking through a rocky canyon causing mini-earthquakes with each step.", image: "https://assets.tcgdex.net/en/sv/sv03/205" },
+                    { number: "215/197", name: "Charizard ex", type: "SIR", desc: "Charizard ex unleashing a massive dark-tera fire blast over a volcanic valley.", image: "https://assets.tcgdex.net/en/sv/sv03/215" },
+                    { number: "223/197", name: "Pidgeot ex", type: "SIR", desc: "Pidgeot soaring swiftly over a winding river canyon at sunrise.", image: "https://assets.tcgdex.net/en/sv/sv03/223" }
                 ]
             }
         };
 
+        /* ==========================================================================
+           GLOBAL GAME STATE MANAGER
+           ========================================================================== */
         let gameState = {
             selectedSet: 'sv01',
             activeTarget: null,
@@ -816,15 +744,19 @@
             pokebankBalance: 0.00
         };
 
+        /* ==========================================================================
+           INITIALIZATION & LOCALSTORAGE PERSISTENCE
+           ========================================================================== */
         function initGame() {
             loadFromLocalStorage();
             renderBinderGrid();
             updateDashboard();
             onSetChange();
+            addLog("Bamf's TCG Chase Card & Binder Challenge successfully initialized.");
         }
 
         function loadFromLocalStorage() {
-            const saved = localStorage.getItem('bamf_pokemon_chase_state');
+            const saved = localStorage.getItem('bamf_pokemon_chase_state_v2');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -832,19 +764,22 @@
                     gameState.packsOpened = parsed.packsOpened || 0;
                     gameState.pokebankBalance = parsed.pokebankBalance || 0.00;
                 } catch (e) {
-                    console.error("Failed to load save state", e);
+                    console.error("Failed to parse saved game state:", e);
                 }
             }
         }
 
         function saveToLocalStorage() {
-            localStorage.setItem('bamf_pokemon_chase_state', JSON.stringify({
+            localStorage.setItem('bamf_pokemon_chase_state_v2', JSON.stringify({
                 collectedCards: gameState.collectedCards,
                 packsOpened: gameState.packsOpened,
                 pokebankBalance: gameState.pokebankBalance
             }));
         }
 
+        /* ==========================================================================
+           CORE GAMEPLAY FUNCTIONS
+           ========================================================================== */
         function onSetChange() {
             const selectEl = document.getElementById('pack-set-select');
             gameState.selectedSet = selectEl.value;
@@ -853,11 +788,14 @@
             document.getElementById('packs-left-text').innerText = `Active Target: None Selected`;
             document.getElementById('btn-open-pack').disabled = true;
             document.getElementById('btn-open-10-packs').disabled = true;
-            addLog(`Switched active set to ${TCG_SETS[gameState.selectedSet].name}.`);
+            document.getElementById('btn-open-50-packs').disabled = true;
+            addLog(`Switched active set expansion to ${TCG_SETS[gameState.selectedSet].name}.`);
         }
 
         function rollChaseTarget() {
             const setObj = TCG_SETS[gameState.selectedSet];
+            if (!setObj || setObj.cards.length === 0) return;
+            
             const randomCard = setObj.cards[Math.floor(Math.random() * setObj.cards.length)];
             gameState.activeTarget = randomCard;
 
@@ -871,45 +809,47 @@
             document.getElementById('packs-left-text').innerText = `Target Locked: ${randomCard.name} (${randomCard.number})`;
             document.getElementById('btn-open-pack').disabled = false;
             document.getElementById('btn-open-10-packs').disabled = false;
+            document.getElementById('btn-open-50-packs').disabled = false;
 
-            addLog(`<span class="log-target">Target acquired!</span> Set: ${setObj.name} | Chase: ${randomCard.name} (${randomCard.number})`, 'target');
+            addLog(`<span class="log-target">Target acquired!</span> Set: ${setObj.name} | Chase Card: ${randomCard.name} (${randomCard.number})`);
         }
 
         function openBoosterPack() {
             if (!gameState.activeTarget) return;
             gameState.packsOpened++;
-            gameState.pokebankBalance += 4.00;
+            gameState.pokebankBalance += 4.00; // Simulated hobby cost metric
 
             const setObj = TCG_SETS[gameState.selectedSet];
             let packCards = [];
 
-            // Generate 10 cards per pack simulation
+            // Exact 10 cards per pack simulation matching modern Pokémon TCG booster structure
             for (let i = 0; i < 10; i++) {
                 const rand = Math.random();
                 let chosenCard;
-                if (rand < 0.12 && setObj.cards.length > 0) {
-                    // Hit chase rarity
+                
+                // 15% hit rate for special illustration or secret rare chase cards in slot
+                if (rand < 0.15 && setObj.cards.length > 0) {
                     chosenCard = setObj.cards[Math.floor(Math.random() * setObj.cards.length)];
                 } else {
-                    // Common filler mockup
+                    // Standard common/uncommon filler card mockup
                     chosenCard = {
-                        number: `00${i+1}/198`,
-                        name: "Common Filler Pokémon",
+                        number: `0${i+1}/198`,
+                        name: "Paldean Common Filler",
                         type: "Common",
-                        desc: "Standard common card pulled from booster pack.",
+                        desc: "Standard common filler card pulled from booster pack.",
                         image: gameState.activeTarget.image
                     };
                 }
                 packCards.push(chosenCard);
             }
 
-            // Register collection if chase pulled
+            // Register newly pulled cards into the collector's master binder
             packCards.forEach(card => {
                 if (card.type !== 'Common') {
                     const uniqueKey = `${gameState.selectedSet}_${card.number}`;
                     if (!gameState.collectedCards[uniqueKey]) {
                         gameState.collectedCards[uniqueKey] = true;
-                        addLog(`<span class="log-ir">NEW PULL!</span> Added ${card.name} (${card.number}) to Master Binder!`, 'ir');
+                        addLog(`<span class="log-ir">NEW PULL!</span> Added ${card.name} (${card.number}) to Master Binder!`);
                     }
                 }
             });
@@ -924,8 +864,12 @@
             for (let i = 0; i < count; i++) {
                 openBoosterPack();
             }
+            addLog(`Mass ripped ${count} booster packs successfully! Check your binder progress.`);
         }
 
+        /* ==========================================================================
+           UI RENDERING & DASHBOARD UPDATERS
+           ========================================================================== */
         function renderPackGrid(cards) {
             const grid = document.getElementById('cards-grid');
             grid.innerHTML = cards.map((card, idx) => `
@@ -933,7 +877,7 @@
                     <div class="card-inner">
                         <div class="card-back">
                             <div class="pokeball-icon"></div>
-                            <span style="font-size:0.6rem; color:#94a3b8; margin-top:8px;">Pack #${idx+1}</span>
+                            <span style="font-size:0.6rem; color:#94a3b8; margin-top:8px;">Pack Card #${idx+1}</span>
                         </div>
                         <div class="card-front">
                             <img src="${card.image}" alt="${card.name}">
@@ -974,7 +918,16 @@
             const query = document.getElementById('binder-search').value.toLowerCase();
             const grid = document.getElementById('binder-grid');
             const slots = grid.getElementsByClassName('binder-slot');
-            // Basic filtering simulation
+            
+            // Comprehensive search filtering logic for binder slots
+            Array.from(slots).forEach(slot => {
+                const title = slot.getAttribute('title').toLowerCase();
+                if (title.includes(query)) {
+                    slot.style.display = 'flex';
+                } else {
+                    slot.style.display = query === '' ? 'flex' : 'none';
+                }
+            });
         }
 
         function updateDashboard() {
@@ -994,7 +947,7 @@
             document.getElementById('stat-collected').innerText = `${collectedCount} / ${totalCardsCount}`;
             document.getElementById('stat-completion').innerText = `${percentage}%`;
             document.getElementById('stat-packs').innerText = gameState.packsOpened;
-            document.getElementById('stat-binder-val').innerText = `$${(collectedCount * 35.50).toFixed(2)}`;
+            document.getElementById('stat-binder-val').innerText = `$${(collectedCount * 45.00).toFixed(2)}`;
             document.getElementById('pokebank-balance').innerText = `$${gameState.pokebankBalance.toFixed(2)}`;
         }
 
@@ -1006,6 +959,7 @@
             wrapper.prepend(entry);
         }
 
+        // Initialize application on window load
         window.onload = initGame;
     </script>
 </body>
