@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bamf's Ultimate 1,025 Pokémon Chase Simulator</title>
+    <title>Colman's Ultimate 1,025 Pokémon Chase Simulator</title>
     <style>
         :root {
             --bg-dark: #05070a;
@@ -187,7 +187,6 @@
             font-size: 0.9rem;
         }
 
-        /* WHEEL SPINNER OVERLAY */
         .wheel-arena {
             display: flex;
             flex-direction: column;
@@ -200,8 +199,8 @@
 
         .wheel-container {
             position: relative;
-            width: 360px;
-            height: 360px;
+            width: 380px;
+            height: 380px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -226,6 +225,7 @@
             box-shadow: 0 0 35px rgba(59, 130, 246, 0.3);
             border: 6px solid var(--border-main);
             background: var(--bg-panel);
+            transition: transform 0.1s linear;
         }
 
         .spin-controls-box {
@@ -250,7 +250,6 @@
             text-align: center;
         }
 
-        /* VARIANT PICKER */
         .variant-picker-wrapper {
             display: none;
             flex-direction: column;
@@ -300,7 +299,6 @@
             border: 2px solid var(--border-main);
         }
 
-        /* PACK OPENING ARENA */
         .opening-stage {
             display: none;
             flex-direction: column;
@@ -338,7 +336,6 @@
             border-radius: 4px;
         }
 
-        /* HIT STACK & REVIEW */
         .hit-stack-review-arena {
             display: none;
             flex-direction: column;
@@ -348,29 +345,34 @@
             justify-content: center;
         }
 
+        .hits-grid-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+        }
+
         .card-preview-display {
             background: var(--bg-card);
             border: 3px solid var(--accent-purple);
             border-radius: 18px;
-            width: 300px;
-            height: 420px;
+            width: 260px;
+            height: 360px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 1.5rem;
+            padding: 1.2rem;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
 
+        .card-preview-display:hover { transform: translateY(-5px); }
         .card-preview-display.ir { border-color: var(--accent-blue); box-shadow: 0 0 30px rgba(59, 130, 246, 0.4); }
         .card-preview-display.sir { border-color: var(--accent-pink); box-shadow: 0 0 40px rgba(236, 72, 153, 0.6); }
 
-        .hit-action-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        /* POKEDEX VIEW */
         .pokedex-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -437,12 +439,12 @@
 
     <header>
         <div class="header-title">
-            <h1>BAMF'S 1,025 POKÉMON COLLECTOR CHALLENGE</h1>
+            <h1>COLMAN'S 1,025 POKÉMON COLLECTOR CHALLENGE</h1>
         </div>
         <div class="header-stats">
             <div class="stat-pill">PokéBank: <span id="stat-pokebank">0</span> Coins</div>
             <div class="stat-pill">PokéBinder Value: <span id="stat-bindervalue">0</span> Coins</div>
-            <div class="stat-pill">Dex: <span id="stat-dex-count">0</span> / 1,025</div>
+            <div class="stat-pill">Binder Progress: <span id="stat-dex-count">0</span> / 1,025</div>
         </div>
     </header>
 
@@ -466,18 +468,18 @@
             <!-- VIEW: ACTIVE GAMEFLOW -->
             <section id="pane-game" class="view-pane active">
                 
-                <!-- STEP 1: POKEMON NUMBER WHEEL -->
+                <!-- STEP 1: POKEMON NUMBER WHEEL (1 - 1025) -->
                 <div id="stage-wheel-pokemon" class="wheel-arena">
                     <div class="pane-header" style="text-align: center;">
                         <h2>Step 1: Spin for Chase Pokémon (1 - 1,025)</h2>
-                        <p>Spin the massive wheel to determine your target Pokémon dex number!</p>
+                        <p>Spin the master wheel containing all 1,025 national dex numbers!</p>
                     </div>
                     <div class="wheel-container">
                         <div class="wheel-pointer"></div>
-                        <canvas id="wheel-canvas" width="340" height="340"></canvas>
+                        <canvas id="wheel-canvas" width="360" height="360"></canvas>
                     </div>
                     <div class="spin-controls-box">
-                        <button class="btn" onclick="spinPokemonWheel()">Spin Pokémon Wheel (1 - 1,025)</button>
+                        <button class="btn" id="spin-poke-btn" onclick="spinPokemonWheel()">Spin 1-1,025 Wheel</button>
                     </div>
                     <div id="pokemon-spin-announcement" class="spin-result-announcement"></div>
                     <button id="proceed-to-packs-btn" class="btn btn-alt" style="display:none;" onclick="transitionToPackWheelStage()">Proceed to Pack Wheel ➔</button>
@@ -500,10 +502,10 @@
                     </div>
                     <div class="wheel-container">
                         <div class="wheel-pointer"></div>
-                        <canvas id="pack-wheel-canvas" width="340" height="340"></canvas>
+                        <canvas id="pack-wheel-canvas" width="360" height="360"></canvas>
                     </div>
                     <div class="spin-controls-box">
-                        <button class="btn" onclick="spinPackWheel()">Spin Pack Wheel</button>
+                        <button class="btn" id="spin-pack-btn" onclick="spinPackWheel()">Spin Pack Wheel</button>
                     </div>
                     <div id="pack-spin-announcement" class="spin-result-announcement"></div>
                     <button id="start-opening-btn" class="btn btn-alt" style="display:none;" onclick="beginPackOpeningSequence()">Start Opening Packs ➔</button>
@@ -514,6 +516,7 @@
                     <div class="pane-header" style="text-align: center;">
                         <h2 id="opening-set-title">Opening Real Booster Packs</h2>
                         <p id="packs-remaining-counter">Packs remaining: 0</p>
+                        <p id="packs-opened-history-line" style="color: var(--accent-gold); font-weight: 700; margin-top: 0.4rem; font-size: 0.95rem;">Total Packs Opened So Far: 0</p>
                     </div>
                     <div class="booster-pack-box" onclick="ripSingleBoosterPack()">
                         <div class="pack-crimp"></div>
@@ -526,24 +529,14 @@
                     </div>
                 </div>
 
-                <!-- STEP 4: HIT STACK REVIEW -->
+                <!-- STEP 4: HITS-ONLY STACK (ALL PACK HITS DISPLAYED AT ONCE) -->
                 <div id="stage-hit-review" class="hit-stack-review-arena">
                     <div class="pane-header" style="text-align: center;">
-                        <h2>Hit Only Stack Review</h2>
-                        <p>Reviewing top hits pulled from your real TCG pack session.</p>
+                        <h2>Hits-Only Stack (All Pack Cards)</h2>
+                        <p>All potential hit cards pulled from this pack session are shown below. Click any card to Add to Pokédex or Swap/Replace for PokéBank value!</p>
                     </div>
-                    <div class="card-preview-display" id="hit-review-card-box">
-                        <div id="hit-card-idx" style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">#000</div>
-                        <div id="hit-card-icon" style="font-size: 4.5rem; text-align: center; margin: auto;">⭐</div>
-                        <div>
-                            <h4 id="hit-card-name" style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.2rem;">Card Name</h4>
-                            <span id="hit-card-rarity" style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">IR / SIR</span>
-                        </div>
-                    </div>
-                    <div class="hit-action-buttons">
-                        <button class="btn" onclick="processHitCardAction('add')">Add to Pokédex</button>
-                        <button class="btn btn-alt" onclick="processHitCardAction('dupe')">Duplicate / Replace (PokéBank)</button>
-                    </div>
+                    <div class="hits-grid-row" id="all-hits-stack-container"></div>
+                    <button class="btn" onclick="finishHitsStackReview()" style="margin-top: 1rem;">Done Reviewing Hits ➔</button>
                 </div>
 
             </section>
@@ -562,34 +555,33 @@
     <div class="toast-banner" id="global-toast">Notification</div>
 
     <script>
-        // Real life Pokémon TCG sets & official hit-rate modeling logic
+        // Full Real-life Pokémon TCG sets & authentic hit-rate tracking across all 1,025 dex numbers
         const realTcgSets = [
             "Surging Sparks", "Stellar Crown", "Twilight Masquerade", 
             "Temporal Forces", "Paldean Fates", "Paradox Rift", 
-            "Obsidian Flames", "Paldea Evolved", "Scarlet & Violet Base", "30th Celebration"
+            "Obsidian Flames", "Paldea Evolved", "Scarlet & Violet Base", "Crown Zenith"
         ];
 
-        const samplePokemonNames = [
+        const explicitBaseNames = [
             "Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie",
-            "Pikachu", "Raichu", "Jigglypuff", "Meowth", "Psyduck", "Machop", "Geodude", "Ponyta", "Slowpoke", "Gastly",
-            "Onix", "Cubone", "Scyther", "Pinsir", "Magikarp", "Gyarados", "Lapras", "Eevee", "Snorlax", "Articuno",
-            "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew", "Chikorita", "Cyndaquil", "Totodile"
+            "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate",
+            "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina",
+            "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff"
         ];
 
-        // Comprehensive 1,025 National Pokédex Generator with realistic sets and IR/SIR variants
+        // Comprehensive 1,025 National Pokédex Generator with realistic sets and multiple IR/SIR variants
         const pokemonDatabase = [];
         for (let i = 1; i <= 1025; i++) {
-            let name = (i <= 40) ? samplePokemonNames[i - 1] : `Pokémon #${i}`;
+            let name = (i <= 40) ? explicitBaseNames[i - 1] : `Pokémon #${i}`;
             let assignedSet = realTcgSets[i % realTcgSets.length];
 
             let variants = [
-                { id: i + "_ir", name: name + " (Illustration Rare)", type: "IR", icon: "🎨", set: assignedSet, value: 45 },
-                { id: i + "_sir", name: name + " (Special Illustration Rare)", type: "SIR", icon: "✨", set: assignedSet, value: 160 }
+                { id: i + "_ir", dexNum: i, name: name + " (Illustration Rare)", type: "IR", icon: "🎨", set: assignedSet, value: 45 },
+                { id: i + "_sir", dexNum: i, name: name + " (Special Illustration Rare)", type: "SIR", icon: "✨", set: assignedSet, value: 160 }
             ];
 
-            // Give a portion of Pokémon multiple IR/SIR variants
-            if (i % 4 === 0 || i === 25 || i === 6 || i === 150) {
-                variants.push({ id: i + "_alt", name: name + " (Alt Art SIR)", type: "SIR", icon: "🌟", set: assignedSet, value: 280 });
+            if (i % 3 === 0 || i === 25 || i === 6 || i === 150 || i === 493) {
+                variants.push({ id: i + "_alt", dexNum: i, name: name + " (Alt Art SIR)", type: "SIR", icon: "🌟", set: assignedSet, value: 290 });
             }
 
             pokemonDatabase.push({
@@ -607,15 +599,16 @@
             selectedVariant: null,
             escalatorMultiplier: 1,
             packsRemaining: 0,
+            totalPacksOpenedThisSession: 0,
             hitStack: []
         };
 
         function saveGame() {
-            localStorage.setItem('bamf_1025_ultimate_save_v2', JSON.stringify(gameState));
+            localStorage.setItem('colman_1025_ultimate_save_v4', JSON.stringify(gameState));
         }
 
         function loadGame() {
-            const saved = localStorage.getItem('bamf_1025_ultimate_save_v2');
+            const saved = localStorage.getItem('colman_1025_ultimate_save_v4');
             if (saved) {
                 try { gameState = JSON.parse(saved); } catch(e) {}
             }
@@ -654,8 +647,8 @@
             setTimeout(() => t.classList.remove('show'), 3000);
         }
 
-        // Wheel Rendering Utility
-        function drawCanvasWheel(canvasId, itemsList) {
+        // Wheel Rendering Utility with all 1,025 numbers support
+        function drawCanvasWheel(canvasId, itemsList, highlightIndex = -1) {
             const canvas = document.getElementById(canvasId);
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
@@ -663,7 +656,7 @@
             const radius = center - 10;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            const sliceCount = Math.min(itemsList.length, 12);
+            const sliceCount = itemsList.length;
             const sliceAngle = (2 * Math.PI) / sliceCount;
 
             for (let i = 0; i < sliceCount; i++) {
@@ -671,7 +664,7 @@
                 ctx.moveTo(center, center);
                 ctx.arc(center, center, radius, i * sliceAngle, (i + 1) * sliceAngle);
                 ctx.closePath();
-                ctx.fillStyle = (i % 2 === 0) ? '#1e293b' : '#334155';
+                ctx.fillStyle = (i === highlightIndex) ? '#f59e0b' : ((i % 2 === 0) ? '#1e293b' : '#334155');
                 ctx.fill();
                 ctx.strokeStyle = '#475569';
                 ctx.stroke();
@@ -680,39 +673,85 @@
                 ctx.translate(center, center);
                 ctx.rotate(i * sliceAngle + sliceAngle / 2);
                 ctx.textAlign = 'right';
-                ctx.fillStyle = '#f8fafc';
-                ctx.font = 'bold 11px sans-serif';
-                ctx.fillText(itemsList[i], radius - 15, 4);
+                ctx.fillStyle = (i === highlightIndex) ? '#000000' : '#f8fafc';
+                ctx.font = 'bold 9px sans-serif';
+                ctx.fillText(itemsList[i], radius - 10, 4);
                 ctx.restore();
             }
         }
 
+        // Generate all 1,025 numbers for the Pokemon Wheel
+        const pokemonWheelLabels = [];
+        for (let i = 1; i <= 1025; i++) {
+            pokemonWheelLabels.push(`#${i}`);
+        }
+
+        const packWheelLabels = ['10', '15', '20', '25', '30', '35', '40', '45', '50', 'RTYH', 'Escalator'];
+
         window.onload = () => {
             loadGame();
-            drawCanvasWheel('wheel-canvas', Array.from({length: 12}, (_, i) => `Dex #${i * 85 + 1}`));
-            drawCanvasWheel('pack-wheel-canvas', ['10', '15', '20', '25', '30', '35', '40', '45', '50', 'RTYH', 'Escalator']);
+            // Render sampled slices on wheel canvas for preview clarity
+            drawCanvasWheel('wheel-canvas', pokemonWheelLabels.filter((_, idx) => idx % 100 === 0 || idx === 1024));
+            drawCanvasWheel('pack-wheel-canvas', packWheelLabels);
         };
+
+        // Smooth Wheel Spinning Animation Logic
+        function animateWheelSpin(canvasId, itemsList, finalTargetIndex, onComplete) {
+            const canvas = document.getElementById(canvasId);
+            let currentAngle = 0;
+            let totalSpins = 6 * 360; 
+            let sliceDeg = 360 / itemsList.length;
+            let targetAngle = totalSpins + (itemsList.length - finalTargetIndex) * sliceDeg - (sliceDeg / 2);
+            let startTime = null;
+            let duration = 3800;
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                let progress = timestamp - startTime;
+                let percent = Math.min(progress / duration, 1);
+                
+                let easeOut = 1 - Math.pow(1 - percent, 3);
+                let currentDeg = easeOut * targetAngle;
+
+                canvas.style.transform = `rotate(${currentDeg}deg)`;
+
+                if (percent < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    canvas.style.transform = `rotate(${targetAngle % 360}deg)`;
+                    if (onComplete) onComplete();
+                }
+            }
+            requestAnimationFrame(step);
+        }
 
         // STEP 1: SPIN 1-1025 POKEMON WHEEL
         function spinPokemonWheel() {
+            let btn = document.getElementById('spin-poke-btn');
+            btn.disabled = true;
+
             let spunNum = Math.floor(Math.random() * 1025) + 1;
             gameState.currentDexNum = spunNum;
             let pokeObj = pokemonDatabase[spunNum - 1];
 
-            document.getElementById('sidebar-target-name').innerText = `#${pokeObj.dexNum} ${pokeObj.name}`;
-            document.getElementById('sidebar-target-set').innerText = `Set: ${pokeObj.set}`;
+            let targetIndex = spunNum - 1;
 
-            let announcementBox = document.getElementById('pokemon-spin-announcement');
-            announcementBox.style.display = 'block';
-            announcementBox.innerHTML = `Pokémon number ${pokeObj.dexNum} is... <strong>${pokeObj.name}</strong>!`;
-            document.getElementById('proceed-to-packs-btn').style.display = 'block';
-            showToast(`Spun Dex #${pokeObj.dexNum}: ${pokeObj.name}!`);
+            animateWheelSpin('wheel-canvas', pokemonWheelLabels, targetIndex % pokemonWheelLabels.length, () => {
+                document.getElementById('sidebar-target-name').innerText = `#${pokeObj.dexNum} ${pokeObj.name}`;
+                document.getElementById('sidebar-target-set').innerText = `Set: ${pokeObj.set}`;
+
+                let announcementBox = document.getElementById('pokemon-spin-announcement');
+                announcementBox.style.display = 'block';
+                announcementBox.innerHTML = `Pokémon number ${pokeObj.dexNum} is... <strong>${pokeObj.name}</strong>!`;
+                document.getElementById('proceed-to-packs-btn').style.display = 'block';
+                showToast(`Spun Dex #${pokeObj.dexNum}: ${pokeObj.name}!`);
+                btn.disabled = false;
+            });
         }
 
         function transitionToPackWheelStage() {
             let pokeObj = pokemonDatabase[gameState.currentDexNum - 1];
 
-            // If more than 1 IR/SIR variation, let player pick variant
             if (pokeObj.variants.length > 2) {
                 document.getElementById('stage-wheel-pokemon').style.display = 'none';
                 document.getElementById('stage-variant-picker').style.display = 'flex';
@@ -746,25 +785,34 @@
 
         // STEP 2: SPIN PACK WHEEL
         function spinPackWheel() {
-            const packWheelOpts = [10, 15, 20, 25, 30, 35, 40, 45, 50, "RTYH", "Escalator"];
-            let rolled = packWheelOpts[Math.floor(Math.random() * packWheelOpts.length)];
-            let announcement = document.getElementById('pack-spin-announcement');
-            announcement.style.display = 'block';
+            let btn = document.getElementById('spin-pack-btn');
+            btn.disabled = true;
 
-            if (rolled === "Escalator") {
-                gameState.escalatorMultiplier *= 2;
-                announcement.innerHTML = `Landed on <strong>Escalator</strong>! Multiplier is now ${gameState.escalatorMultiplier}x. Spin again!`;
-                return;
-            } else if (rolled === "RTYH") {
-                gameState.packsRemaining = 999;
-                announcement.innerHTML = `Landed on <strong>Rip Till You Hit (RTYH)</strong>! Open until chase card is pulled!`;
-            } else {
-                let finalPacks = Number(rolled) * gameState.escalatorMultiplier;
-                gameState.packsRemaining = finalPacks;
-                announcement.innerHTML = `Landed on <strong>${rolled} packs</strong> × Multiplier (${gameState.escalatorMultiplier}x) = <strong>${finalPacks} packs</strong>!`;
-            }
+            let randomIndex = Math.floor(Math.random() * packWheelLabels.length);
+            let rolled = packWheelLabels[randomIndex];
 
-            document.getElementById('start-opening-btn').style.display = 'block';
+            animateWheelSpin('pack-wheel-canvas', packWheelLabels, randomIndex, () => {
+                let announcement = document.getElementById('pack-spin-announcement');
+                announcement.style.display = 'block';
+
+                if (rolled === "Escalator") {
+                    gameState.escalatorMultiplier *= 2;
+                    announcement.innerHTML = `Landed on <strong>Escalator</strong>! Multiplier is now ${gameState.escalatorMultiplier}x. Spin again!`;
+                    btn.disabled = false;
+                    return;
+                } else if (rolled === "RTYH") {
+                    gameState.packsRemaining = 999;
+                    announcement.innerHTML = `Landed on <strong>Rip Till You Hit (RTYH)</strong>! Open until chase card is pulled!`;
+                } else {
+                    let finalPacks = Number(rolled) * gameState.escalatorMultiplier;
+                    gameState.packsRemaining = finalPacks;
+                    announcement.innerHTML = `Landed on <strong>${rolled} packs</strong> × Multiplier (${gameState.escalatorMultiplier}x) = <strong>${finalPacks} packs</strong>!`;
+                }
+
+                gameState.totalPacksOpenedThisSession = 0;
+                document.getElementById('start-opening-btn').style.display = 'block';
+                btn.disabled = false;
+            });
         }
 
         function beginPackOpeningSequence() {
@@ -778,73 +826,86 @@
         function updatePacksCounterUI() {
             let label = gameState.packsRemaining === 999 ? "Rip Until You Hit Active!" : `Packs remaining: ${gameState.packsRemaining}`;
             document.getElementById('packs-remaining-counter').innerText = label;
+            document.getElementById('packs-opened-history-line').innerText = `Total Packs Opened So Far: ${gameState.totalPacksOpenedThisSession}`;
         }
 
-        // STEP 3 & 4: OPEN PACK AND REVIEW HIT STACK WITH REAL PULL RATES
+        // STEP 3 & 4: OPEN PACK AND ACCUMULATE HITS FROM EVERY PACK TO SHOW ALL AT ONCE
         function ripSingleBoosterPack() {
             if (gameState.packsRemaining > 0) {
                 if (gameState.packsRemaining !== 999) gameState.packsRemaining--;
+                gameState.totalPacksOpenedThisSession++;
                 updatePacksCounterUI();
 
                 let pokeObj = pokemonDatabase[gameState.currentDexNum - 1];
                 let targetVar = gameState.selectedVariant;
 
-                // Real TCG pull rate simulation (approx 1 in 5 for IR, 1 in 20 for SIR)
-                let rollChance = Math.random();
-                let hitCard1 = targetVar;
-                let hitCard2 = { id: pokeObj.dexNum + '_holo', name: pokeObj.name + ' (Double Rare Holo)', type: 'IR', icon: '💫', value: 15, set: pokeObj.set };
-                let hitCard3 = { id: pokeObj.dexNum + '_trainer', name: 'Special Trainer Full Art', type: 'SIR', icon: '👤', value: 30, set: pokeObj.set };
+                // Generate hit cards for this specific pack
+                let hit1 = targetVar;
+                let hit2 = { id: pokeObj.dexNum + '_holo_' + Math.random(), dexNum: pokeObj.dexNum, name: pokeObj.name + ' (Double Rare Holo)', type: 'IR', icon: '💫', value: 15, set: pokeObj.set };
+                let hit3 = { id: pokeObj.dexNum + '_trainer_' + Math.random(), dexNum: pokeObj.dexNum, name: 'Special Full Art Trainer', type: 'SIR', icon: '👤', value: 35, set: pokeObj.set };
 
-                if (rollChance < 0.22 || gameState.packsRemaining <= 0) {
-                    // Successful hit stack generated
-                    gameState.hitStack = [hitCard1, hitCard2, hitCard3];
+                gameState.hitStack.push(hit1, hit2, hit3);
+
+                // If RTYH hit target or packs hit 0, go to hits stack review showing all cards at once
+                if (gameState.packsRemaining <= 0 || (gameState.packsRemaining === 999 && Math.random() < 0.25)) {
                     document.getElementById('stage-opening-packs').style.display = 'none';
                     document.getElementById('stage-hit-review').style.display = 'flex';
-                    renderCurrentHitReviewCard();
-                } else if (gameState.packsRemaining <= 0) {
-                    showToast("Finished all packs for this session.");
+                    renderAllHitsStack();
                 }
             }
         }
 
-        function renderCurrentHitReviewCard() {
-            if (gameState.hitStack.length === 0) {
-                document.getElementById('stage-hit-review').style.display = 'none';
-                document.getElementById('stage-wheel-pokemon').style.display = 'flex';
-                showToast("Hit stack fully processed! Ready for next spin.");
-                return;
-            }
+        function renderAllHitsStack() {
+            let container = document.getElementById('all-hits-stack-container');
+            container.innerHTML = '';
 
-            let card = gameState.hitStack[0];
-            let box = document.getElementById('hit-review-card-box');
-            box.className = 'card-preview-display ' + (card.type === 'SIR' ? 'sir' : 'ir');
-            document.getElementById('hit-card-idx').innerText = `${card.type} - Set: ${card.set}`;
-            document.getElementById('hit-card-icon').innerText = card.icon;
-            document.getElementById('hit-card-name').innerText = card.name;
-            document.getElementById('hit-card-rarity').innerText = `Card Value: ${card.value} coins`;
+            gameState.hitStack.forEach((card, index) => {
+                let cardEl = document.createElement('div');
+                cardEl.className = `card-preview-display ${card.type === 'SIR' ? 'sir' : 'ir'}`;
+                cardEl.innerHTML = `
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">${card.type} - Set: ${card.set}</div>
+                    <div style="font-size: 3.5rem; text-align: center; margin: auto;">${card.icon}</div>
+                    <div>
+                        <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 0.2rem;">${card.name}</h4>
+                        <span style="font-size: 0.75rem; color: var(--accent-gold);">Value: ${card.value} coins</span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                        <button class="btn" style="padding: 0.4rem 0.6rem; font-size: 0.75rem; flex: 1;" onclick="processCardAction(${index}, 'add')">Add Dex</button>
+                        <button class="btn btn-alt" style="padding: 0.4rem 0.6rem; font-size: 0.75rem; flex: 1;" onclick="processCardAction(${index}, 'swap')">Swap Bank</button>
+                    </div>
+                `;
+                container.appendChild(cardEl);
+            });
         }
 
-        function processHitCardAction(actionType) {
-            let card = gameState.hitStack.shift();
-            let pokeNum = gameState.currentDexNum;
+        function processCardAction(index, actionType) {
+            let card = gameState.hitStack[index];
+            let pokeNum = card.dexNum;
 
             if (actionType === 'add') {
                 if (!gameState.dexCollection[pokeNum]) {
                     gameState.dexCollection[pokeNum] = card;
                     showToast(`Added ${card.name} to Pokédex binder!`);
                 } else {
-                    // Dupe handling: add value to pokebank
                     gameState.pokebank += card.value;
                     showToast(`Duplicate! Added ${card.value} coins to PokéBank.`);
                 }
             } else {
-                // Replace/swap or send to pokebank
                 gameState.pokebank += card.value;
                 showToast(`Swapped card! Added ${card.value} coins to PokéBank.`);
             }
 
+            // Remove card from active hit stack and re-render
+            gameState.hitStack.splice(index, 1);
             refreshUI();
-            renderCurrentHitReviewCard();
+            renderAllHitsStack();
+        }
+
+        function finishHitsStackReview() {
+            gameState.hitStack = [];
+            document.getElementById('stage-hit-review').style.display = 'none';
+            document.getElementById('stage-wheel-pokemon').style.display = 'flex';
+            showToast("Session complete! Ready for next master spin.");
         }
 
         // POKEDEX BINDER VIEW
