@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TCG Collector Challenge Simulator</title>
+    <title>Bamf's Ultimate 1,025 Pokémon Chase Simulator</title>
     <style>
         :root {
-            --bg-main: #090d16;
-            --bg-panel: #111827;
-            --bg-card: #1f2937;
-            --border-color: #374151;
-            --text-primary: #f9fafb;
-            --text-secondary: #9ca3af;
-            --accent-gold: #fbbf24;
+            --bg-dark: #05070a;
+            --bg-panel: #0d121c;
+            --bg-card: #151c2e;
+            --border-main: #23304a;
+            --text-main: #f0f4f8;
+            --text-muted: #8295ad;
+            --accent-gold: #f59e0b;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
             --accent-purple: #8b5cf6;
             --accent-pink: #ec4899;
-            --accent-blue: #3b82f6;
-            --accent-green: #10b981;
+            --accent-red: #ef4444;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            user-select: none;
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -37,801 +39,817 @@
 
         header {
             background-color: var(--bg-panel);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem 2rem;
+            border-bottom: 2px solid var(--border-main);
+            padding: 0.85rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
         }
 
-        .logo h1 {
+        .header-title h1 {
             font-size: 1.25rem;
+            font-weight: 900;
             background: linear-gradient(135deg, var(--accent-gold), var(--accent-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 800;
             letter-spacing: 0.05em;
         }
 
-        .global-stats {
+        .header-stats {
             display: flex;
-            gap: 1.5rem;
-            font-size: 0.9rem;
+            gap: 1rem;
+            align-items: center;
         }
 
-        .stat-badge {
+        .stat-pill {
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
+            border: 1px solid var(--border-main);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
-        .stat-badge span {
+        .stat-pill span {
             color: var(--accent-gold);
-            font-weight: bold;
+            font-weight: 800;
         }
 
-        .app-layout {
+        .main-container {
             display: grid;
             grid-template-columns: 260px 1fr;
             flex: 1;
-            max-width: 1600px;
+            max-width: 1800px;
             width: 100%;
             margin: 0 auto;
         }
 
-        aside {
+        sidebar {
             background-color: var(--bg-panel);
-            border-right: 1px solid var(--border-color);
-            padding: 1.5rem;
+            border-right: 2px solid var(--border-main);
+            padding: 1.5rem 1rem;
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
 
-        .nav-group h3 {
-            font-size: 0.75rem;
+        .nav-group-title {
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--text-secondary);
-            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+            font-weight: 700;
         }
 
-        .nav-buttons {
+        .nav-list {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .nav-btn {
             background: transparent;
             border: 1px solid transparent;
-            color: var(--text-primary);
-            padding: 0.75rem 1rem;
+            color: var(--text-main);
+            padding: 0.7rem 1rem;
             text-align: left;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
         }
 
         .nav-btn:hover {
             background-color: var(--bg-card);
-            border-color: var(--border-color);
+            border-color: var(--border-main);
         }
 
         .nav-btn.active {
             background-color: var(--accent-blue);
+            color: white;
             border-color: transparent;
         }
 
-        main {
+        .sidebar-challenge-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-main);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .sidebar-challenge-box h4 {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+        }
+
+        .sidebar-challenge-box p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+        content-area {
             padding: 2rem;
             display: flex;
             flex-direction: column;
-            background-color: var(--bg-main);
+            background-color: var(--bg-dark);
             overflow-y: auto;
-            max-height: calc(100vh - 70px);
+            max-height: calc(100vh - 65px);
         }
 
-        .view-section {
+        .view-pane {
             display: none;
             flex-direction: column;
             gap: 1.5rem;
             flex: 1;
         }
 
-        .view-section.active {
+        .view-pane.active {
             display: flex;
         }
 
-        .section-header {
-            margin-bottom: 0.5rem;
-        }
-
-        .section-header h2 {
+        .pane-header h2 {
             font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
+            font-weight: 800;
+            margin-bottom: 0.2rem;
         }
 
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
+        .pane-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
-        /* Pack Opening View Elements */
-        .opening-arena {
+        /* WHEEL SPINNER OVERLAY / SECTION */
+        .wheel-arena {
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 340px;
+            height: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 25px solid var(--accent-gold);
+            z-index: 50;
+            filter: drop-shadow(0 3px 3px rgba(0,0,0,0.5));
+        }
+
+        canvas#wheel-canvas {
+            border-radius: 50%;
+            box-shadow: 0 0 35px rgba(59, 130, 246, 0.3);
+            border: 6px solid var(--border-main);
+            background: var(--bg-panel);
+        }
+
+        .spin-controls-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .spin-result-announcement {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-gold);
+            border-radius: 14px;
+            padding: 1.5rem 2.5rem;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);
+            max-width: 700px;
+            display: none;
+        }
+
+        /* ART VARIANT PICKER */
+        .variant-picker-wrapper {
+            display: none;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .variants-cards-row {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .variant-card-choice {
+            background: var(--bg-card);
+            border: 3px solid var(--border-main);
+            border-radius: 16px;
+            width: 240px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .variant-card-choice:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .variant-card-icon {
+            font-size: 4rem;
+            background: var(--bg-panel);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--border-main);
+        }
+
+        /* PACK OPENING ARENA */
+        .opening-stage {
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             flex: 1;
             gap: 2rem;
-            min-height: 450px;
         }
 
-        .booster-wrapper {
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .booster-pack-visual {
-            width: 240px;
-            height: 350px;
-            background: linear-gradient(135deg, #1e3a8a, #312e81, #581c87);
-            border-radius: 14px;
+        .booster-pack-box {
+            width: 260px;
+            height: 380px;
+            background: linear-gradient(135deg, #1d4ed8, #3b82f6, #9333ea);
+            border-radius: 16px;
             border: 4px solid var(--accent-gold);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 35px -10px rgba(0,0,0,0.7);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem;
+            cursor: pointer;
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            overflow: hidden;
         }
 
-        .booster-pack-visual:hover {
-            transform: translateY(-12px) scale(1.02);
+        .booster-pack-box:hover {
+            transform: translateY(-10px) scale(1.02);
         }
 
-        .pack-top-crimp {
+        .pack-crimp {
             width: 100%;
-            height: 12px;
+            height: 14px;
             background: repeating-linear-gradient(90deg, #94a3b8, #94a3b8 4px, #cbd5e1 4px, #cbd5e1 8px);
             border-radius: 4px;
         }
 
-        .pack-emblem {
-            font-size: 3.5rem;
-            background: rgba(0,0,0,0.3);
-            width: 90px;
-            height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            border: 2px dashed var(--accent-gold);
-        }
-
-        .pack-label {
-            text-align: center;
-        }
-
-        .pack-label h4 {
-            font-size: 1.1rem;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.25rem;
-        }
-
-        .pack-label span {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
-
-        /* Pull Reveal Grid */
-        .reveal-container {
+        /* HIT STACK & REVEAL */
+        .hit-stack-review-arena {
             display: none;
             flex-direction: column;
-            gap: 2rem;
             align-items: center;
+            gap: 2rem;
             flex: 1;
+            justify-content: center;
         }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        .tcg-card {
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            border: 2px solid var(--border-color);
-            height: 280px;
+        .card-preview-display {
+            background: var(--bg-card);
+            border: 3px solid var(--accent-purple);
+            border-radius: 18px;
+            width: 300px;
+            height: 420px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             position: relative;
-            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .tcg-card.common { border-color: #4b5563; }
-        .tcg-card.rare { border-color: var(--accent-blue); box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
-        .tcg-card.ultra { border-color: var(--accent-purple); box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); }
-        .tcg-card.secret { border-color: var(--accent-pink); box-shadow: 0 0 20px rgba(236, 72, 153, 0.4); }
+        .card-preview-display.ir { border-color: var(--accent-blue); box-shadow: 0 0 30px rgba(59, 130, 246, 0.4); }
+        .card-preview-display.sir { border-color: var(--accent-pink); box-shadow: 0 0 40px rgba(236, 72, 153, 0.6); }
 
-        .card-number-tag {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            font-weight: bold;
-        }
-
-        .card-art-frame {
-            background: var(--bg-panel);
-            border-radius: 8px;
-            flex: 1;
-            margin: 0.75rem 0;
+        .hit-action-buttons {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            position: relative;
-            overflow: hidden;
+            gap: 1rem;
         }
 
-        .card-meta h5 {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 0.15rem;
-        }
-
-        .card-meta span {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-        }
-
-        /* Binder View Grid */
-        .binder-grid {
+        /* POKEDEX & POKEBANK VIEW */
+        .pokedex-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 1rem;
-            padding-bottom: 2rem;
+            padding-bottom: 3rem;
         }
 
-        .binder-slot {
-            background-color: var(--bg-panel);
-            border: 2px dashed var(--border-color);
-            border-radius: 10px;
+        .dex-entry-slot {
+            background: var(--bg-panel);
+            border: 2px dashed var(--border-main);
+            border-radius: 12px;
             height: 200px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0.75rem;
+            padding: 0.8rem;
             text-align: center;
             position: relative;
-            transition: all 0.2s ease;
         }
 
-        .binder-slot.unlocked {
+        .dex-entry-slot.unlocked {
             border-style: solid;
-            border-color: var(--border-color);
-            background-color: var(--bg-card);
-        }
-
-        .binder-slot.unlocked.rare-slot { border-color: var(--accent-blue); }
-        .binder-slot.unlocked.ultra-slot { border-color: var(--accent-purple); }
-        .binder-slot.unlocked.secret-slot { border-color: var(--accent-pink); }
-
-        .slot-index {
-            position: absolute;
-            top: 6px;
-            left: 8px;
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            font-weight: bold;
-        }
-
-        .slot-content-icon {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .slot-card-title {
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-bottom: 0.2rem;
-        }
-
-        .slot-count-badge {
-            font-size: 0.65rem;
-            background: rgba(0,0,0,0.4);
-            padding: 0.1rem 0.4rem;
-            border-radius: 4px;
-            color: var(--accent-gold);
-            margin-top: 0.25rem;
-        }
-
-        /* Shop & Exchange Panels */
-        .shop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .shop-card {
-            background-color: var(--bg-panel);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .shop-card h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .shop-card p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.4;
+            border-color: var(--accent-green);
+            background: var(--bg-card);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
         }
 
         .btn {
             background-color: var(--accent-blue);
             color: white;
             border: none;
-            padding: 0.75rem 1.25rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 8px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.2s ease;
-            font-size: 0.9rem;
-        }
-
-        .btn:hover {
-            background-color: #2563eb;
-        }
-
-        .btn-secondary {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--border-color);
-        }
-
-        /* Challenge Overview Box */
-        .challenge-card-box {
-            background-color: var(--bg-panel);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .challenge-rules-list {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            color: var(--text-secondary);
+            transition: background 0.2s;
             font-size: 0.95rem;
         }
 
-        /* Notification Toast */
-        .toast-notification {
+        .btn:hover { background-color: #2563eb; }
+        .btn-alt { background-color: var(--accent-purple); }
+        .btn-alt:hover { background-color: #7c3aed; }
+
+        .toast-banner {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
             background-color: var(--accent-gold);
             color: #000;
-            padding: 0.85rem 1.25rem;
-            border-radius: 8px;
-            font-weight: 700;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
-            transform: translateY(150%);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 2000;
-            font-size: 0.9rem;
+            padding: 0.9rem 1.4rem;
+            border-radius: 10px;
+            font-weight: 800;
+            box-shadow: 0 15px 25px -5px rgba(0,0,0,0.5);
+            transform: translateY(180%);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 999;
+            font-size: 0.95rem;
         }
-
-        .toast-notification.show {
-            transform: translateY(0);
-        }
+        .toast-banner.show { transform: translateY(0); }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">
-            <h1>TCG COLLECTOR CHALLENGE</h1>
+        <div class="header-title">
+            <h1>BAMF'S 1,025 POKÉMON COLLECTOR CHALLENGE</h1>
         </div>
-        <div class="global-stats">
-            <div class="stat-badge">Packs Opened: <span id="stat-packs">0</span></div>
-            <div class="stat-badge">Coins: <span id="stat-coins">500</span></div>
-            <div class="stat-badge">Master Set: <span id="stat-progress">0%</span></div>
+        <div class="header-stats">
+            <div class="stat-pill">PokéBank: <span id="stat-pokebank">0</span> Coins</div>
+            <div class="stat-pill">Dex Completion: <span id="stat-dex-count">0</span> / 1,025</div>
         </div>
     </header>
 
-    <div class="app-layout">
-        <aside>
-            <div class="nav-group">
-                <h3>Challenge Hub</h3>
-                <div class="nav-buttons">
-                    <button class="nav-btn active" onclick="switchView('opening')">📦 Rip Packs</button>
-                    <button class="nav-btn" onclick="switchView('binder')">📖 Master Binder</button>
-                    <button class="nav-btn" onclick="switchView('shop')">🛒 Exchange & Shop</button>
-                    <button class="nav-btn" onclick="switchView('challenge')">🎯 Rules & Goals</button>
+    <div class="main-container">
+        <sidebar>
+            <div>
+                <div class="nav-group-title">Navigation</div>
+                <div class="nav-list">
+                    <button class="nav-btn active" onclick="switchView('game')">🎮 Active Challenge</button>
+                    <button class="nav-btn" onclick="switchView('pokedex')">📖 Master Pokédex</button>
                 </div>
             </div>
-            <div class="nav-group">
-                <h3>Set Completion</h3>
-                <div style="background: var(--bg-card); border-radius: 8px; height: 10px; width: 100%; border: 1px solid var(--border-color); overflow: hidden;">
-                    <div id="progress-bar-fill" style="background: var(--accent-gold); width: 0%; height: 100%; transition: width 0.3s ease;"></div>
-                </div>
+            <div class="sidebar-challenge-box">
+                <h4>Active Chase Target</h4>
+                <p id="sidebar-target-name">None Spun Yet</p>
+                <p style="font-size: 0.7rem; color: var(--text-muted);" id="sidebar-target-set">Set: ---</p>
             </div>
-        </aside>
+        </sidebar>
 
-        <main>
-            <!-- VIEW 1: OPENING PACKS -->
-            <section id="view-opening" class="view-section active">
-                <div class="section-header">
-                    <h2>Booster Pack Ripping</h2>
-                    <p>Click the booster pack below to open a fresh wrap and chase rare pulls!</p>
+        <content-area>
+            <!-- VIEW: ACTIVE GAMEFLOW -->
+            <section id="pane-game" class="view-pane active">
+                
+                <!-- STEP 1: POKEMON NUMBER WHEEL -->
+                <div id="stage-wheel-pokemon" class="wheel-arena">
+                    <div class="pane-header" style="text-align: center;">
+                        <h2>Step 1: Spin for Chase Pokémon (1 - 1,025)</h2>
+                        <p>Spin the massive wheel to determine your target Pokémon dex number!</p>
+                    </div>
+                    <div class="wheel-container">
+                        <div class="wheel-pointer"></div>
+                        <canvas id="wheel-canvas" width="320" height="320"></canvas>
+                    </div>
+                    <div class="spin-controls-box">
+                        <button class="btn" onclick="spinPokemonWheel()">Spin Pokémon Wheel (1 - 1,025)</button>
+                    </div>
+                    <div id="pokemon-spin-announcement" class="spin-result-announcement"></div>
+                    <button id="proceed-to-packs-btn" class="btn btn-alt" style="display:none;" onclick="transitionToPackWheelStage()">Proceed to Pack Wheel ➔</button>
                 </div>
 
-                <div class="opening-arena" id="pack-selection-area">
-                    <div class="booster-wrapper" onclick="openBoosterPack()">
-                        <div class="booster-pack-visual">
-                            <div class="pack-top-crimp"></div>
-                            <div class="pack-emblem">⚡</div>
-                            <div class="pack-label">
-                                <h4>Base Expansion</h4>
-                               <span>Cost: 50 Coins</span>
-                            </div>
-                            <div class="pack-top-crimp"></div>
+                <!-- STEP 1B: ART VARIANT CHOICE (IF MULTIPLE IR/SIR) -->
+                <div id="stage-variant-picker" class="variant-picker-wrapper">
+                    <div class="pane-header">
+                        <h2 id="variant-picker-title">Multiple Art Variants Found!</h2>
+                        <p>This Pokémon has multiple Illustration Rares (IR) or Special Illustration Rares (SIR). Choose your specific chase card:</p>
+                    </div>
+                    <div class="variants-cards-row" id="variants-cards-container"></div>
+                </div>
+
+                <!-- STEP 2: PACK COUNT WHEEL -->
+                <div id="stage-wheel-packs" class="wheel-arena" style="display: none;">
+                    <div class="pane-header" style="text-align: center;">
+                        <h2>Step 2: Spin for Pack Count</h2>
+                        <p>Determine how many booster packs you will open for this chase session!</p>
+                    </div>
+                    <div class="wheel-container">
+                        <div class="wheel-pointer"></div>
+                        <canvas id="pack-wheel-canvas" width="320" height="320"></canvas>
+                    </div>
+                    <div class="spin-controls-box">
+                        <button class="btn" onclick="spinPackWheel()">Spin Pack Wheel</button>
+                    </div>
+                    <div id="pack-spin-announcement" class="spin-result-announcement"></div>
+                    <button id="start-opening-btn" class="btn btn-alt" style="display:none;" onclick="beginPackOpeningSequence()">Start Opening Packs ➔</button>
+                </div>
+
+                <!-- STEP 3: OPENING PACKS -->
+                <div id="stage-opening-packs" class="opening-stage" style="display: none;">
+                    <div class="pane-header" style="text-align: center;">
+                        <h2 id="opening-set-title">Opening Booster Packs</h2>
+                        <p id="packs-remaining-counter">Packs remaining: 0</p>
+                    </div>
+                    <div class="booster-pack-box" onclick="ripSingleBoosterPack()">
+                        <div class="pack-crimp"></div>
+                        <div style="font-size: 4rem;">⚡</div>
+                        <div style="text-align: center;">
+                            <h4 id="pack-box-name" style="color: var(--accent-gold); font-size: 1.1rem; text-transform: uppercase;">Expansion Pack</h4>
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">Click to Rip Pack</span>
                         </div>
+                        <div class="pack-crimp"></div>
                     </div>
                 </div>
 
-                <div class="reveal-container" id="pack-reveal-area">
-                    <div class="cards-grid" id="revealed-cards-grid"></div>
-                    <div>
-                        <button class="btn" onclick="resetPackOpening()">Open Another Pack</button>
+                <!-- STEP 4: HIT STACK REVIEW -->
+                <div id="stage-hit-review" class="hit-stack-review-arena">
+                    <div class="pane-header" style="text-align: center;">
+                        <h2>Hit Only Stack Review</h2>
+                        <p>Reviewing top hits pulled from your pack session.</p>
                     </div>
-                </div>
-            </section>
-
-            <!-- VIEW 2: BINDER -->
-            <section id="view-binder" class="view-section">
-                <div class="section-header">
-                    <h2>Collection Binder</h2>
-                    <p>Track your collected master set checklist entries.</p>
-                </div>
-                <div class="binder-grid" id="master-binder-grid"></div>
-            </section>
-
-            <!-- VIEW 3: SHOP -->
-            <section id="view-shop" class="view-section">
-                <div class="section-header">
-                    <h2>Collector Exchange</h2>
-                    <p>Manage finances, sponsor bonuses, and bulk card liquidations.</p>
-                </div>
-                <div class="shop-grid">
-                    <div class="shop-card">
+                    <div class="card-preview-display" id="hit-review-card-box">
+                        <div id="hit-card-idx" style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">#000</div>
+                        <div id="hit-card-icon" style="font-size: 4.5rem; text-align: center; margin: auto;">⭐</div>
                         <div>
-                            <h4>Sponsor Funding</h4>
-                            <p>Claim creator sponsorship credits to top up your budget when running low on coins.</p>
+                            <h4 id="hit-card-name" style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.2rem;">Card Name</h4>
+                            <span id="hit-card-rarity" style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">IR / SIR</span>
                         </div>
-                        <button class="btn" onclick="claimSponsorFunds()">Claim +100 Coins</button>
                     </div>
-                    <div class="shop-card">
-                        <div>
-                            <h4>Liquidate Duplicates</h4>
-                            <p>Trade extra duplicate card quantities back into exchange credits for further pack openings.</p>
-                        </div>
-                        <button class="btn btn-secondary" onclick="liquidateDuplicateCards()">Sell Extra Cards</button>
+                    <div class="hit-action-buttons">
+                        <button class="btn" onclick="processHitCardAction('add')">Add to Pokédex</button>
+                        <button class="btn btn-alt" onclick="processHitCardAction('dupe')">Duplicate / Replace (PokéBank)</button>
                     </div>
                 </div>
+
             </section>
 
-            <!-- VIEW 4: CHALLENGE -->
-            <section id="view-challenge" class="view-section">
-                <div class="section-header">
-                    <h2>Challenge Parameters</h2>
-                    <p>Season ruleset and objectives for complete master set completion.</p>
+            <!-- VIEW: POKEDEX MASTER LIST -->
+            <section id="pane-pokedex" class="view-pane">
+                <div class="pane-header">
+                    <h2>Master 1,025 Pokédex Collection</h2>
+                    <p>Track all collected Illustration Rares and Special Illustration Rares across the national dex.</p>
                 </div>
-                <div class="challenge-card-box">
-                    <h4>Current Season Mission:</h4>
-                    <ul class="challenge-rules-list">
-                        <li>Collect all 30 unique cards across Common, Rare, Ultra, and Secret tiers.</li>
-                        <li>Slot pulled cards directly into the structured binder slots.</li>
-                        <li>Manage coin economy via sponsor claims and duplicate liquidation.</li>
-                        <li>Achieve 100% completion status to claim the ultimate collector trophy.</li>
-                    </ul>
-                    <div id="trophy-banner" style="display: none; padding: 1.25rem; background: rgba(251, 191, 36, 0.1); border: 1px solid var(--accent-gold); border-radius: 8px; text-align: center;">
-                        <h3 style="color: var(--accent-gold);">🏆 Master Set Completed! Legendary Collector Status Achieved! 🏆</h3>
-                    </div>
-                </div>
+                <div class="pokedex-grid" id="master-dex-grid"></div>
             </section>
-        </main>
+        </content-area>
     </div>
 
-    <div class="toast-notification" id="toast-popup">Notification message</div>
+    <div class="toast-banner" id="global-toast">Notification</div>
 
     <script>
-        // Full 30 Card Master Database
-        const masterCardDatabase = [
-            { id: 1, name: "Pichu Pup", rarity: "common", tierClass: "common", icon: "⚡", weight: 0.25 },
-            { id: 2, name: "Flame Spark", rarity: "common", tierClass: "common", icon: "🔥", weight: 0.25 },
-            { id: 3, name: "Leaf Bud", rarity: "common", tierClass: "common", icon: "🌱", weight: 0.25 },
-            { id: 4, name: "Aqua Bubble", rarity: "common", tierClass: "common", icon: "💧", weight: 0.25 },
-            { id: 5, name: "Rock Pebble", rarity: "common", tierClass: "common", icon: "🪨", weight: 0.25 },
-            { id: 6, name: "Wind Whisper", rarity: "common", tierClass: "common", icon: "💨", weight: 0.25 },
-            { id: 7, name: "Shadow Imp", rarity: "common", tierClass: "common", icon: "👻", weight: 0.25 },
-            { id: 8, name: "Iron Bolt", rarity: "common", tierClass: "common", icon: "⚙️", weight: 0.25 },
-            { id: 9, name: "Psy Mystic", rarity: "common", tierClass: "common", icon: "🔮", weight: 0.25 },
-            { id: 10, name: "Frost Fang", rarity: "common", tierClass: "common", icon: "❄️️", weight: 0.25 },
-            { id: 11, name: "Sparkle Sprite", rarity: "common", tierClass: "common", icon: "✨", weight: 0.25 },
-            { id: 12, name: "Muddy Puddle", rarity: "common", tierClass: "common", icon: "🌧️", weight: 0.25 },
-            { id: 13, name: "Sand Shard", rarity: "common", tierClass: "common", icon: "⏳", weight: 0.25 },
-            { id: 14, name: "Breeze Feather", rarity: "common", tierClass: "common", icon: "🪶", weight: 0.25 },
-            { id: 15, name: "Glow Ember", rarity: "common", tierClass: "common", icon: "🌟", weight: 0.25 },
-            { id: 16, name: "Dragon Claw", rarity: "rare", tierClass: "rare", icon: "🐉", weight: 0.08 },
-            { id: 17, name: "Thunder Beast", rarity: "rare", tierClass: "rare", icon: "⚡", weight: 0.08 },
-            { id: 18, name: "Magma Titan", rarity: "rare", tierClass: "rare", icon: "🌋", weight: 0.08 },
-            { id: 19, name: "Forest Guardian", rarity: "rare", tierClass: "rare", icon: "🌲", weight: 0.08 },
-            { id: 20, name: "Abyss Leviathan", rarity: "rare", tierClass: "rare", icon: "🌊", weight: 0.08 },
-            { id: 21, name: "Solar Phoenix", rarity: "ultra", tierClass: "ultra", icon: "☀️", weight: 0.03 },
-            { id: 22, name: "Lunar Eclipse", rarity: "ultra", tierClass: "ultra", icon: "🌙", weight: 0.03 },
-            { id: 23, name: "Crystal Golem", rarity: "ultra", tierClass: "ultra", icon: "💎", weight: 0.03 },
-            { id: 24, name: "Astral Drake", rarity: "ultra", tierClass: "ultra", icon: "🌌", weight: 0.03 },
-            { id: 25, name: "Vortex Spirit", rarity: "ultra", tierClass: "ultra", icon: "🌀", weight: 0.03 },
-            { id: 26, name: "Rainbow Archon", rarity: "secret", tierClass: "secret", icon: "🌈", weight: 0.008 },
-            { id: 27, name: "Golden Overlord", rarity: "secret", tierClass: "secret", icon: "👑", weight: 0.005 },
-            { id: 28, name: "Cosmic Nebula", rarity: "secret", tierClass: "secret", icon: "🪐", weight: 0.003 },
-            { id: 29, name: "Dimension Splitter", rarity: "secret", tierClass: "secret", icon: "⚡", weight: 0.002 },
-            { id: 30, name: "Secret Rare Pikachu", rarity: "secret", tierClass: "secret", icon: "⭐", weight: 0.001 }
+        // Master Database setup simulating 1,025 Pokémon with sets and IR/SIR variants
+        const pokemonDatabase = [];
+        const tcgSets = ["Surging Sparks", "Stellar Crown", "Twilight Masquerade", "Temporal Forces", "Paldean Fates", "Paradox Rift", "Obsidian Flames", "Paldea Evolved", "Base Set TCG"];
+
+        const samplePokemonNames = [
+            "Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie",
+            "Pikachu", "Raichu", "Jigglypuff", "Meowth", "Psyduck", "Machop", "Geodude", "Ponyta", "Slowpoke", "Gastly",
+            "Onix", "Cubone", "Scyther", "Pinsir", "Magikarp", "Gyarados", "Lapras", "Eevee", "Snorlax", "Articuno",
+            "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew", "Chikorita", "Cyndaquil", "Totodile"
         ];
 
+        // Generate full 1025 dex entries
+        for (let i = 1; i <= 1025; i++) {
+            let name = (i <= 40) ? samplePokemonNames[i - 1] : `Pokémon #${i}`;
+            let setName = tcgSets[(i * 3) % tcgSets.length];
+            
+            // Determine variants (IR or SIR)
+            let variants = [
+                { id: i + "_ir", name: name + " (Illustration Rare)", type: "IR", icon: "🎨", set: setName, value: 50 },
+                { id: i + "_sir", name: name + " (Special Illustration Rare)", type: "SIR", icon: "✨", set: setName, value: 150 }
+            ];
+
+            // Some pokemon have multiple IR/SIR options as requested
+            if (i % 3 === 0) {
+                variants.push({ id: i + "_alt", name: name + " (Alternate SIR)", type: "SIR", icon: "🌟", set: setName, value: 250 });
+            }
+
+            pokemonDatabase.push({
+                dexNum: i,
+                name: name,
+                set: setName,
+                variants: variants
+            });
+        }
+
         let gameState = {
-            packsOpened: 0,
-            coins: 500,
-            collection: {}
+            pokebank: 0,
+            dexCollection: {}, // dexNum -> variantId collected
+            currentDexNum: null,
+            selectedVariant: null,
+            packWheelResult: null,
+            escalatorMultiplier: 1,
+            packsRemaining: 0,
+            hitStack: []
         };
 
-        function loadSavedGameState() {
-            const rawData = localStorage.getItem('tcg_challenge_save_data');
-            if (rawData) {
-                try {
-                    gameState = JSON.parse(rawData);
-                } catch(e) {
-                    console.error("Save parsing error", e);
+        function saveGame() {
+            localStorage.setItem('bamf_1025_save_v1', JSON.stringify(gameState));
+        }
+
+        function loadGame() {
+            const saved = localStorage.getItem('bamf_1025_save_v1');
+            if (saved) {
+                try { gameState = JSON.parse(saved); } catch(e) {}
+            }
+            refreshUI();
+            buildMasterDexGrid();
+        }
+
+        function refreshUI() {
+            document.getElementById('stat-pokebank').innerText = gameState.pokebank;
+            const collectedCount = Object.keys(gameState.dexCollection).length;
+            document.getElementById('stat-dex-count').innerText = collectedCount;
+            saveGame();
+        }
+
+        function switchView(viewId) {
+            document.querySelectorAll('.view-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('pane-' + viewId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            if (viewId === 'pokedex') buildMasterDexGrid();
+        }
+
+        function showToast(msg) {
+            let t = document.getElementById('global-toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // Canvas Wheel Drawing Logic for 1-1,025 and Pack Wheel
+        function drawSimpleWheel(canvasId, itemsList, selectedIndex) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const center = canvas.width / 2;
+            const radius = center - 10;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const sliceAngle = (2 * Math.PI) / Math.min(itemsList.length, 12);
+            for (let i = 0; i < Math.min(itemsList.length, 12); i++) {
+                ctx.beginPath();
+                ctx.moveTo(center, center);
+                ctx.arc(center, center, radius, i * sliceAngle, (i + 1) * sliceAngle);
+                ctx.closePath();
+                ctx.fillStyle = (i % 2 === 0) ? '#1e293b' : '#334155';
+                ctx.fill();
+                ctx.strokeStyle = '#475569';
+                ctx.stroke();
+
+                ctx.save();
+                ctx.translate(center, center);
+                ctx.rotate(i * sliceAngle + sliceAngle / 2);
+                ctx.textAlign = 'right';
+                ctx.fillStyle = '#f8fafc';
+                ctx.font = 'bold 12px sans-serif';
+                ctx.fillText(itemsList[i], radius - 15, 5);
+                ctx.restore();
+            }
+        }
+
+        // Initialize Wheel on Load
+        window.onload = () => {
+            loadGame();
+            drawSimpleWheel('wheel-canvas', Array.from({length: 12}, (_, i) => `Dex #${i * 85 + 1}`), 0);
+            drawSimpleWheel('pack-wheel-canvas', ['10', '15', '20', '25', '30', '35', '40', '45', '50', 'RTYH', 'Escalator'], 0);
+        };
+
+        // STEP 1: SPIN POKEMON WHEEL (1 - 1025)
+        function spinPokemonWheel() {
+            let spunNum = Math.floor(Math.random() * 1025) + 1;
+            gameState.currentDexNum = spunNum;
+            let pokeObj = pokemonDatabase[spunNum - 1];
+
+            document.getElementById('sidebar-target-name').innerText = `#${pokeObj.dexNum} ${pokeObj.name}`;
+            document.getElementById('sidebar-target-set').innerText = `Set: ${pokeObj.set}`;
+
+            let announcementBox = document.getElementById('pokemon-spin-announcement');
+            announcementBox.style.display = 'block';
+            announcementBox.innerHTML = `Pokémon number ${pokeObj.dexNum} is... <strong>${pokeObj.name}</strong>!`;
+            document.getElementById('proceed-to-packs-btn').style.display = 'block';
+            showToast(`Spun Dex #${pokeObj.dexNum}: ${pokeObj.name}!`);
+        }
+
+        function transitionToPackWheelStage() {
+            let pokeObj = pokemonDatabase[gameState.currentDexNum - 1];
+            
+            // Check if multiple IR/SIR variants exist
+            if (pokeObj.variants.length > 2) {
+                document.getElementById('stage-wheel-pokemon').style.display = 'none';
+                document.getElementById('stage-variant-picker').style.display = 'flex';
+                let container = document.getElementById('variants-cards-container');
+                container.innerHTML = '';
+
+                pokeObj.variants.forEach(variant => {
+                    let cardEl = document.createElement('div');
+                    cardEl.className = 'variant-card-choice';
+                    cardEl.innerHTML = `
+                        <div class="variant-card-icon">${variant.icon}</div>
+                        <div>
+                            <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem;">${variant.name}</h4>
+                            <span style="font-size: 0.75rem; color: var(--accent-gold);">${variant.type}</span>
+                        </div>
+                    `;
+                    cardEl.onclick = () => {
+                        gameState.selectedVariant = variant;
+                        document.getElementById('stage-variant-picker').style.display = 'none';
+                        document.getElementById('stage-wheel-packs').style.display = 'flex';
+                        showToast(`Selected Chase: ${variant.name}`);
+                    };
+                    container.appendChild(cardEl);
+                });
+            } else {
+                gameState.selectedVariant = pokeObj.variants[0];
+                document.getElementById('stage-wheel-pokemon').style.display = 'none';
+                document.getElementById('stage-wheel-packs').style.display = 'flex';
+            }
+        }
+
+        // STEP 2: PACK WHEEL SPIN
+        function spinPackWheel() {
+            const wheelOptions = [10, 15, 20, 25, 30, 35, 40, 45, 50, "RTYH", "Escalator"];
+            let rolled = wheelOptions[Math.floor(Math.random() * wheelOptions.length)];
+            let announcement = document.getElementById('pack-spin-announcement');
+            announcement.style.display = 'block';
+
+            if (rolled === "Escalator") {
+                gameState.escalatorMultiplier *= 2;
+                announcement.innerHTML = `Landed on <strong>Escalator</strong>! Multiplier is now ${gameState.escalatorMultiplier}x. Spin again!`;
+                return;
+            } else if (rolled === "RTYH") {
+                gameState.packsRemaining = 999; // Rip till you hit
+                announcement.innerHTML = `Landed on <strong>Rip Till You Hit (RTYH)</strong>!`;
+            } else {
+                let finalPacks = Number(rolled) * gameState.escalatorMultiplier;
+                gameState.packsRemaining = finalPacks;
+                announcement.innerHTML = `Landed on <strong>${rolled} packs</strong> (Multiplier: ${gameState.escalatorMultiplier}x) = Total <strong>${finalPacks} packs</strong>!`;
+            }
+
+            document.getElementById('start-opening-btn').style.display = 'block';
+        }
+
+        function beginPackOpeningSequence() {
+            document.getElementById('stage-wheel-packs').style.display = 'none';
+            document.getElementById('stage-opening-packs').style.display = 'flex';
+            let pokeObj = pokemonDatabase[gameState.currentDexNum - 1];
+            document.getElementById('opening-set-title').innerText = `Opening ${pokeObj.set} Packs`;
+            updatePacksCounterUI();
+        }
+
+        function updatePacksCounterUI() {
+            document.getElementById('packs-remaining-counter').innerText = gameState.packsRemaining === 999 ? "Packs remaining: Rip Until You Hit!" : `Packs remaining: ${gameState.packsRemaining}`;
+        }
+
+        // STEP 3: OPEN PACKS & MAKE HIT STACK
+        function ripSingleBoosterPack() {
+            if (gameState.packsRemaining > 0) {
+                gameState.packsRemaining--;
+                updatePacksCounterUI();
+
+                // Generate 3 hits for hit stack
+                let pokeObj = pokemonDatabase[gameState.currentDexNum - 1];
+                let hit1 = pokeObj.variants[0];
+                let hit2 = { id: 'common_filler_1', name: 'Standard Holographic Card', type: 'Holo', icon: '💫', value: 10 };
+                let hit3 = { id: 'common_filler_2', name: 'Trainer Full Art', type: 'Trainer', icon: '👤', value: 20 };
+
+                // Random chance to feature chase variant
+                if (Math.random() < 0.35 || gameState.packsRemaining <= 0) {
+                    gameState.hitStack = [hit1, hit2, hit3];
+                    document.getElementById('stage-opening-packs').style.display = 'none';
+                    document.getElementById('stage-hit-review').style.display = 'flex';
+                    renderCurrentHitReviewCard();
+                } else if (gameState.packsRemaining <= 0) {
+                    showToast("Out of packs for this session!");
                 }
             }
-            refreshGlobalUI();
-            renderMasterBinder();
         }
 
-        function persistGameState() {
-            localStorage.setItem('tcg_challenge_save_data', JSON.stringify(gameState));
-        }
-
-        function refreshGlobalUI() {
-            document.getElementById('stat-packs').innerText = gameState.packsOpened;
-            document.getElementById('stat-coins').innerText = gameState.coins;
-            
-            const totalUniqueCollected = Object.keys(gameState.collection).length;
-            const completionPercent = Math.round((totalUniqueCollected / masterCardDatabase.length) * 100);
-            
-            document.getElementById('stat-progress').innerText = completionPercent + '%';
-            document.getElementById('progress-bar-fill').style.width = completionPercent + '%';
-
-            if (completionPercent >= 100) {
-                document.getElementById('trophy-banner').style.display = 'block';
-            }
-            persistGameState();
-        }
-
-        function switchView(targetViewId) {
-            document.querySelectorAll('.view-section').forEach(section => section.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-
-            document.getElementById('view-' + targetViewId).classList.add('active');
-            event.currentTarget.classList.add('active');
-
-            if (targetViewId === 'binder') {
-                renderMasterBinder();
-            }
-        }
-
-        const audioCtxInstance = new (window.AudioContext || window.webkitAudioContext)();
-        function playSynthesizedSound(soundType) {
-            if (audioCtxInstance.state === 'suspended') {
-                audioCtxInstance.resume();
-            }
-            const osc = audioCtxInstance.createOscillator();
-            const gainNode = audioCtxInstance.createGain();
-            osc.connect(gainNode);
-            gainNode.connect(audioCtxInstance.destination);
-
-            if (soundType === 'rip') {
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(120, audioCtxInstance.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(350, audioCtxInstance.currentTime + 0.12);
-                gainNode.gain.setValueAtTime(0.15, audioCtxInstance.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtxInstance.currentTime + 0.12);
-                osc.start();
-                osc.stop(audioCtxInstance.currentTime + 0.12);
-            } else if (soundType === 'hit') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(250, audioCtxInstance.currentTime);
-                osc.frequency.setValueAtTime(400, audioCtxInstance.currentTime + 0.1);
-                osc.frequency.setValueAtTime(600, audioCtxInstance.currentTime + 0.2);
-                gainNode.gain.setValueAtTime(0.2, audioCtxInstance.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtxInstance.currentTime + 0.35);
-                osc.start();
-                osc.stop(audioCtxInstance.currentTime + 0.35);
-            }
-        }
-
-        function openBoosterPack() {
-            if (gameState.coins < 50) {
-                triggerToastPopup("Insufficient funds! Visit the Exchange shop.");
+        function renderCurrentHitReviewCard() {
+            if (gameState.hitStack.length === 0) {
+                document.getElementById('stage-hit-review').style.display = 'none';
+                document.getElementById('stage-wheel-pokemon').style.display = 'flex';
+                showToast("Finished hit review stack!");
                 return;
             }
 
-            gameState.coins -= 50;
-            gameState.packsOpened++;
-            playSynthesizedSound('rip');
-
-            let pulledBatch = [];
-            let highTierHitDetected = false;
-
-            for (let i = 0; i < 3; i++) {
-                let cardResult = rollWeightedRandomCard();
-                pulledBatch.push(cardResult);
-                if (cardResult.tierClass === 'ultra' || cardResult.tierClass === 'secret') {
-                    highTierHitDetected = true;
-                }
-            }
-
-            pulledBatch.forEach(card => {
-                if (!gameState.collection[card.id]) {
-                    gameState.collection[card.id] = 0;
-                }
-                gameState.collection[card.id]++;
-            });
-
-            if (highTierHitDetected) {
-                playSynthesizedSound('hit');
-            }
-
-            refreshGlobalUI();
-            renderPackRevealGrid(pulledBatch);
+            let card = gameState.hitStack[0];
+            let box = document.getElementById('hit-review-card-box');
+            box.className = 'card-preview-display ' + card.type.toLowerCase();
+            document.getElementById('hit-card-idx').innerText = card.type;
+            document.getElementById('hit-card-icon').innerText = card.icon;
+            document.getElementById('hit-card-name').innerText = card.name;
+            document.getElementById('hit-card-rarity').innerText = `Value: ${card.value} coins`;
         }
 
-        function rollWeightedRandomCard() {
-            let totalWeightSum = masterCardDatabase.reduce((sum, card) => sum + card.weight, 0);
-            let randomRollValue = Math.random() * totalWeightSum;
-            let runningSumCounter = 0;
+        // STEP 4: HIT STACK ACTIONS (ADD / REPLACE DUPE / POKEBANK)
+        function processHitCardAction(actionType) {
+            let card = gameState.hitStack.shift();
+            let pokeNum = gameState.currentDexNum;
 
-            for (let card of masterCardDatabase) {
-                runningSumCounter += card.weight;
-                if (randomRollValue <= runningSumCounter) {
-                    return card;
+            if (actionType === 'add') {
+                if (!gameState.dexCollection[pokeNum]) {
+                    gameState.dexCollection[pokeNum] = card.id;
+                    showToast(`Added ${card.name} to Pokédex!`);
+                } else {
+                    // Dupe handling: add card value to pokebank
+                    gameState.pokebank += card.value;
+                    showToast(`Duplicate! Added ${card.value} coins to PokéBank.`);
                 }
+            } else {
+                // Replace or send value to pokebank
+                gameState.pokebank += card.value;
+                showToast(`Exchanged for ${card.value} coins in PokéBank.`);
             }
-            return masterCardDatabase[0];
+
+            refreshUI();
+            renderCurrentHitReviewCard();
         }
 
-        function renderPackRevealGrid(cardsArray) {
-            document.getElementById('pack-selection-area').style.display = 'none';
-            let revealContainerNode = document.getElementById('pack-reveal-area');
-            let gridContainerNode = document.getElementById('revealed-cards-grid');
-            gridContainerNode.innerHTML = '';
+        // POKEDEX GRID VIEW
+        function buildMasterDexGrid() {
+            let grid = document.getElementById('master-dex-grid');
+            grid.innerHTML = '';
 
-            cardsArray.forEach(card => {
-                let cardNode = document.createElement('div');
-                cardNode.className = `tcg-card ${card.tierClass}`;
-                cardNode.innerHTML = `
-                    <div class="card-number-tag">#${card.id}</div>
-                    <div class="card-art-frame">${card.icon}</div>
-                    <div class="card-meta">
-                        <h5>${card.name}</h5>
-                        <span>${card.rarity}</span>
-                    </div>
+            for (let i = 1; i <= 1025; i++) {
+                let poke = pokemonDatabase[i - 1];
+                let collectedVariantId = gameState.dexCollection[i];
+                let isUnlocked = !!collectedVariantId;
+
+                let slot = document.createElement('div');
+                slot.className = `dex-entry-slot ${isUnlocked ? 'unlocked' : ''}`;
+                slot.innerHTML = `
+                    <div style="font-size: 0.65rem; color: var(--text-muted); font-weight:700; position:absolute; top:8px; left:10px;">#${poke.dexNum}</div>
+                    <div style="font-size: 2.2rem; margin: auto;">${isUnlocked ? '✨' : '🔒'}</div>
+                    <div style="font-size: 0.75rem; font-weight: 700;">${poke.name}</div>
+                    <div style="font-size: 0.65rem; color: var(--text-muted);">${isUnlocked ? 'Collected' : 'Missing'}</div>
                 `;
-                gridContainerNode.appendChild(cardNode);
-            });
-
-            revealContainerNode.style.display = 'flex';
-        }
-
-        function resetPackOpening() {
-            document.getElementById('pack-reveal-area').style.display = 'none';
-            document.getElementById('pack-selection-area').style.display = 'flex';
-        }
-
-        function renderMasterBinder() {
-            let binderGridNode = document.getElementById('master-binder-grid');
-            binderGridNode.innerHTML = '';
-
-            masterCardDatabase.forEach(card => {
-                let quantityOwned = gameState.collection[card.id] || 0;
-                let isCardUnlocked = quantityOwned > 0;
-
-                let slotNode = document.createElement('div');
-                let slotModifierClass = '';
-                if (isCardUnlocked) {
-                    slotModifierClass = `unlocked ${card.tierClass}-slot`;
-                }
-
-                slotNode.className = `binder-slot ${slotModifierClass}`;
-                slotNode.innerHTML = `
-                    <div class="slot-index">#${card.id}</div>
-                    <div class="slot-content-icon">${isCardUnlocked ? card.icon : '❓'}</div>
-                    <div class="slot-card-title">${isCardUnlocked ? card.name : 'Locked'}</div>
-                    <div class="slot-count-badge">${isCardUnlocked ? 'x' + quantityOwned : 'Missing'}</div>
-                `;
-                binderGridNode.appendChild(slotNode);
-            });
-        }
-
-        function claimSponsorFunds() {
-            gameState.coins += 100;
-            refreshGlobalUI();
-            triggerToastPopup("Claimed +100 sponsor coins!");
-        }
-
-        function liquidateDuplicateCards() {
-            let totalPayoutEarned = 0;
-            for (let cardId in gameState.collection) {
-                if (gameState.collection[cardId] > 1) {
-                    let surplusCount = gameState.collection[cardId] - 1;
-                    totalPayoutEarned += surplusCount * 15;
-                    gameState.collection[cardId] = 1;
-                }
+                grid.appendChild(slot);
             }
-            gameState.coins += totalPayoutEarned;
-            refreshGlobalUI();
-            triggerToastPopup(`Liquidated duplicates for ${totalPayoutEarned} coins!`);
         }
-
-        function triggerToastPopup(messageText) {
-            let toastNode = document.getElementById('toast-popup');
-            toastNode.innerText = messageText;
-            toastNode.classList.add('show');
-            setTimeout(() => {
-                toastNode.classList.remove('show');
-            }, 3000);
-        }
-
-        loadSavedGameState();
     </script>
 </body>
 </html>
